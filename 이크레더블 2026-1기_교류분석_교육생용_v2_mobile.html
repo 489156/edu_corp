@@ -1,0 +1,1089 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<meta name="theme-color" content="#1a2744">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="format-detection" content="telephone=no">
+<title>교류분석(TA) 소통 학습 — 이크레더블 신규입사자 온보딩</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+KR:wght@400;600;700&family=Noto+Sans+KR:wght@300;400;500;700&family=DM+Serif+Display&display=swap" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<style>
+/* ── TOKENS ── */
+:root{--navy:#1a2744;--navy-mid:#243358;--navy-lt:#2e4070;--gold:#c9a84c;--gold-lt:#e8c97a;--cream:#faf7f2;--warm:#f5f0e8;--teal:#2a7f78;--teal-lt:#3aa89f;--txt-dk:#1a1a2e;--txt-md:#3d4055;--txt-lt:#6b7194;--bdr:#e8e4dc;--cp-bg:#fff0f0;--cp-bd:#fca5a5;--cp-tx:#b91c1c;--np-bg:#f0faf5;--np-bd:#6ee7b7;--np-tx:#065f46;--a-bg:#eff6ff;--a-bd:#93c5fd;--a-tx:#1d4ed8;--fc-bg:#fffbeb;--fc-bd:#fcd34d;--fc-tx:#92400e;--ac-bg:#faf5ff;--ac-bd:#c4b5fd;--ac-tx:#6b21a8}
+*{margin:0;padding:0;box-sizing:border-box}html{scroll-behavior:smooth}
+
+/* ── 모바일 핵심 기반 ── */
+html{-webkit-text-size-adjust:100%;text-size-adjust:100%;}
+body{-webkit-tap-highlight-color:rgba(0,0,0,0);-webkit-touch-callout:none;overscroll-behavior-y:contain;}
+a,button,[role=button],.tab-btn,.scale-opt,.choice-btn,.reveal-btn,.btn-primary,.btn-secondary,.prac-num{
+  touch-action:manipulation;-webkit-tap-highlight-color:transparent;
+}
+body{font-family:'Noto Sans KR',sans-serif;background:var(--cream);color:var(--txt-dk);line-height:1.75}
+/* HEADER */
+.site-header{background:linear-gradient(135deg,var(--navy-lt) 0%,var(--navy) 100%);color:white;padding:36px 24px 32px;padding-top:max(36px, calc(20px + var(--safe-top)));text-align:center;position:relative;overflow:hidden}
+.site-header::before{content:'';position:absolute;top:-60px;right:-60px;width:280px;height:280px;border-radius:50%;border:1px solid rgba(201,168,76,.15)}
+.header-tag{font-size:11px;letter-spacing:4px;color:var(--gold);text-transform:uppercase;font-weight:700;margin-bottom:10px}
+.header-title{font-family:'Noto Serif KR',serif;font-size:clamp(20px,3.5vw,32px);font-weight:700;line-height:1.35;position:relative;z-index:1}
+.header-title em{color:var(--gold-lt);font-style:normal}
+.header-sub{font-size:13px;color:rgba(255,255,255,.6);margin-top:10px;position:relative;z-index:1}
+.header-chips{display:flex;gap:10px;justify-content:center;flex-wrap:wrap;margin-top:18px;position:relative;z-index:1}
+.chip{font-size:11px;padding:4px 14px;border-radius:20px;background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.2);color:rgba(255,255,255,.8);letter-spacing:.5px}
+.version-badge{display:inline-block;margin-top:12px;font-size:11px;padding:3px 12px;background:rgba(201,168,76,.25);border:1px solid rgba(201,168,76,.5);border-radius:20px;color:var(--gold-lt);letter-spacing:1px;position:relative;z-index:1}
+/* TAB */
+.tab-nav{position:sticky;top:0;z-index:100;background:white;border-bottom:2px solid var(--bdr);box-shadow:0 2px 12px rgba(0,0,0,.06);padding-left:env(safe-area-inset-left,0px);padding-right:env(safe-area-inset-right,0px);}
+.tab-nav-inner{max-width:960px;margin:0 auto;display:flex;overflow-x:auto;scrollbar-width:none}
+.tab-nav-inner::-webkit-scrollbar{display:none}
+.tab-btn{flex-shrink:0;padding:0 20px;height:var(--touch-target);min-height:var(--touch-target);border:none;background:none;cursor:pointer;font-family:'Noto Sans KR',sans-serif;font-size:13px;font-weight:500;color:var(--txt-lt);border-bottom:3px solid transparent;transition:all .2s;white-space:nowrap;display:flex;align-items:center;gap:7px;-webkit-tap-highlight-color:transparent;}
+.tab-btn:hover{color:var(--navy);background:var(--cream)}.tab-btn.active{color:var(--navy);border-bottom-color:var(--gold);font-weight:700}
+.tab-badge{font-size:11px;background:var(--gold);color:var(--navy);padding:1px 7px;border-radius:20px;font-weight:700}
+/* PANELS */
+.panel{display:none}.panel.active{display:block;animation:panelFadeIn .25s ease}
+@keyframes panelFadeIn{from{opacity:0;transform:translateY(4px)}to{opacity:1;transform:translateY(0)}}
+.content{max-width:960px;margin:0 auto;padding:48px 24px 72px;padding-left:max(24px, calc(16px + var(--safe-left)));padding-right:max(24px, calc(16px + var(--safe-right)));padding-bottom:max(72px, calc(48px + var(--safe-bottom)));}
+.sec-tag{font-size:11px;letter-spacing:4px;color:var(--gold);text-transform:uppercase;font-weight:700;margin-bottom:8px}
+.sec-title{font-family:'Noto Serif KR',serif;font-size:clamp(18px,2.5vw,26px);font-weight:700;color:var(--navy);margin-bottom:28px;line-height:1.4}
+.sec-title::after{content:'';display:block;width:36px;height:3px;background:var(--gold);margin-top:10px}
+.divider{border:none;border-top:1px solid var(--bdr);margin:40px 0}
+/* EGO CARDS */
+.ego-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:14px;margin:20px 0 28px}
+.ego-card{border-radius:10px;padding:20px 16px;border:1.5px solid}
+.ego-card.cp{background:var(--cp-bg);border-color:var(--cp-bd)}.ego-card.np{background:var(--np-bg);border-color:var(--np-bd)}.ego-card.a{background:var(--a-bg);border-color:var(--a-bd)}.ego-card.fc{background:var(--fc-bg);border-color:var(--fc-bd)}.ego-card.ac{background:var(--ac-bg);border-color:var(--ac-bd)}
+.ego-letter{font-family:'DM Serif Display',serif;font-size:34px;line-height:1;margin-bottom:6px}
+.ego-card.cp .ego-letter{color:var(--cp-tx)}.ego-card.np .ego-letter{color:var(--np-tx)}.ego-card.a .ego-letter{color:var(--a-tx)}.ego-card.fc .ego-letter{color:var(--fc-tx)}.ego-card.ac .ego-letter{color:var(--ac-tx)}
+.ego-name{font-size:13px;font-weight:700;margin-bottom:8px}
+.ego-card.cp .ego-name{color:var(--cp-tx)}.ego-card.np .ego-name{color:var(--np-tx)}.ego-card.a .ego-name{color:var(--a-tx)}.ego-card.fc .ego-name{color:var(--fc-tx)}.ego-card.ac .ego-name{color:var(--ac-tx)}
+.ego-desc{font-size:12px;color:var(--txt-md);line-height:1.65}
+.ego-tag{display:inline-block;font-size:11px;font-weight:700;padding:1px 7px;border-radius:20px;margin:2px 2px 4px 0}
+.ego-card.cp .ego-tag{background:#fecaca;color:var(--cp-tx)}.ego-card.np .ego-tag{background:#a7f3d0;color:var(--np-tx)}.ego-card.a .ego-tag{background:#bfdbfe;color:var(--a-tx)}.ego-card.fc .ego-tag{background:#fde68a;color:var(--fc-tx)}.ego-card.ac .ego-tag{background:#ddd6fe;color:var(--ac-tx)}
+/* TX GRID */
+.tx-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:16px;margin:20px 0}
+.tx-card{border-radius:8px;padding:20px;font-size:13px;line-height:1.7}
+.tx-card.comp{background:#e8f5e9;border-left:4px solid #4caf50}.tx-card.cross{background:#fce4ec;border-left:4px solid #e91e63}.tx-card.ulter{background:#fff8e1;border-left:4px solid #ffc107}
+.tx-card strong{display:block;font-size:14px;font-weight:700;margin-bottom:10px}
+.tx-card.comp strong{color:#1b5e20}.tx-card.cross strong{color:#880e4f}.tx-card.ulter strong{color:#e65100}
+.tx-example{background:rgba(255,255,255,.7);border-radius:6px;padding:10px 12px;margin-top:10px;font-size:12px;font-style:italic}
+/* GAMES */
+.game-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:14px;margin:16px 0}
+.game-card{border-radius:8px;padding:18px;border:1.5px solid;font-size:13px;line-height:1.7}
+.game-card.y{background:#fff3e0;border-color:#ffcc80}.game-card.n{background:#fce4ec;border-color:#ef9a9a}.game-card.k{background:#e8eaf6;border-color:#9fa8da}
+.game-card strong{display:block;font-size:13px;font-weight:700;margin-bottom:6px}
+.game-card.y strong{color:#e65100}.game-card.n strong{color:#c62828}.game-card.k strong{color:#283593}
+/* DRAMA TRIANGLE */
+.drama-wrap{background:white;border:1px solid var(--bdr);border-radius:10px;padding:24px;margin:20px 0;display:grid;grid-template-columns:auto 1fr;gap:24px;align-items:start}
+.drama-svg-wrap{min-width:180px}
+.drama-roles{display:flex;flex-direction:column;gap:10px}
+.drama-role{padding:12px 16px;border-radius:8px;font-size:13px;line-height:1.65}
+.drama-role.p{background:var(--cp-bg);border-left:3px solid var(--cp-tx)}
+.drama-role.v{background:var(--ac-bg);border-left:3px solid var(--ac-tx)}
+.drama-role.r{background:var(--np-bg);border-left:3px solid var(--np-tx)}
+.drama-role strong{font-size:12px;font-weight:700;display:block;margin-bottom:3px}
+.drama-role.p strong{color:var(--cp-tx)}.drama-role.v strong{color:var(--ac-tx)}.drama-role.r strong{color:var(--np-tx)}
+/* CONTAMINATION */
+.contam-box{background:white;border:1px solid var(--bdr);border-radius:8px;padding:18px 22px;margin:20px 0}
+.contam-box h4{font-size:13px;font-weight:700;color:var(--navy);margin-bottom:12px}
+.contam-items{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:10px}
+.contam-item{background:var(--warm);border-radius:6px;padding:12px 14px;font-size:12.5px;color:var(--txt-md);line-height:1.65}
+.contam-item strong{display:block;font-size:12px;font-weight:700;color:var(--navy);margin-bottom:4px}
+/* STROKE */
+.stroke-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin:16px 0}
+.stroke-card{padding:16px;border-radius:8px;font-size:13px;line-height:1.65}
+.stroke-card.pos{background:#e8f5e9;border-left:4px solid #4caf50}.stroke-card.neg{background:#fce4ec;border-left:4px solid #e91e63}
+.stroke-card strong{display:block;font-size:12px;font-weight:700;margin-bottom:6px}
+.stroke-card.pos strong{color:#2e7d32}.stroke-card.neg strong{color:#880e4f}
+/* STROKE ECONOMY */
+.economy-list{list-style:none;margin:14px 0;display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.economy-list li{background:rgba(255,255,255,.12);border-radius:6px;padding:9px 14px;font-size:12.5px;color:rgba(255,255,255,.88);line-height:1.6}
+.economy-list li::before{content:'×  ';color:#fbbf24;font-weight:700}
+/* LP */
+.lp-wrap{display:grid;grid-template-columns:1fr 1fr;gap:3px;background:var(--navy);border:2px solid var(--navy);border-radius:8px;overflow:hidden;margin:20px 0}
+.lp-cell{padding:18px;font-size:13px;line-height:1.65}
+.lp-cell .lp-pos{font-size:11px;font-weight:700;letter-spacing:1px;margin-bottom:6px}
+.lp-cell p{font-size:12px;color:#444}
+.lp-best{background:#e8f5e9}.lp-best .lp-pos{color:#1b5e20}
+.lp-arrog{background:#fff3e0}.lp-arrog .lp-pos{color:#e65100}
+.lp-inf{background:#e8eaf6}.lp-inf .lp-pos{color:#283593}
+.lp-nihil{background:#fce4ec}.lp-nihil .lp-pos{color:#880e4f}
+/* WINNER TRIANGLE */
+.winner-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin:14px 0}
+.wt-card{border-radius:8px;padding:14px;font-size:12px;line-height:1.65;text-align:center}
+.wt-card strong{display:block;font-size:13px;font-weight:700;margin-bottom:4px}
+.wt-a{background:#e8f5e9}.wt-a strong{color:#1b5e20}
+.wt-v{background:var(--a-bg)}.wt-v strong{color:var(--a-tx)}
+.wt-r{background:var(--np-bg)}.wt-r strong{color:var(--np-tx)}
+/* COMM TABLE */
+.comm-table-wrap{width:100%;overflow-x:auto;-webkit-overflow-scrolling:touch;border-radius:6px;margin:16px 0;}.comm-table{width:100%;min-width:480px;border-collapse:collapse;font-size:13px;margin:0}
+.comm-table thead tr{background:var(--navy-lt);color:white}
+.comm-table thead th{padding:11px 13px;text-align:left;font-weight:500;font-size:12px}
+.comm-table tbody tr{border-bottom:1px solid var(--bdr)}
+.comm-table tbody tr:hover{background:var(--warm)}
+.comm-table tbody td{padding:10px 13px;vertical-align:top;line-height:1.6;font-size:12.5px}
+.comm-table tbody tr.hl td{background:#e8f5e9}
+/* DESC */
+.desc-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin:16px 0}
+.desc-card{background:white;border:1px solid var(--bdr);border-radius:8px;padding:18px 14px;font-size:13px}
+.desc-letter{font-family:'DM Serif Display',serif;font-size:36px;line-height:1;margin-bottom:6px}
+.desc-card:nth-child(1) .desc-letter{color:#2e7d32}.desc-card:nth-child(1){border-top:3px solid #4caf50}
+.desc-card:nth-child(2) .desc-letter{color:#1565c0}.desc-card:nth-child(2){border-top:3px solid #2196f3}
+.desc-card:nth-child(3) .desc-letter{color:#e65100}.desc-card:nth-child(3){border-top:3px solid #ff9800}
+.desc-card:nth-child(4) .desc-letter{color:#6a1b9a}.desc-card:nth-child(4){border-top:3px solid #9c27b0}
+.desc-card strong{display:block;font-size:13px;margin-bottom:4px}
+.desc-card span{color:var(--txt-md);font-size:12px;line-height:1.6}
+/* INSIGHT / INFO / TIP */
+.insight-box{background:linear-gradient(135deg,#3b0764 0%,#4c1d95 100%);border-radius:10px;padding:24px 28px;color:white;margin:24px 0}
+.ib-tag{font-size:11px;letter-spacing:3px;color:#d8b4fe;text-transform:uppercase;font-weight:700;margin-bottom:8px}
+.insight-box h4{font-family:'Noto Serif KR',serif;font-size:17px;font-weight:700;margin-bottom:8px}
+.insight-box p{font-size:13px;color:rgba(255,255,255,.82);line-height:1.85}
+.insight-box strong{color:#d8b4fe}
+.insight-quote{margin-top:14px;padding:12px 16px;background:rgba(255,255,255,.1);border-left:3px solid #a78bfa;border-radius:0 6px 6px 0;font-size:13.5px;font-style:italic;color:rgba(255,255,255,.92)}
+.info-box{background:white;border:1px solid var(--bdr);border-left:4px solid var(--teal);border-radius:4px;padding:16px 20px;font-size:13px;color:var(--txt-md);line-height:1.75;margin:14px 0}
+.info-box strong{color:var(--navy)}
+.tip-box{background:linear-gradient(135deg,var(--navy) 0%,var(--navy-mid) 100%);color:white;padding:16px 20px;border-radius:6px;font-size:13px;line-height:1.65;margin:14px 0}
+.tip-box strong{color:var(--gold-lt)}
+.cite-note{font-size:11px;color:var(--txt-lt);font-style:italic;margin-top:6px}
+/* CASE TABLE */
+.case-table-wrap{width:100%;overflow-x:auto;-webkit-overflow-scrolling:touch;border-radius:6px;margin:14px 0;}.case-table{width:100%;min-width:520px;border-collapse:collapse;font-size:12.5px;margin:0}
+.case-table thead tr{background:var(--navy);color:white}
+.case-table thead th{padding:10px 13px;font-size:11px;font-weight:500;text-align:left}
+.case-table tbody tr{border-bottom:1px solid var(--bdr)}
+.case-table tbody tr:nth-child(even){background:rgba(255,255,255,.5)}
+.case-table tbody td{padding:9px 13px;vertical-align:top;line-height:1.6}
+.case-table tbody td:first-child{color:var(--txt-lt);font-weight:600;font-size:11.5px}
+/* ASSESSMENT */
+.diag-intro{background:white;border-radius:10px;padding:24px;border:1px solid var(--bdr);margin-bottom:28px}
+.diag-intro p{font-size:14px;color:var(--txt-md);line-height:1.8;margin-bottom:14px}
+.diag-ego-chips{display:grid;grid-template-columns:repeat(5,1fr);gap:10px}
+.diag-chip{border-radius:8px;padding:12px 10px;text-align:center;font-size:12px}
+.diag-chip strong{display:block;font-size:15px;font-weight:900;margin-bottom:3px}
+.dc-cp{background:var(--cp-bg);color:var(--cp-tx)}.dc-np{background:var(--np-bg);color:var(--np-tx)}.dc-a{background:var(--a-bg);color:var(--a-tx)}.dc-fc{background:var(--fc-bg);color:var(--fc-tx)}.dc-ac{background:var(--ac-bg);color:var(--ac-tx)}
+.prog-wrap{margin-bottom:24px;position:sticky;top:48px;z-index:50;background:var(--cream);backdrop-filter:blur(4px);-webkit-backdrop-filter:blur(4px);padding:12px 0 8px;margin-left:-24px;margin-right:-24px;padding-left:24px;padding-right:24px;box-shadow:0 2px 8px rgba(0,0,0,.06);}
+.prog-label{display:flex;justify-content:space-between;font-size:12px;color:var(--txt-lt);margin-bottom:6px}
+.prog-track{width:100%;height:8px;background:#e5e7eb;border-radius:20px;overflow:hidden}
+.prog-fill{height:100%;background:linear-gradient(90deg,var(--teal),var(--gold));border-radius:20px;width:0%;transition:width .5s cubic-bezier(.25,.8,.25,1)}
+.q-card{background:white;border-radius:10px;border:1.5px solid var(--bdr);padding:20px 22px;margin-bottom:14px;box-shadow:0 1px 4px rgba(0,0,0,.04);transition:border-color .2s;-webkit-tap-highlight-color:transparent;}
+.q-card.answered{border-color:var(--teal)}
+.q-card.rev-item{border-left:3px solid var(--gold)}
+.q-text{font-size:14px;font-weight:500;color:var(--navy);margin-bottom:14px;line-height:1.6}
+.q-index{font-size:11px;color:var(--gold);font-weight:700;margin-bottom:4px;letter-spacing:1px}
+.rev-tag{display:inline-block;font-size:11px;font-weight:700;padding:1px 6px;background:rgba(201,168,76,.2);color:var(--gold);border-radius:10px;margin-left:6px;vertical-align:middle}
+.scale-opts{display:grid;grid-template-columns:repeat(5,1fr);gap:6px}
+.scale-opt{flex:1;min-height:var(--touch-target);text-align:center;padding:10px 4px;border-radius:8px;border:1.5px solid var(--bdr);font-size:12px;cursor:pointer;transition:all .15s;color:var(--txt-md);line-height:1.3;background:var(--cream);user-select:none;display:flex;flex-direction:column;align-items:center;justify-content:center;}
+.scale-opt.selected{background:var(--navy);border-color:var(--navy);color:white;transform:scale(1.03);box-shadow:0 2px 8px rgba(26,39,68,.25);}
+.scale-opt:active:not(.selected){transform:scale(.96);background:#e8e4dc;}
+.scale-opt:hover:not(.selected){border-color:var(--teal);background:var(--a-bg)}
+/* BUTTONS */
+.submit-wrap{text-align:center;margin:32px 0}
+.btn-primary{background:var(--navy);color:white;font-family:'Noto Sans KR',sans-serif;font-size:16px;font-weight:700;padding:16px 48px;min-height:var(--touch-target);border-radius:8px;border:none;cursor:pointer;transition:all .2s;letter-spacing:.5px;-webkit-appearance:none;appearance:none;}
+.btn-primary:hover:not(:disabled){background:var(--navy-lt);box-shadow:0 4px 16px rgba(26,39,68,.3)}
+.btn-primary:disabled{background:#9ca3af;cursor:not-allowed}
+.btn-secondary{background:white;color:var(--navy);font-family:'Noto Sans KR',sans-serif;font-size:14px;font-weight:600;padding:11px 32px;min-height:44px;border-radius:8px;border:2px solid var(--navy);cursor:pointer;transition:all .2s;-webkit-appearance:none;appearance:none;}
+.btn-secondary:hover{background:var(--cream)}
+/* RESULTS */
+.result-wrap{background:white;border-radius:12px;border:1px solid var(--bdr);padding:36px;margin-top:24px}
+.result-title{font-family:'Noto Serif KR',serif;font-size:24px;font-weight:700;color:var(--navy);text-align:center;margin-bottom:28px}
+.chart-wrap{max-width:min(380px,90vw);margin:0 auto 24px}
+.score-table{width:100%;border-collapse:collapse;font-size:13px;margin-bottom:24px}
+.score-table th{background:var(--navy);color:white;padding:10px 14px;font-weight:500;font-size:12px}
+.score-table td{padding:10px 14px;border:1px solid var(--bdr)}
+.score-table td:first-child{text-align:left;font-weight:600}
+.score-table td:not(:first-child){text-align:center}
+.bar-wrap{height:12px;background:#f0f0f0;border-radius:6px;overflow:hidden;margin-top:4px}
+.bar-fill{height:100%;border-radius:6px}
+.pattern-badge{display:inline-block;font-family:'DM Serif Display',serif;font-size:22px;color:var(--gold);border:2px solid var(--gold);padding:4px 16px;border-radius:8px;margin-right:12px;vertical-align:middle}
+.pattern-desc{font-size:13px;color:var(--txt-md);vertical-align:middle}
+.interp-card{border-radius:8px;padding:20px 22px;margin-bottom:14px;border:1.5px solid}
+.interp-card h4{font-size:15px;font-weight:700;margin-bottom:8px}
+.interp-card p{font-size:13px;line-height:1.75}
+.advice-card{background:var(--warm);border-radius:8px;padding:20px 22px;border:1px solid var(--bdr)}
+.advice-card h4{font-size:15px;font-weight:700;color:var(--navy);margin-bottom:12px}
+.advice-card ul{list-style:none}
+.advice-card ul li{font-size:13px;color:var(--txt-md);padding:5px 0 5px 16px;position:relative;line-height:1.65}
+.advice-card ul li::before{content:'·';position:absolute;left:0;color:var(--gold);font-weight:700}
+.balance-row{display:flex;gap:10px;margin:10px 0;flex-wrap:wrap}
+.balance-tag{font-size:12px;padding:5px 12px;border-radius:20px;font-weight:600}
+.bal-ok{background:#e8f5e9;color:#1b5e20}
+.bal-warn{background:#fff3e0;color:#e65100}
+/* PRACTICE */
+.practice-intro{background:white;border:1px solid var(--bdr);border-radius:10px;padding:20px 24px;margin-bottom:24px;font-size:13.5px;color:var(--txt-md);line-height:1.8}
+.practice-intro strong{color:var(--navy)}
+.prac-card{background:white;border-radius:10px;border:1px solid var(--bdr);overflow:hidden;margin-bottom:20px;box-shadow:0 1px 4px rgba(0,0,0,.04)}
+.prac-header{background:var(--navy);color:white;padding:13px 20px;display:flex;align-items:center;gap:10px;font-size:13px}
+.prac-num{background:var(--gold);color:var(--navy);padding:2px 10px;border-radius:20px;font-size:11px;font-weight:700}
+.prac-type-tag{font-size:11px;padding:2px 8px;border-radius:10px;font-weight:700;margin-left:auto}
+.tag-peer{background:rgba(168,85,247,.3);color:#e9d5ff}
+.tag-cross{background:rgba(239,68,68,.25);color:#fca5a5}
+.tag-cust{background:rgba(16,185,129,.25);color:#a7f3d0}
+.prac-body{padding:18px 22px}
+.prac-situation{background:var(--warm);border-left:3px solid var(--txt-lt);padding:12px 16px;font-size:13px;color:var(--txt-md);border-radius:0 6px 6px 0;margin-bottom:16px;font-style:italic;line-height:1.7}
+.prac-sec-label{font-size:11px;font-weight:700;letter-spacing:2px;color:var(--txt-lt);text-transform:uppercase;margin-bottom:8px}
+.choice-group{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:16px}
+.choice-btn{padding:10px 18px;min-height:44px;border-radius:22px;border:1.5px solid var(--bdr);background:var(--cream);font-size:13px;color:var(--txt-md);cursor:pointer;transition:all .15s;font-family:'Noto Sans KR',sans-serif;-webkit-tap-highlight-color:transparent;}
+.choice-btn:hover{border-color:var(--teal);background:var(--a-bg);color:var(--teal)}.choice-btn.sel{background:var(--navy);border-color:var(--navy);color:white}
+.prac-textarea{width:100%;border:1.5px solid var(--bdr);border-radius:8px;padding:12px 16px;font-family:'Noto Sans KR',sans-serif;font-size:16px;color:var(--txt-dk);resize:vertical;min-height:80px;transition:border-color .15s;background:var(--cream);line-height:1.7;margin-bottom:14px;-webkit-appearance:none;appearance:none;}
+.prac-textarea:focus{outline:none;border-color:var(--teal);background:white}
+.reveal-btn{background:var(--teal);color:white;font-family:'Noto Sans KR',sans-serif;font-size:14px;font-weight:700;padding:12px 20px;min-height:44px;border-radius:10px;border:none;cursor:pointer;transition:all .2s;letter-spacing:.5px;width:100%;display:block;-webkit-appearance:none;appearance:none;-webkit-tap-highlight-color:transparent;}
+.reveal-btn:hover{background:var(--teal-lt)}.reveal-btn:active{background:var(--teal);transform:scale(.98);}
+.answer-panel{display:none;margin-top:16px;border-top:1px dashed var(--bdr);padding-top:16px}
+.answer-panel.vis{display:block;animation:sd .25s ease}
+@keyframes sd{from{opacity:0;transform:translateY(-8px)}to{opacity:1;transform:translateY(0)}}
+.ans-state-badge{display:inline-block;font-size:12px;font-weight:700;padding:4px 12px;border-radius:20px;margin-bottom:12px}
+.ans-better{background:#e8f5e9;border-left:3px solid #4caf50;border-radius:0 6px 6px 0;padding:10px 14px;font-size:13px;color:#1b5e20;line-height:1.7;margin-bottom:10px}
+.ans-explanation{background:var(--ac-bg);border-left:3px solid var(--ac-bd);border-radius:0 6px 6px 0;padding:10px 14px;font-size:12.5px;color:var(--ac-tx);line-height:1.7}
+.ans-mini-label{font-size:11px;font-weight:700;letter-spacing:2px;text-transform:uppercase;margin-bottom:4px}
+/* CLOSING */
+.closing-strip{background:linear-gradient(135deg,var(--navy) 0%,var(--navy-mid) 100%);color:white;padding:48px 24px;text-align:center}
+.closing-strip h2{font-family:'Noto Serif KR',serif;font-size:clamp(16px,2.5vw,24px);font-weight:700;line-height:1.5;margin-bottom:12px}
+.closing-strip p{font-size:13px;color:rgba(255,255,255,.65);max-width:560px;margin:0 auto}
+/* RESPONSIVE */
+
+/* ══════════════════════════════════════════════
+   RESPONSIVE — 모바일 최적화 (4단계)
+   480px: 소형폰 / 640px: 일반폰 / 768px: 태블릿
+══════════════════════════════════════════════ */
+
+/* ── 일반폰~태블릿 (768px 이하) ── */
+@media(max-width:768px){
+  .header-title{font-size:clamp(18px,5vw,28px);line-height:1.3}
+  .header-chips{gap:6px}
+  .chip{font-size:10px;padding:3px 10px}
+  .version-badge{font-size:9px;padding:2px 10px}
+  .tab-nav-inner{padding:0 4px}
+  .tab-btn{padding:0 14px;font-size:12px;gap:5px}
+  .tab-badge{font-size:9px;padding:1px 5px}
+  .content{padding:32px 16px 64px;padding-left:max(16px,calc(12px + var(--safe-left)));padding-right:max(16px,calc(12px + var(--safe-right)))}
+  .sec-title{font-size:clamp(16px,4.5vw,22px);margin-bottom:20px}
+  .divider{margin:28px 0}
+  .ego-grid{grid-template-columns:1fr 1fr}
+  .ego-card{padding:16px 12px}.ego-letter{font-size:28px}.ego-name{font-size:12px}.ego-desc{font-size:11.5px}
+  .tx-grid{grid-template-columns:1fr}
+  .tx-card{font-size:12.5px;padding:16px}
+  .game-grid{grid-template-columns:1fr}.game-card{font-size:12.5px;padding:16px}
+  .drama-wrap{display:flex;flex-direction:column;gap:16px;padding:16px}
+  .drama-svg-wrap{text-align:center}.drama-svg-wrap svg{max-width:200px}
+  .drama-role{font-size:12.5px;padding:10px 12px}
+  .contam-items{grid-template-columns:1fr}.contam-item{font-size:12.5px}
+  .stroke-grid{grid-template-columns:1fr}.stroke-card{font-size:12.5px;padding:14px}
+  .economy-list{grid-template-columns:1fr}.economy-list li{font-size:12px;padding:8px 12px}
+  .lp-wrap{grid-template-columns:1fr}.lp-cell{padding:14px 16px}
+  .winner-grid{grid-template-columns:1fr 1fr}.wt-card{font-size:11.5px;padding:10px}
+  .desc-grid{grid-template-columns:1fr 1fr}.desc-card{padding:14px 12px}.desc-letter{font-size:28px}
+  .comm-table{font-size:12px}.comm-table thead th{padding:9px 10px;font-size:11px}.comm-table tbody td{padding:8px 10px}
+  .case-table{font-size:11.5px}
+  .diag-intro{padding:16px}.diag-intro p{font-size:13px}
+  .diag-ego-chips{grid-template-columns:repeat(5,1fr);gap:6px}
+  .diag-chip{padding:8px 6px;font-size:11px}.diag-chip strong{font-size:13px}
+  .q-card{padding:16px 14px;margin-bottom:12px}
+  .q-index{font-size:10.5px}.q-text{font-size:13.5px;margin-bottom:12px}
+  .scale-opts{grid-template-columns:repeat(5,1fr);gap:5px}
+  .scale-opt{min-height:54px;padding:8px 3px;font-size:11px;border-radius:6px}
+  .result-wrap{padding:20px 16px}.result-title{font-size:20px}
+  .score-table{font-size:12px}.score-table th,.score-table td{padding:8px 10px}
+  .practice-intro{padding:16px;font-size:13px}
+  .prac-header{padding:11px 16px;font-size:12.5px}
+  .prac-body{padding:14px 16px}
+  .prac-situation{font-size:12.5px;padding:10px 12px}
+  .choice-group{gap:6px}.choice-btn{padding:10px 14px;font-size:12.5px}
+  .answer-panel{padding-top:14px;margin-top:14px}
+  .ans-better{font-size:12.5px;padding:9px 12px}.ans-explanation{font-size:12px;padding:9px 12px}
+  .insight-box{padding:18px 20px}.insight-box h4{font-size:15px}.insight-box p{font-size:12.5px}
+  .insight-quote{font-size:12.5px;padding:10px 12px}
+  .info-box{padding:12px 14px;font-size:12.5px}.tip-box{padding:12px 14px;font-size:12.5px}
+  .contam-box{padding:14px 16px}
+  .btn-primary{font-size:15px;padding:14px 32px;width:100%}.btn-secondary{font-size:13px;padding:10px 24px}
+  .closing-strip{padding:32px 16px}
+  .closing-strip h2{font-size:clamp(14px,3.5vw,20px)}.closing-strip p{font-size:12.5px}
+}
+
+/* ── 소형폰 (480px 이하) ── */
+@media(max-width:480px){
+  .site-header{padding:24px 16px 20px}
+  .header-title{font-size:clamp(17px,5.5vw,22px)}.header-sub{font-size:12px}.header-chips{display:none}
+  .tab-btn{padding:0 10px;font-size:11.5px;gap:4px}.tab-btn .tab-icon{font-size:14px}
+  .content{padding:24px 14px 56px}
+  .sec-title{font-size:clamp(15px,4.5vw,19px);margin-bottom:16px}
+  .ego-grid{grid-template-columns:1fr}
+  .diag-ego-chips{grid-template-columns:repeat(5,1fr);gap:4px}
+  .diag-chip{padding:6px 3px;font-size:9.5px}.diag-chip strong{font-size:11.5px}
+  .scale-opts{grid-template-columns:repeat(5,1fr);gap:3px}
+  .scale-opt{min-height:52px;padding:6px 2px;font-size:10px;border-radius:5px}
+  .desc-grid{grid-template-columns:1fr 1fr}
+  .drama-svg-wrap svg{max-width:160px}
+  .winner-grid{grid-template-columns:1fr}
+  .result-wrap{padding:16px 12px}
+  .score-table{font-size:11.5px}.score-table th,.score-table td{padding:7px 8px}
+  .btn-primary{font-size:14px;padding:13px 24px}.reveal-btn{font-size:13px}
+}
+
+/* ── 태블릿 세로 (769–1024px) ── */
+@media(min-width:769px) and (max-width:1024px){
+  .content{padding:40px 28px 64px}
+  .ego-grid{grid-template-columns:repeat(3,1fr)}
+  .tx-grid{grid-template-columns:repeat(3,1fr)}
+  .desc-grid{grid-template-columns:repeat(4,1fr)}
+  .scale-opts{grid-template-columns:repeat(5,1fr)}
+  .scale-opt{min-height:50px}
+  .drama-wrap{grid-template-columns:auto 1fr}
+  .lp-wrap{grid-template-columns:1fr 1fr}
+  .winner-grid{grid-template-columns:repeat(3,1fr)}
+}
+
+/* ── 모션 감소 ── */
+@media(prefers-reduced-motion:reduce){
+  *,::before,::after{animation-duration:.01ms !important;transition-duration:.01ms !important}
+}
+
+/* ── iOS Safe Area (노치·홈바) ── */
+@supports(padding:max(0px)){
+  .tab-nav{padding-left:env(safe-area-inset-left);padding-right:env(safe-area-inset-right)}
+  .closing-strip{padding-bottom:max(48px,calc(32px + env(safe-area-inset-bottom)))}
+}
+
+</style>
+</head>
+<body>
+
+<!-- HEADER -->
+<header class="site-header">
+  <p class="header-tag">이크레더블 신규입사자 온보딩 · 소통 교육</p>
+  <h1 class="header-title">교류분석(TA)으로 배우는<br><em>성숙한 직장 내 소통</em></h1>
+  <p class="header-sub">Transactional Analysis for Organizational Communication · 교육생용 학습 자료</p>
+  <div class="header-chips">
+    <span class="chip">📖 개념 학습</span>
+    <span class="chip">📊 자가진단 50문항</span>
+    <span class="chip">✏️ 교류 실습 12문항</span>
+  </div>
+  <div class="version-badge">v2.1 · 2026-01 · 이론 오류 교정 및 학술 인용 보강판</div>
+</header>
+
+<!-- TAB NAV -->
+<nav class="tab-nav">
+  <div class="tab-nav-inner">
+    <button class="tab-btn active" onclick="switchTab('concept',this)"><span>📖</span>개념 학습</button>
+    <button class="tab-btn" onclick="switchTab('assess',this)"><span>📊</span>자가진단<span class="tab-badge">50문항</span></button>
+    <button class="tab-btn" onclick="switchTab('practice',this)"><span>✏️</span>교류 실습<span class="tab-badge">12문항</span></button>
+  </div>
+</nav>
+
+<!-- ═══ PANEL 1: 개념학습 ═══ -->
+<div class="panel active" id="panel-concept">
+<div class="content">
+
+<!-- REVISED: M-5 기능분석 한 문장 추가 -->
+<p class="sec-tag">Chapter 01</p>
+<h2 class="sec-title">PAC 자아상태 모델 — 나 안에는 세 사람이 산다</h2>
+<!-- REVISED: C-3 인용 연도 1961로 교정 -->
+<p style="font-size:14px;color:var(--txt-md);margin-bottom:12px;line-height:1.85;">교류분석(TA)은 에릭 번(Eric Berne)이 창시한 심리학 이론으로(<em>Transactional Analysis in Psychotherapy</em>, 1961), 우리의 소통 방식을 <strong>세 가지 자아상태(PAC)</strong>로 설명합니다. 상황에 따라 서로 다른 자아상태에서 말하고 행동하며, 이것이 직장 내 소통의 질을 결정합니다.</p>
+<!-- REVISED: M-5 -->
+<p style="font-size:12.5px;color:var(--txt-lt);margin-bottom:20px;line-height:1.8;background:var(--warm);padding:10px 16px;border-radius:6px;">💡 이 교육에서는 TA의 <strong>기능분석(Functional Analysis)</strong> 모델을 사용합니다. 이는 자아상태가 외부에서 어떻게 관찰되는가(행동·말투·태도)에 초점을 맞춘 실용적 모델로, 직장 내 소통 개선에 바로 적용할 수 있습니다.</p>
+
+<div class="ego-grid">
+  <div class="ego-card cp">
+    <div class="ego-letter">P</div>
+    <div class="ego-name">부모 자아 — Parent</div>
+    <div class="ego-desc">부모·권위자로부터 내면화된 규칙·가치·행동 양식<br><br><span class="ego-tag">CP</span> <strong>비판적 부모</strong> — 규칙·기준·질서 중시, 판단적<br><br><span class="ego-tag">NP</span> <strong>양육적 부모</strong> — 돌봄·공감·보호 중시, 수용적</div>
+  </div>
+  <div class="ego-card a">
+    <div class="ego-letter">A</div>
+    <div class="ego-name">성인 자아 — Adult ⭐</div>
+    <div class="ego-desc">현재의 사실에 기반해 합리적으로 사고·판단하는 상태<br><br><span class="ego-tag">A</span> <strong>성인 자아</strong> — 객관적 분석 · 사실 기반 · 감정 조절<br><br><span style="font-size:11px;font-weight:700;color:var(--a-tx);">⭐ 어서티브 소통의 핵심 자아</span></div>
+  </div>
+  <div class="ego-card fc">
+    <div class="ego-letter">C</div>
+    <div class="ego-name">아이 자아 — Child</div>
+    <div class="ego-desc">어린 시절 경험한 감정·반응·행동 패턴<br><br><span class="ego-tag">FC</span> <strong>자유로운 아이</strong> — 창의·즐거움·자발성<br><br><span class="ego-tag">AC</span> <strong>순응하는 아이</strong> — 눈치·복종·과도한 양보</div>
+  </div>
+</div>
+
+<!-- REVISED: M-4 자아상태 오염 박스 -->
+<div class="contam-box">
+  <h4>⚠️ 자아상태 오염(Contamination) — A 자아가 흐려지는 순간</h4>
+  <div class="contam-items">
+    <div class="contam-item"><strong>P에 의한 오염 (편견)</strong>"내 경험상 이게 맞아" — 부모로부터 물려받은 신념을 사실로 착각하는 상태</div>
+    <div class="contam-item"><strong>C에 의한 오염 (망상/착각)</strong>"느낌이 이러니까 사실일 거야" — 감정·충동을 근거로 판단을 내리는 상태</div>
+    <div class="contam-item"><strong>이중 오염</strong>P와 C가 동시에 A를 침범. "저 사람은 원래 그래(편견) + 기분이 나쁘니까 틀림없어(감정)"</div>
+  </div>
+  <p style="font-size:12px;color:var(--txt-lt);margin-top:10px;">💡 A 자아를 강화한다는 것은 이러한 오염을 인식하고 걷어내는 과정입니다. 오염된 A는 스스로 합리적이라고 확신한다는 점이 더욱 위험합니다.</p>
+</div>
+
+<h3 style="font-family:'Noto Serif KR',serif;font-size:16px;color:var(--navy);margin:24px 0 12px;font-weight:700;">직장 내 자아상태 사례 비교</h3>
+<div class="comm-table-wrap"><table class="comm-table">
+  <thead><tr><th>상황</th><th>CP 반응</th><th>A 반응 ✅ (권장)</th><th>AC 반응</th></tr></thead>
+  <tbody>
+    <tr><td>보고서에 오류 발견</td><td>"이걸 보고라고 냈어요?"</td><td>"p.4 수치 기준을 같이 확인해볼 수 있을까요?"</td><td>(말없이 고개만 끄덕이고 위축)</td></tr>
+    <tr><td>상사의 무리한 요구</td><td>(내심 냉소, 무표정)</td><td>"현재 일정에서 가능한 범위를 확인하고 조율안을 드릴게요."</td><td>"네, 알겠습니다." (속엔 불만)</td></tr>
+    <tr><td>신입이 실수했을 때</td><td>"어떻게 이런 실수를!"</td><td>"어떤 부분이 어려웠나요? 같이 확인해 봅시다."</td><td>"죄송합니다…" (과도한 자책)</td></tr>
+  </tbody>
+</table></div>
+
+<div class="insight-box">
+  <div class="ib-tag">핵심 인사이트</div>
+  <h4>자아상태는 반응이 아니라 '선택'입니다</h4>
+  <p>CP나 AC가 자동으로 올라오는 순간에도, <strong>0.5초의 멈춤</strong>이 A 자아로의 전환을 가능하게 합니다. 그 선택권은 언제나 여러분 안에 있습니다.</p>
+  <div class="insight-quote">"나는 지금 어떤 자아상태에서 말하고 있는가? 그리고 그것은 내가 선택한 것인가?"</div>
+</div>
+
+<hr class="divider">
+
+<!-- Ch 02 교류패턴 -->
+<p class="sec-tag">Chapter 02</p>
+<h2 class="sec-title">교류 패턴 3가지 — 우리 사이에 무슨 일이 일어나는가?</h2>
+<p style="font-size:14px;color:var(--txt-md);margin-bottom:20px;line-height:1.85;">두 사람이 주고받는 모든 대화는 세 가지 패턴 중 하나입니다. 갈등의 대부분은 <strong>교차교류</strong>에서, 불신의 씨앗은 <strong>이면교류</strong>에서 심어집니다.</p>
+
+<div class="tx-grid">
+  <div class="tx-card comp">
+    <strong>✅ 상보교류 (Complementary)</strong>
+    발신자가 기대한 자아상태에서 응답이 돌아와 대화가 자연스럽게 이어지는 상태. 상호 신뢰와 협력의 기반.
+    <div class="tx-example">예) A→A: "마감이 언제인가요?" → "내일 오전 10시입니다."<br>예) CP→AC: "이렇게 처리하세요." → "알겠습니다." (생산적이지 않을 수도 있음)</div>
+  </div>
+  <div class="tx-card cross">
+    <strong>❌ 교차교류 (Crossed)</strong>
+    예상과 다른 자아상태에서 응답이 돌아와 대화가 끊기거나 갈등이 발생. 자주 발생하면 신뢰가 무너짐.
+    <div class="tx-example">예) A→A 기대, CP→AC로 응답<br>"마감이 언제인가요?" → "왜요? 못 맞출 것 같아요?"</div>
+  </div>
+  <div class="tx-card ulter">
+    <strong>⚠️ 이면교류 (Ulterior)</strong>
+    표면 메시지 뒤에 숨겨진 다른 의도가 작동하는 이중적 소통. 상대방이 불편함·불신을 느끼기 쉬움.
+    <div class="tx-example">예) 겉: NP→FC, 속: CP→AC<br>"이번엔 잘했네요." (속: 원래는 항상 실수했잖아요)</div>
+  </div>
+</div>
+
+<div class="info-box"><strong>🔑 핵심 원칙:</strong> 갈등의 대부분은 <strong>교차교류</strong>에서 시작됩니다. 소통이 막힌다고 느낄 때 "지금 어떤 교류가 일어나고 있지?"를 먼저 물어보세요. 그 인식이 성숙한 대응의 시작입니다.</div>
+
+<!-- REVISED: M-2 게임분석 -->
+<h3 style="font-family:'Noto Serif KR',serif;font-size:16px;color:var(--navy);margin:28px 0 12px;font-weight:700;">🎭 게임 분석(Games Analysis) — 반복되는 불행한 패턴</h3>
+<p style="font-size:13px;color:var(--txt-md);margin-bottom:14px;line-height:1.85;">"게임(Game)"이란 반복적으로 예측 가능한 결말을 향해 진행되는 이면교류의 연쇄를 말합니다(Berne, <em>Games People Play</em>, 1964). 게임은 항상 "불쾌한 결말"로 끝나지만, 참여자들은 무의식적으로 이 패턴을 반복합니다.</p>
+
+<div class="game-grid">
+  <div class="game-card y">
+    <strong>🟡 "Yes, But…" (그런데 말이야…)</strong>
+    조언을 구하는 척하지만 모든 제안을 거부합니다. 진짜 목적은 "아무도 나를 도울 수 없다"는 것을 확인하는 것입니다. AC 자아에서 시작되어 상대의 NP를 자극합니다.
+  </div>
+  <div class="game-card n">
+    <strong>🔴 NIGYSOB ("이제 걸렸구나!")</strong>
+    상대의 실수를 기다렸다가 공격합니다("Now I've Got You, Son of a Bitch"). CP 과잉 상태에서 발동되며, 우월감과 정당화가 목적입니다.
+  </div>
+  <div class="game-card k">
+    <strong>🔵 "Kick Me" (나를 차줘)</strong>
+    반복적으로 실수하거나 비난받을 행동을 하여 부정적 스트로크를 유도합니다. AC 과잉과 연결되며, "나는 가치 없다"는 인생태도를 강화합니다.
+  </div>
+</div>
+<div class="info-box" style="margin-top:10px;"><strong>💡 핵심:</strong> 게임을 인식하는 것만으로도 게임에서 벗어날 수 있습니다. "우리가 지금 게임을 하고 있지는 않은가?"라는 질문이 첫 번째 탈출구입니다.</div>
+
+<!-- REVISED: M-3 드라마 삼각형 -->
+<h3 style="font-family:'Noto Serif KR',serif;font-size:16px;color:var(--navy);margin:28px 0 12px;font-weight:700;">🔺 카프만의 드라마 삼각형 (Karpman Drama Triangle)</h3>
+<p style="font-size:13px;color:var(--txt-md);margin-bottom:14px;line-height:1.85;">Stephen Karpman(1968)이 제안한 이 모델은 사람들이 게임 속에서 취하는 세 가지 역할을 설명합니다. 역할은 고정된 것이 아니며, 대화 중에도 빠르게 전환됩니다.</p>
+
+<div class="drama-wrap">
+  <div class="drama-svg-wrap">
+    <svg viewBox="0 0 180 160" xmlns="http://www.w3.org/2000/svg" width="180">
+      <polygon points="90,10 10,150 170,150" fill="none" stroke="#1a2744" stroke-width="2.5"/>
+      <circle cx="90" cy="10" r="22" fill="#fff0f0" stroke="#b91c1c" stroke-width="2"/>
+      <text x="90" y="14" text-anchor="middle" font-family="Noto Sans KR" font-size="10" font-weight="700" fill="#b91c1c">박해자</text>
+      <circle cx="10" cy="150" r="22" fill="#faf5ff" stroke="#6b21a8" stroke-width="2"/>
+      <text x="10" y="154" text-anchor="middle" font-family="Noto Sans KR" font-size="10" font-weight="700" fill="#6b21a8">희생자</text>
+      <circle cx="170" cy="150" r="22" fill="#f0faf5" stroke="#065f46" stroke-width="2"/>
+      <text x="170" y="154" text-anchor="middle" font-family="Noto Sans KR" font-size="10" font-weight="700" fill="#065f46">구원자</text>
+      <text x="90" y="100" text-anchor="middle" font-family="DM Serif Display" font-size="13" fill="#6b7194">Drama</text>
+    </svg>
+  </div>
+  <div>
+    <div class="drama-roles">
+      <div class="drama-role p"><strong>🔴 박해자 (Persecutor)</strong>"네가 문제야." 비판·통제·공격. CP 자아 과잉. 상대를 희생자 위치로 밀어넣습니다.</div>
+      <div class="drama-role v"><strong>🔵 희생자 (Victim)</strong>"어쩔 수 없어." 무력감·책임 회피. AC 자아 주도. 신입사원이 가장 쉽게 고착되는 위치입니다.</div>
+      <div class="drama-role r"><strong>🟢 구원자 (Rescuer)</strong>"내가 도와줄게." 과도한 개입·의존 유발. NP 자아 과잉. 도움처럼 보이지만 상대의 성장을 막습니다.</div>
+    </div>
+    <div style="margin-top:14px;background:var(--warm);border-radius:8px;padding:12px 16px;font-size:12.5px;color:var(--txt-md);">
+      <strong style="color:var(--navy);">✅ 승자 삼각형(Winner's Triangle, Acey Choy, 1990)으로 전환하기:</strong>
+      <div class="winner-grid" style="margin-top:10px;">
+        <div class="wt-card wt-a"><strong>어서티브 (Assertive)</strong>박해자 → 명확하고 존중적인 경계 설정</div>
+        <div class="wt-card wt-v"><strong>취약하지만 주체적</strong>희생자 → "어렵지만 내가 해결할 수 있다"</div>
+        <div class="wt-card wt-r"><strong>배려적 (Caring)</strong>구원자 → 자율성을 존중하며 지지</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<hr class="divider">
+
+<!-- Ch 03 스트로크 -->
+<p class="sec-tag">Chapter 03</p>
+<h2 class="sec-title">스트로크(Stroke) — 인정 자극 이론</h2>
+<!-- REVISED: M-1 Steiner 원저자 추가 -->
+<p style="font-size:14px;color:var(--txt-md);margin-bottom:16px;line-height:1.85;">스트로크는 <strong>"나는 당신이 존재함을 인식합니다"</strong>라는 모든 형태의 인정 신호입니다(Berne, 1961). 긍정 스트로크가 부족하면 부정적 스트로크라도 받으려는 행동이 나타납니다.</p>
+
+<div class="stroke-grid">
+  <div class="stroke-card pos">
+    <strong>✅ 긍정 스트로크</strong>
+    상대를 인정하고 가치 있게 여기는 신호<br><br>
+    · <em>조건적:</em> "이 보고서 정말 잘 썼어요!" (행동 칭찬)<br>
+    · <em>무조건적:</em> "오늘도 와줘서 고마워요" (존재 인정)
+  </div>
+  <div class="stroke-card neg">
+    <strong>⚠️ 부정 스트로크</strong>
+    불쾌하지만 '관심'의 한 형태로 작용<br><br>
+    · <em>조건적:</em> "이건 왜 이렇게 했어요?" (행동 비판)<br>
+    · <em>무조건적:</em> "당신은 항상 문제야" (존재 부정) → 가장 해로움
+  </div>
+</div>
+
+<!-- REVISED: N-1 스트로크 경제 5법칙 -->
+<div class="insight-box" style="margin-top:20px;">
+  <div class="ib-tag">REVISED N-1 · Steiner의 스트로크 경제 5법칙</div>
+  <h4>우리는 왜 서로에게 스트로크를 충분히 주지 않는가?</h4>
+  <p>Claude Steiner(1971)는 우리가 무의식적으로 따르는 '스트로크 금지 규칙'을 정리했습니다.</p>
+  <ul class="economy-list">
+    <li>주어야 할 긍정 스트로크를 주지 마라</li>
+    <li>받고 싶은 스트로크를 요청하지 마라</li>
+    <li>원하는 스트로크가 와도 받아들이지 마라</li>
+    <li>원하지 않는 스트로크를 거부하지 마라</li>
+    <li>자기 자신에게 스트로크를 주지 마라</li>
+  </ul>
+  <div class="insight-quote">"성숙한 소통은 이 다섯 가지 금지를 의식적으로 깨는 것에서 시작됩니다." — Steiner, C. (1971). The stroke economy. <em>Transactional Analysis Journal</em>, 1(3).</div>
+</div>
+
+<div class="tip-box" style="margin-top:14px;"><strong>💡 신입사원 적응 팁:</strong> 신규 입사자는 스트로크 결핍 상태에 놓이기 쉽습니다. "제 일이 도움이 되고 있나요?"라는 질문 자체가 스트로크를 구하는 신호입니다. A 자아로 <strong>능동적으로 피드백을 요청</strong>하는 것은 성숙한 소통입니다.</div>
+
+<hr class="divider">
+
+<!-- Ch 04 인생태도 -->
+<p class="sec-tag">Chapter 04</p>
+<!-- REVISED: M-1 Harris, Ernst 원저자 추가 -->
+<h2 class="sec-title">인생태도(Life Position) — 나와 타인을 대하는 기본 자세</h2>
+<p style="font-size:14px;color:var(--txt-md);margin-bottom:16px;line-height:1.85;">어서티브 소통의 심리적 기반은 <strong>"I'm OK, You're OK"</strong>입니다(Harris, T., <em>I'm OK – You're OK</em>, 1967). 자신과 상대방 모두를 존중하는 이 태도에서만 진정한 협력이 가능합니다. 이 4사분면 모델은 Franklin Ernst의 OK Corral(<em>Transactional Analysis Journal</em>, 1971)로도 알려져 있습니다.</p>
+
+<div class="lp-wrap">
+  <div class="lp-cell lp-inf"><div class="lp-pos">I'm Not OK · You're OK</div><p><strong>열등·복종형:</strong> 자신을 낮게 평가. "제가 잘못한 것 같아요"를 자주 말함. AC 자아 주도. 입사 초기에 자주 나타나는 자연스러운 상태.</p></div>
+  <div class="lp-cell lp-best"><div class="lp-pos">✅ I'm OK · You're OK</div><p><strong>성숙·협력형:</strong> 자신과 타인 모두를 존중. A 자아 주도. 어서티브 소통의 기반이며 이 교육의 지향점.</p></div>
+  <div class="lp-cell lp-nihil"><div class="lp-pos">I'm Not OK · You're Not OK</div><p><strong>허무·철수형:</strong> 무기력감·직장 내 고립. 번아웃의 신호일 수 있으며 가장 회복이 어려운 상태.</p></div>
+  <div class="lp-cell lp-arrog"><div class="lp-pos">I'm OK · You're Not OK</div><p><strong>우월·공격형:</strong> 타인 비하, 책임 전가. CP 자아 과잉. 신뢰 붕괴와 팀 갈등의 주요 원인.</p></div>
+</div>
+<p style="font-size:12px;color:var(--txt-lt);text-align:center;">↑ Y축: 자기에 대한 태도 · X축: 타인에 대한 태도 →</p>
+
+<hr class="divider">
+
+<!-- Ch 05 소통유형 -->
+<p class="sec-tag">Chapter 05</p>
+<h2 class="sec-title">4가지 소통 유형 — 나는 어떻게 말하는가?</h2>
+<div class="comm-table-wrap"><table class="comm-table">
+  <thead><tr><th>소통 유형</th><th>자아상태 연결</th><th>핵심 패턴</th><th>단기 효과</th><th>장기 결과</th></tr></thead>
+  <tbody>
+    <tr><td><strong style="color:#b91c1c;">🔴 공격형</strong><br><small>(Aggressive)</small></td><td>CP 과잉</td><td>상대 비하·통제<br>I'm OK / You're NOT OK</td><td>단기 복종</td><td>신뢰 붕괴, 이직 유발</td></tr>
+    <tr><td><strong style="color:#d97706;">🟡 수동형</strong><br><small>(Passive)</small></td><td>AC 과잉</td><td>의견 억압, 과도한 동의<br>I'm NOT OK / You're OK</td><td>갈등 단기 회피</td><td>번아웃, 관계 피상적</td></tr>
+    <tr><td><strong style="color:#c2410c;">🟠 수동-공격형</strong><br><small>(Passive-Aggressive)</small></td><td>이면교류 주도</td><td>겉: 동의 / 속: 불만<br>비협조, 지연, 풍자</td><td>일시적 자기보호</td><td>'다루기 힘든 사람'으로 인식</td></tr>
+    <tr class="hl"><td><strong style="color:#065f46;">🟢 자기주장형</strong><br><small>(Assertive)</small></td><td>A 자아 중심</td><td>생각·감정·필요를 명확하고 존중적으로 표현<br>I'm OK / You're OK</td><td>상호 이해 증진</td><td>신뢰 구축, 장기 협력</td></tr>
+  </tbody>
+</table></div>
+
+<hr class="divider">
+
+<!-- Ch 06 DESC -->
+<p class="sec-tag">Chapter 06</p>
+<!-- REVISED: M-1 Bower 원저자 추가 -->
+<h2 class="sec-title">DESC 어서티브 대화법 — 성숙한 소통의 도구</h2>
+<p style="font-size:13px;color:var(--txt-lt);margin-bottom:16px;">Sharon & Gordon Bower (<em>Asserting Yourself</em>, 1976)가 개발한 어서티브 소통의 4단계 구조입니다. A 자아에서 나오는 이 방법은 갈등 상황을 건강하게 해결합니다.</p>
+
+<div class="desc-grid">
+  <div class="desc-card"><div class="desc-letter">D</div><strong>Describe (묘사)</strong><span>상황을 판단 없이 객관적으로 기술<br><em>"~했을 때"</em></span></div>
+  <div class="desc-card"><div class="desc-letter">E</div><strong>Express (표현)</strong><span>감정·생각을 1인칭으로 표현<br><em>"저는 ~한 느낌이에요"</em></span></div>
+  <div class="desc-card"><div class="desc-letter">S</div><strong>Specify (요청)</strong><span>구체적이고 실행 가능한 변화 요청<br><em>"~해주실 수 있을까요?"</em></span></div>
+  <div class="desc-card"><div class="desc-letter">C</div><strong>Consequence (결과)</strong><span>긍정적 결과·상호 이익 언급<br><em>"그렇게 되면 ~이 더 잘 될 것 같아요"</em></span></div>
+</div>
+
+<div style="background:white;border:1px solid var(--bdr);border-radius:8px;padding:18px 22px;font-size:13px;line-height:1.8;margin-top:4px;">
+  <strong>📝 DESC 적용 예시</strong> (금요일 오후, 동료가 마감 앞에 업무 대신 처리를 부탁하는 상황)<br><br>
+  <span style="color:#2e7d32;font-weight:700;">D:</span> "오늘 5시에 이 작업을 부탁받았을 때"&nbsp;
+  <span style="color:#1565c0;font-weight:700;">E:</span> "저도 마감이 겹쳐서 당황스러웠어요."&nbsp;
+  <span style="color:#e65100;font-weight:700;">S:</span> "가능하다면 월요일 오전에 함께 검토하면 어떨까요?"&nbsp;
+  <span style="color:#6a1b9a;font-weight:700;">C:</span> "그렇게 하면 제가 더 꼼꼼히 도와드릴 수 있을 것 같아요."
+</div>
+
+<hr class="divider">
+
+<!-- Summary -->
+<p class="sec-tag">Summary</p>
+<h2 class="sec-title">TA 핵심 개념 정리 및 주요 참고문헌</h2>
+<div class="case-table-wrap"><table class="case-table">
+  <thead><tr><th>개념</th><th>핵심 내용</th><th>직장 생활 적용</th><th>원저자</th></tr></thead>
+  <tbody>
+    <tr><td>PAC 자아상태</td><td>P(부모)·A(성인)·C(아이) 3가지 자아 존재</td><td>상황에 맞게 유연하게 전환하는 것이 성숙함</td><td>Berne (1961)</td></tr>
+    <tr><td>이고그램</td><td>5가지 자아상태 에너지 분포 시각화</td><td>자기이해의 출발점, 변화 목표 설정에 활용</td><td>Dusay (1977)</td></tr>
+    <tr><td>상보·교차·이면 교류</td><td>세 가지 교류 패턴 — 갈등은 교차에서 발생</td><td>갈등 시 "지금 어떤 교류?"를 먼저 물어볼 것</td><td>Berne (1961)</td></tr>
+    <tr><td>게임 분석</td><td>반복적 이면교류의 연쇄 — 불행한 결말로 귀결</td><td>패턴 인식만으로 게임에서 벗어날 수 있음</td><td>Berne (1964)</td></tr>
+    <tr><td>드라마 삼각형</td><td>박해자·희생자·구원자 세 역할의 순환</td><td>승자 삼각형으로 전환: 어서티브·주체적·배려</td><td>Karpman (1968)</td></tr>
+    <tr><td>스트로크</td><td>인정 자극 — 긍정 스트로크가 관계를 만든다</td><td>능동적 피드백 요청, 스트로크 경제 5법칙 깨기</td><td>Berne / Steiner (1971)</td></tr>
+    <tr><td>인생태도</td><td>I'm OK·You're OK 가 어서티브의 기반</td><td>자신과 타인 모두를 존중하는 태도 유지</td><td>Harris (1967) / Ernst (1971)</td></tr>
+    <tr><td>DESC 기법</td><td>Describe·Express·Specify·Consequence</td><td>갈등 상황에서 A 자아로 표현하는 구체적 방법</td><td>Bower & Bower (1976)</td></tr>
+  </tbody>
+</table>
+
+</div>
+<div class="closing-strip">
+  <h2>"소통은 스킬이 아니라 태도입니다.<br>I'm OK, You're OK — 이 마음에서 모든 것이 시작됩니다."</h2>
+  <p>개념 학습이 끝났습니다. <strong style="color:var(--gold-lt);">자가진단</strong>으로 나의 자아상태를 파악하고, <strong style="color:var(--gold-lt);">교류 실습</strong>으로 직접 적용해보세요.</p>
+</div>
+</div>
+
+<!-- ═══ PANEL 2: 자가진단 ═══ -->
+<div class="panel" id="panel-assess">
+<div class="content">
+<p class="sec-tag">Self-Assessment</p>
+<h2 class="sec-title">자아상태 자가진단 — 나의 이고그램(Egogram)</h2>
+<!-- REVISED: M-1 Dusay 원저자 추가 -->
+<div class="diag-intro">
+  <p>교류분석 이고그램(Egogram)은 5가지 자아상태(CP·NP·A·FC·AC)의 에너지 분포를 파악하는 자기이해 도구입니다(Dusay, J., <em>Egograms</em>, 1977). 총 50문항, 5점 척도로 응답하며 결과는 레이더 차트로 시각화됩니다.</p>
+  <p style="margin-bottom:14px;"><strong>📌 중요:</strong> 이 진단은 성격 검사가 아닙니다. 현재의 소통 습관을 탐색하는 도구이며, 어떤 결과도 좋고 나쁨이 없습니다. 솔직하게 응답할수록 유용한 인사이트를 얻을 수 있습니다. <span style="color:var(--txt-lt);font-size:12px;">(🔄 역방향 문항은 반대로 생각하며 응답하세요)</span></p>
+  <div class="diag-ego-chips">
+    <div class="diag-chip dc-cp"><strong>CP</strong>비판적 부모자아</div>
+    <div class="diag-chip dc-np"><strong>NP</strong>양육적 부모자아</div>
+    <div class="diag-chip dc-a"><strong>A ⭐</strong>성인 자아</div>
+    <div class="diag-chip dc-fc"><strong>FC</strong>자유로운 아이</div>
+    <div class="diag-chip dc-ac"><strong>AC</strong>순응하는 아이</div>
+  </div>
+</div>
+<div class="prog-wrap" id="prog-wrap">
+  <div class="prog-label"><span>진행률</span><span id="prog-text">0 / 50</span></div>
+  <div class="prog-track"><div class="prog-fill" id="prog-fill"></div></div>
+</div>
+<div id="assess-form"></div>
+<div class="submit-wrap"><button class="btn-primary" id="assess-submit" disabled onclick="showAssessResult()">결과 확인하기</button></div>
+<div id="assess-result" style="display:none;">
+  <div class="result-wrap">
+    <h3 class="result-title">📊 나의 이고그램 결과</h3>
+    <div class="chart-wrap"><canvas id="egogram-chart"></canvas></div>
+    <h4 style="font-size:15px;font-weight:700;color:var(--navy);margin-bottom:12px;">자아상태별 점수</h4>
+    <div style="overflow-x:auto;-webkit-overflow-scrolling:touch;"><table class="score-table" id="score-tbl">
+      <thead><tr><th>자아상태</th><th>점수</th><th>비율</th><th>에너지 분포</th></tr></thead>
+      <tbody></tbody>
+    </table>
+    <div id="pattern-section" style="margin:16px 0;"></div>
+    <div id="balance-section" style="margin:16px 0;"></div>
+    <h4 style="font-size:15px;font-weight:700;color:var(--navy);margin:20px 0 12px;">결과 해석</h4>
+    <div id="interp-wrap"></div>
+    <div class="submit-wrap"><button class="btn-secondary" onclick="resetAssess()">다시 검사하기</button></div>
+  </div>
+</div>
+</div>
+</div>
+
+<!-- ═══ PANEL 3: 교류실습 ═══ -->
+<div class="panel" id="panel-practice">
+<div class="content">
+<p class="sec-tag">Practice</p>
+<h2 class="sec-title">교류 상태 파악 및 개선 실습</h2>
+<div class="practice-intro">
+  각 상황을 읽고 <strong>① 교류 상태를 선택</strong>하고 <strong>② 더 성숙한 응답을 직접 작성</strong>해보세요. 작성 후 <strong>"답안 확인"</strong> 버튼을 눌러 예시 답안과 교류분석 해설을 확인하세요.<br>
+  <span style="color:var(--txt-lt);font-size:12px;">※ 정확한 분류보다 '왜 이 교류인가?'를 생각하는 과정이 더 중요합니다.</span>
+</div>
+<div id="practice-list"></div>
+</div>
+</div>
+
+<!-- ═══ JAVASCRIPT ═══ -->
+<script>
+/* ── 탭 전환 ── */
+function switchTab(id,btn){
+  document.querySelectorAll('.panel').forEach(p=>p.classList.remove('active'));
+  document.querySelectorAll('.tab-btn').forEach(b=>b.classList.remove('active'));
+  document.getElementById('panel-'+id).classList.add('active');
+  btn.classList.add('active');
+  // 탭 버튼을 뷰 중앙으로 스크롤
+  btn.scrollIntoView({behavior:'smooth',block:'nearest',inline:'center'});
+  // 페이지 최상단으로
+  setTimeout(()=>window.scrollTo({top:0,behavior:'smooth'}),80);
+  // 햅틱 피드백 (Android 지원, iOS는 무시됨)
+  if(navigator.vibrate) navigator.vibrate(8);
+}
+
+/* ══════════════════════════════════
+   ASSESSMENT
+   REVISED: D-1(CP 3문항 교체), D-2(6문항 수정), D-3(역문항 5개+역채점)
+══════════════════════════════════ */
+const QS=[
+  /* ── CP (10문항: 정방향 7 + 역방향 1 + 교체 3) ── */
+  /* REVISED D-1: id:1 교체 — 시간통제 차원 */
+  {id:1, text:"시간 약속을 지키지 않는 사람을 보면 화가 난다",t:"CP",rev:false},
+  /* REVISED D-2: id:5 수정 — 완벽주의 → 바로잡아야 */
+  {id:5, text:"실수가 있으면 그냥 넘어가기 어렵고, 반드시 바로잡아야 한다고 생각한다",t:"CP",rev:false},
+  /* REVISED D-1: id:4 교체 — 완벽주의적 통제(위임 어려움) */
+  {id:4, text:"중요한 일은 다른 사람에게 맡기기 어렵다",t:"CP",rev:false},
+  /* REVISED D-1: id:6 교체 — 권위 행사(의견 불쾌) */
+  {id:6, text:"내가 결정한 일에 대해 다른 의견이 나오면 불쾌하다",t:"CP",rev:false},
+  /* REVISED D-3: id:7 → 역문항(CP역채점) */
+  {id:7, text:"규칙을 어긴 사람의 사정도 충분히 이해하려고 노력한다",t:"CP",rev:true},
+  {id:8, text:"다른 사람이 실수하면 주의를 주거나 지적해주는 편이다",t:"CP",rev:false},
+  {id:9, text:"원칙과 기준을 지키는 것은 매우 중요하다",t:"CP",rev:false},
+  {id:2, text:"옳고 그름을 명확히 구분하는 것은 매우 중요하다",t:"CP",rev:false},
+  {id:3, text:"다른 사람의 잘못된 행동을 지적해주는 편이다",t:"CP",rev:false},
+  {id:10,text:"잘못된 것을 보면 바로잡아야 한다는 생각을 한다",t:"CP",rev:false},
+
+  /* ── NP (10문항: 정방향 8 + 역방향 1 + 수정 2) ── */
+  {id:12,text:"친구나 동료가 고민이 있으면 들어주려고 한다",t:"NP",rev:false},
+  {id:19,text:"다른 사람을 보호하고 돌봐주고 싶은 마음이 든다",t:"NP",rev:false},
+  /* REVISED D-2: id:14 수정 — NP 돌봄 행동으로 */
+  {id:14,text:"슬퍼하는 사람을 보면 위로하고 싶어서 먼저 다가간다",t:"NP",rev:false},
+  /* REVISED D-2: id:15 수정 — AC와 변별 */
+  {id:15,text:"다른 사람이 어려워하면 내가 나서서 도와주는 것이 자연스럽다",t:"NP",rev:false},
+  {id:16,text:"사람들이 편안하게 느낄 수 있도록 배려한다",t:"NP",rev:false},
+  {id:18,text:"누군가 잘못했을 때 상황을 바로잡는 것보다 먼저 위로해주고 싶다",t:"NP",rev:false},
+  {id:11,text:"다른 사람이 힘들어하면 내 일이 버겁더라도 도와주고 싶어진다",t:"NP",rev:false},
+  {id:13,text:"다른 사람을 칭찬하고 격려하는 것을 좋아한다",t:"NP",rev:false},
+  {id:17,text:"다른 사람의 장점을 찾아서 말해주는 편이다",t:"NP",rev:false},
+  /* REVISED D-3: id:20 → 역문항(NP역채점) */
+  {id:20,text:"다른 사람의 감정까지 일일이 신경 쓸 필요는 없다고 생각한다",t:"NP",rev:true},
+
+  /* ── A (10문항: 정방향 8 + 역방향 1 + 수정 2) ── */
+  {id:23,text:"문제가 생기면 원인을 분석해서 해결책을 찾는다",t:"A",rev:false},
+  {id:26,text:"의견을 말할 때 근거를 함께 제시하는 편이다",t:"A",rev:false},
+  {id:21,text:"결정을 내릴 때 사실과 정보를 먼저 확인한다",t:"A",rev:false},
+  {id:22,text:"감정적인 상황에서도 논리적으로 생각하고 판단한다",t:"A",rev:false},
+  {id:24,text:"갈등 상황에서 핵심 사실을 중심으로 대화를 이끈다",t:"A",rev:false},
+  {id:27,text:"계획을 세울 때 실현 가능성을 먼저 고려한다",t:"A",rev:false},
+  {id:30,text:"문제 해결을 위해 체계적으로 접근한다",t:"A",rev:false},
+  /* REVISED D-2: id:25 수정 — 타인 평가→자기보고 */
+  {id:25,text:"감정적인 상황에서도 한 발 떨어져 상황을 객관적으로 보려 한다",t:"A",rev:false},
+  /* REVISED D-2: id:28 수정 — 감정 억제→데이터 중심 */
+  {id:28,text:"업무 논의에서는 감정보다 사실과 데이터를 중심으로 대화한다",t:"A",rev:false},
+  /* REVISED D-3: id:29 → 역문항(A역채점) */
+  {id:29,text:"분석하기보다는 직감을 따르는 편이다",t:"A",rev:true},
+
+  /* ── FC (10문항: 정방향 8 + 역방향 1 + 수정 1) ── */
+  {id:31,text:"새로운 방법을 시도해보는 것을 좋아한다",t:"FC",rev:false},
+  {id:38,text:"규범에 얽매인 행동보다는 자유롭게 행동하는 것을 좋아한다",t:"FC",rev:false},
+  {id:35,text:"하고 싶은 일이 생기면 어떻게든 해보려고 노력하는 편이다",t:"FC",rev:false},
+  {id:40,text:"상상력을 발휘하는 것을 좋아하는 편이다",t:"FC",rev:false},
+  {id:36,text:"장소나 상황에 구애받지 않고 유머나 농담을 즐기는 편이다",t:"FC",rev:false},
+  {id:39,text:"다른 사람의 반응보다는 내 느낌을 먼저 따르는 편이다",t:"FC",rev:false},
+  {id:37,text:"호기심과 관심사가 많고 새로운 경험을 시도하는 데 주저함이 적다",t:"FC",rev:false},
+  {id:34,text:"창의적인 아이디어를 내는 것을 좋아한다",t:"FC",rev:false},
+  /* REVISED D-2: id:32 수정 — 분노 표출→기분 좋을 때 표현(FC 명확화) */
+  {id:32,text:"기분이 좋으면 주변 사람들에게 거리낌 없이 표현하는 편이다",t:"FC",rev:false},
+  /* REVISED D-3: id:33 → 역문항(FC역채점) */
+  {id:33,text:"새로운 시도보다는 검증된 방법이 더 편하다",t:"FC",rev:true},
+
+  /* ── AC (10문항: 정방향 8 + 역방향 1) ── */
+  {id:45,text:"상사나 권위자 앞에서는 언행을 더욱 조심하려고 한다",t:"AC",rev:false},
+  {id:42,text:"거절하기가 어려워서 타인의 부탁을 잘 들어주는 편이다",t:"AC",rev:false},
+  {id:49,text:"다른 사람을 실망시키지 않으려고 애쓴다",t:"AC",rev:false},
+  {id:47,text:"갈등 상황을 어떻게든 피하려고 하는 편이다",t:"AC",rev:false},
+  {id:44,text:"다른 사람이 화를 내면 내 잘못인 것 같아 불안할 때가 있다",t:"AC",rev:false},
+  {id:48,text:"처리한 일에 자신이 있더라도 비판받는 상황은 두렵다",t:"AC",rev:false},
+  {id:43,text:"실수를 하면 죄책감을 남들보다 더 많이 느낀다",t:"AC",rev:false},
+  {id:41,text:"남들보다 다른 사람의 눈치를 보는 편이다",t:"AC",rev:false},
+  {id:46,text:"다른 사람의 실수로 피해를 입은 상황에서도 솔직한 감정을 쉽게 표현하지 못한다",t:"AC",rev:false},
+  /* REVISED D-3: id:50 → 역문항(AC역채점) */
+  {id:50,text:"다른 사람의 의견에 동의하지 않을 때 분명히 말한다",t:"AC",rev:true}
+];
+
+const SL=["전혀 그렇지 않다","그렇지 않다","보통이다","그렇다","매우 그렇다"];
+let answered=0;
+
+function buildAssessForm(){
+  const form=document.getElementById('assess-form');
+  form.innerHTML='';
+  answered=0;
+  QS.forEach((q,idx)=>{
+    const div=document.createElement('div');
+    div.className='q-card'+(q.rev?' rev-item':'');
+    const top=document.createElement('div');
+    const revTag=q.rev?'<span class="rev-tag">🔄 역방향</span>':'';
+    top.innerHTML=`<div class="q-index">문항 ${idx+1} / 50${revTag}</div><div class="q-text">${q.text}</div>`;
+    div.appendChild(top);
+    const opts=document.createElement('div');
+    opts.className='scale-opts';
+    SL.forEach((lbl,v)=>{
+      const sp=document.createElement('div');
+      sp.className='scale-opt';
+      sp.setAttribute('data-qid',q.id);
+      sp.setAttribute('data-val',v+1);
+      sp.innerHTML=`<span style="display:block;font-size:15px;font-weight:700;margin-bottom:2px;">${v+1}</span><span style="font-size:10px;line-height:1.3;">${lbl}</span>`;
+      sp.addEventListener('click',()=>{
+        const was=div.classList.contains('answered');
+        opts.querySelectorAll('.scale-opt').forEach(s=>s.classList.remove('selected'));
+        sp.classList.add('selected');
+        if(!was){answered++;div.classList.add('answered');}
+        updateProg();
+        // 햅틱 피드백
+        if(navigator.vibrate) navigator.vibrate(6);
+        // 다음 문항으로 부드러운 스크롤 (모바일 UX)
+        if(!was && div.nextElementSibling && window.innerWidth<=768){
+          setTimeout(()=>{
+            div.nextElementSibling.scrollIntoView({behavior:'smooth',block:'start'});
+          },200);
+        }
+      });
+      opts.appendChild(sp);
+    });
+    div.appendChild(opts);
+    form.appendChild(div);
+  });
+}
+
+function updateProg(){
+  const pct=(answered/QS.length)*100;
+  document.getElementById('prog-fill').style.width=pct+'%';
+  document.getElementById('prog-text').textContent=answered+' / '+QS.length;
+  document.getElementById('assess-submit').disabled=(answered<QS.length);
+}
+
+/* REVISED D-3: getScores — 역채점(rev=true → 6-val) */
+function getScores(){
+  const s={CP:0,NP:0,A:0,FC:0,AC:0};
+  document.querySelectorAll('.scale-opt.selected').forEach(el=>{
+    const qid=parseInt(el.dataset.qid);
+    const rawVal=parseInt(el.dataset.val);
+    const q=QS.find(x=>x.id===qid);
+    if(q){
+      const val=q.rev?(6-rawVal):rawVal;
+      s[q.t]+=val;
+    }
+  });
+  return s;
+}
+
+const EM={
+  CP:{name:'비판적 부모자아 (CP)',c:'#b91c1c',bg:'#fff0f0',bd:'#fca5a5',bar:'#ef4444',
+    hi:'규칙과 원칙을 중시하며 도덕적 기준이 높습니다. 책임감이 강하고 완벽주의적 성향이 있어 리더십을 발휘할 수 있지만, 때로는 지나치게 비판적이거나 경직될 수 있습니다.'},
+  NP:{name:'양육적 부모자아 (NP)',c:'#065f46',bg:'#f0faf5',bd:'#6ee7b7',bar:'#10b981',
+    hi:'다른 사람을 돌보고 배려하는 마음이 큽니다. 따뜻하고 지지적이며 다른 사람의 성장을 도와주는 능력이 뛰어나지만, 때로는 과도한 희생이나 간섭으로 이어질 수 있습니다.'},
+  A: {name:'성인 자아 (A) ⭐',c:'#1d4ed8',bg:'#eff6ff',bd:'#93c5fd',bar:'#3b82f6',
+    hi:'논리적이고 합리적인 사고를 합니다. 객관적 판단력이 뛰어나고 문제 해결 능력이 좋습니다. 어서티브 소통의 핵심 자아로, 이 자아가 강할수록 균형 잡힌 소통이 가능합니다.'},
+  FC:{name:'자유로운 어린이자아 (FC)',c:'#92400e',bg:'#fffbeb',bd:'#fcd34d',bar:'#f59e0b',
+    hi:'창의적이고 자발적이며 즐거움을 추구합니다. 호기심이 많고 새로운 시도를 좋아하여 혁신적인 아이디어를 내지만, 때로는 충동적이거나 책임감이 부족할 수 있습니다.'},
+  AC:{name:'순응하는 어린이자아 (AC)',c:'#6b21a8',bg:'#faf5ff',bd:'#c4b5fd',bar:'#a855f7',
+    hi:'다른 사람의 기대에 부응하려고 노력하며 협조적입니다. 갈등을 피하고 조화를 중시하지만, 때로는 자신의 의견을 표현하지 못하거나 번아웃이 발생할 수 있습니다. <strong>신입사원 초기에 높게 나타나는 것은 매우 자연스러운 현상입니다</strong>(우재현, 2015, <em>상담학연구</em>).'}
+};
+
+/* REVISED N-3: 패턴 유형 분류 */
+function detectPattern(s){
+  const vals=[s.CP,s.NP,s.A,s.FC,s.AC];
+  const mean=vals.reduce((a,b)=>a+b,0)/5;
+  const hi=(v)=>v>mean+4;
+  const lo=(v)=>v<mean-4;
+  const aPos=vals.indexOf(s.A);
+
+  if(vals.every(v=>Math.abs(v-mean)<=5))return{name:"평탄형",sym:"▬",desc:"모든 자아상태의 에너지 분포가 균등합니다. 상황별 유연한 전환이 가능하지만, 특정 강점을 더욱 발전시켜보세요."};
+  if(vals.indexOf(Math.min(...vals))===aPos)return{name:"V형",sym:"V",desc:"A 자아가 가장 낮은 V형 패턴입니다. 감정·충동 기반 반응이 우세할 수 있습니다. A 자아를 강화하는 것이 가장 시급한 과제입니다."};
+  if(vals.indexOf(Math.max(...vals))===aPos)return{name:"역V형(산형)",sym:"∧",desc:"A 자아가 최고점인 산형 패턴입니다. 논리적이나 감정적 교류(NP, FC)를 보완하면 더욱 풍부한 소통이 가능합니다."};
+  if(hi(s.CP)&&hi(s.AC)&&lo(s.NP)&&lo(s.FC))return{name:"N형",sym:"N",desc:"CP와 AC가 모두 높은 N형 패턴입니다. 규율·순응 우세형으로 유연성과 자율성(FC, NP)을 보완하면 좋습니다."};
+  if(hi(s.NP)&&hi(s.FC)&&lo(s.CP)&&lo(s.AC))return{name:"역N형",sym:"∩",desc:"NP와 FC가 높은 역N형입니다. 수용적·창의적이나 체계·논리(A, CP)를 보완하면 균형을 이룰 수 있습니다."};
+  if(hi(s.CP)&&hi(s.A)&&hi(s.AC))return{name:"M형",sym:"M",desc:"CP·A·AC가 모두 높은 M형 패턴입니다. 규범·논리·순응이 우세합니다. 자발성(FC)과 따뜻함(NP)을 보완해보세요."};
+  if(hi(s.NP)&&hi(s.FC)&&lo(s.A))return{name:"W형",sym:"W",desc:"NP·FC가 높고 A가 낮은 W형 패턴입니다. 따뜻하고 자유롭지만 체계성(A)이 부족할 수 있습니다. 사실 기반 사고를 연습해보세요."};
+  return{name:"혼합형",sym:"~",desc:"복합적인 이고그램 패턴입니다. 가장 높은 자아상태와 가장 낮은 자아상태의 균형을 맞춰가는 것이 목표입니다."};
+}
+
+let chartInst=null;
+function showAssessResult(){
+  const s=getScores();
+  document.getElementById('assess-form').style.display='none';
+  document.getElementById('assess-submit').style.display='none';
+  document.getElementById('prog-wrap').style.display='none';
+  document.getElementById('assess-result').style.display='block';
+  // 결과 섹션으로 스크롤
+  setTimeout(()=>{
+    document.getElementById('assess-result').scrollIntoView({behavior:'smooth',block:'start'});
+  },150);
+  
+  const tbody=document.querySelector('#score-tbl tbody');
+  tbody.innerHTML='';
+  Object.entries(s).forEach(([t,sc])=>{
+    const pct=((sc/50)*100).toFixed(1);
+    const m=EM[t];
+    const tr=document.createElement('tr');
+    tr.innerHTML=`<td style="font-weight:700;color:${m.c};">${m.name}</td><td>${sc}/50</td><td>${pct}%</td><td style="width:140px;"><div class="bar-wrap"><div class="bar-fill" style="width:${pct}%;background:${m.bar};"></div></div></td>`;
+    tbody.appendChild(tr);
+  });
+  
+  const ctx=document.getElementById('egogram-chart').getContext('2d');
+  if(chartInst)chartInst.destroy();
+  chartInst=new Chart(ctx,{type:'radar',data:{
+    labels:['CP\n(비판적 부모)','NP\n(양육적 부모)','A\n(성인)','FC\n(자유로운 아이)','AC\n(순응하는 아이)'],
+    datasets:[{label:'자아상태 점수',data:[s.CP,s.NP,s.A,s.FC,s.AC],backgroundColor:'rgba(201,168,76,0.18)',borderColor:'rgba(26,39,68,0.85)',borderWidth:2.5,pointBackgroundColor:'#c9a84c',pointBorderColor:'#fff',pointBorderWidth:2,pointRadius:5}]
+  },options:{responsive:true,scales:{r:{beginAtZero:true,max:50,ticks:{stepSize:10,font:{size:10}},pointLabels:{font:{size:11}}}},plugins:{legend:{display:false}}}});
+
+  /* REVISED N-3: 패턴 유형 표시 */
+  const pat=detectPattern(s);
+  const patDiv=document.getElementById('pattern-section');
+  patDiv.innerHTML=`<div style="background:white;border:1px solid var(--bdr);border-radius:8px;padding:16px 20px;"><div style="font-size:11px;color:var(--txt-lt);font-weight:700;letter-spacing:2px;margin-bottom:8px;">나의 이고그램 패턴</div><span class="pattern-badge">${pat.sym}</span><span class="pattern-desc"><strong style="color:var(--navy);">${pat.name}</strong></span><p style="font-size:13px;color:var(--txt-md);line-height:1.75;margin-top:10px;">${pat.desc}</p></div>`;
+
+  /* REVISED N-3: CP-NP, FC-AC 균형도 */
+  const balDiv=document.getElementById('balance-section');
+  const cpnpDiff=Math.abs(s.CP-s.NP);
+  const fcacDiff=Math.abs(s.FC-s.AC);
+  const aRank=[s.CP,s.NP,s.A,s.FC,s.AC].sort((a,b)=>b-a).indexOf(s.A)+1;
+  let bHtml=`<div style="background:white;border:1px solid var(--bdr);border-radius:8px;padding:16px 20px;"><div style="font-size:11px;color:var(--txt-lt);font-weight:700;letter-spacing:2px;margin-bottom:10px;">균형 분석</div><div class="balance-row">`;
+  bHtml+=cpnpDiff>=15?`<span class="balance-tag bal-warn">⚠️ 부모자아 불균형: CP·NP 차이 ${cpnpDiff}점</span>`:`<span class="balance-tag bal-ok">✅ 부모자아 균형 양호</span>`;
+  bHtml+=fcacDiff>=15?`<span class="balance-tag bal-warn">⚠️ 아이자아 불균형: FC·AC 차이 ${fcacDiff}점</span>`:`<span class="balance-tag bal-ok">✅ 아이자아 균형 양호</span>`;
+  bHtml+=`<span class="balance-tag ${aRank<=2?'bal-ok':'bal-warn'}">A 자아 순위: ${aRank}위/5${aRank<=2?' (양호)':' (강화 필요)'}</span>`;
+  bHtml+='</div></div>';
+  balDiv.innerHTML=bHtml;
+
+  const iw=document.getElementById('interp-wrap');
+  iw.innerHTML='';
+  const maxS=Math.max(...Object.values(s));
+  const dom=Object.entries(s).find(([,v])=>v===maxS)[0];
+  const m=EM[dom];
+  iw.innerHTML+=`<div class="interp-card" style="background:${m.bg};border-color:${m.bd};"><h4 style="color:${m.c};">주요 자아상태: ${m.name}</h4><p style="color:#333;">${m.hi}</p></div>`;
+  if(s.A<20)iw.innerHTML+=`<div class="interp-card" style="background:#eff6ff;border-color:#93c5fd;"><h4 style="color:#1d4ed8;">💡 성인 자아(A) 강화 제안</h4><p style="color:#333;">성인 자아(A) 점수가 상대적으로 낮게 나타났습니다. 이 교육에서 배운 A 자아 중심의 어서티브 소통과 DESC 기법을 일상 속에서 의식적으로 연습해보세요.</p></div>`;
+  /* REVISED C-4: 미검증 인용 제거, 우재현(2015) 상담학연구로 교체 */
+  if(s.AC>30)iw.innerHTML+=`<div class="interp-card" style="background:#faf5ff;border-color:#c4b5fd;"><h4 style="color:#6b21a8;">💜 AC 우세 — 자연스러운 신입사원의 패턴</h4><p style="color:#333;">신규 입사자 초기에 AC가 높은 것은 매우 자연스러운 현상입니다. TA 집단상담 연구에서 A 자아 활성화 훈련이 순응적 패턴을 유의미하게 완화한다는 결과가 있습니다(우재현, 2015, <em>상담학연구</em> 16(4)). 지금부터 A 자아를 키워나가는 출발점입니다.</p></div>`;
+  iw.innerHTML+=`<div class="advice-card"><h4>🎯 균형잡힌 이고그램을 위한 조언</h4><ul><li><strong>항상성 원리:</strong> 다섯 자아상태의 에너지 총량은 일정합니다. A를 높이려면 과잉된 다른 자아상태의 에너지를 조절해야 합니다.</li><li><strong>A 자아 중심:</strong> 직장 내 소통에서는 A 자아가 높을수록 어서티브한 소통이 가능합니다. 이것이 이 교육의 핵심 목표입니다.</li><li><strong>상황별 활용:</strong> 업무 문제 해결 → A, 동료 격려 → NP, 창의적 아이디어 → FC를 적절히 활용하세요.</li><li><strong>30일 후 재검사:</strong> 입사 한 달 후 다시 검사하면 변화를 확인할 수 있습니다. 변화 자체가 성장의 증거입니다.</li></ul></div>`;
+}
+
+function resetAssess(){
+  answered=0;
+  document.getElementById('prog-fill').style.width='0%';
+  document.getElementById('prog-text').textContent='0 / 50';
+  document.getElementById('prog-wrap').style.display='block';
+  document.getElementById('assess-form').style.display='block';
+  document.getElementById('assess-submit').style.display='inline-block';
+  document.getElementById('assess-submit').disabled=true;
+  document.getElementById('assess-result').style.display='none';
+  buildAssessForm();
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+
+/* ══════════════════════════════════
+   PRACTICE: 12문항
+   REVISED: C-1(1번 교정), C-2(6번 교정), N-2(동기갈등/타부서/고객 추가)
+══════════════════════════════════ */
+const PD=[
+  /* REVISED C-1: 교차→상보(CP↔AC, 비생산적) 교정 */
+  {title:"상사의 보고서 질책 — 상사 & 신입사원",
+   sit:"상사: <strong>(화를 내며) '이 보고서는 왜 이렇게 늦게 나왔죠?'</strong><br>신입사원: '죄송합니다… 다시는 이런 일이 없게 하겠습니다.'",
+   state:"상보 교류 (CP↔AC, 비생산적)",sc:"상보",
+   better:"보고서 제출이 늦어진 이유는 ○○이었습니다. 재발 방지를 위해 ○○ 방안을 마련하겠습니다. (A→A 전환 제안)",
+   exp:"<strong>[C-1 교정]</strong> 상사의 CP 발신에 신입사원이 AC로 응답하여 벡터가 평행한 <em>상보교류(CP↔AC)</em>입니다. 대화가 단절되지 않고 계속되는 것은 맞지만, 문제의 원인과 해결책에 대한 사실 기반 소통이 빠져 있어 <strong>비생산적 상보교류</strong>입니다. A 자아에서 사실을 설명하고 개선 방향을 제시하면 상사의 자아상태도 A로 전환을 유도할 수 있습니다."},
+
+  {title:"동료의 일정 조정 요청 — 동료 간",
+   sit:"동료: '이번 일정은 이런 사유로 조금 미뤄야 할 것 같아요.'<br>나: <strong>'아, 왜 또 그래요? 지난번에도 그랬잖아요.'</strong>",
+   state:"교차 교류 (동료 A → 나 CP)",sc:"교차",
+   better:"이번에는 지연되는 것이군요. 동일한 사유가 반복되고 있으니 함께 해결 방법을 찾아보죠. (A→A)",
+   exp:"동료는 A 자아로 합리적 논의를 기대했지만, 나의 CP 반응이 교차교류를 만들었습니다. 사실과 감정을 분리하고 A 자아로 해결책을 함께 찾는 것이 이상적입니다."},
+
+  {title:"부하직원의 업무 신청 — 상사의 이면교류",
+   sit:"부하직원: '이 일은 제가 꼭 맡고 싶습니다!'<br>상사: <strong>'그래요? 그럼 이번에는 잘하세요.'</strong><br><em>(속마음: '또 실패할 텐데…')</em>",
+   state:"이면 교류 (겉: NP→FC, 속: CP→AC)",sc:"이면",
+   better:"이전에 어려움이 있었지만, 이번엔 어떤 계획을 세웠나요? 필요하면 제가 지원하겠습니다. (NP→A)",
+   exp:"겉으로는 승낙했지만 속에 비판이 숨어 있는 이면교류입니다. 이 이중 메시지는 부하직원도 감지하며 불신을 키웁니다. 계획을 묻고 지원 의사를 밝히는 NP→A 교류로 신뢰를 쌓을 수 있습니다."},
+
+  {title:"규정 위반에 대한 상사의 질문",
+   sit:"상사: <strong>'(차분하게) 이 부분은 왜 규정대로 처리하지 않았습니까?'</strong><br>직원: '죄송합니다. 제가 제대로 확인하지 못했습니다.'",
+   state:"교차 교류 (상사 A → 직원 AC)",sc:"교차",
+   better:"규정대로 처리하지 못한 이유를 설명드리고, 다음부턴 준수하겠습니다. (A→A)",
+   exp:"상사는 사실 파악을 위해 A 자아로 질문했습니다. 직원이 이를 질책으로 받아들이고 AC 자아로 사과한 것이 교차교류입니다. 사유를 사실에 근거해 설명하는 A→A 교류가 더 효과적입니다."},
+
+  {title:"동료의 검토 제안 — 상사의 이면교류",
+   sit:"부하직원: '제가 한 번 더 검토해보겠습니다.'<br>상사: <strong>'그럴 필요 없어요. 이미 충분합니다.'</strong><br><em>(속마음: '주제넘게 나서는 것 같네')</em>",
+   state:"이면 교류 (겉: A→A, 속: CP→AC)",sc:"이면",
+   better:"충분히 검토되었지만, 혹시 다른 의견 있으신가요? 있다면 들어볼게요. (A→A)",
+   exp:"겉으론 수용한 것처럼 보이지만 속으로는 주제넘는다는 판단이 숨어있는 이면교류입니다. 이 패턴이 반복되면 부하직원은 의견 표현을 억제하게 됩니다."},
+
+  /* REVISED C-2: 6번 — 부하직원 발화에 A 자아 톤 지시어 추가 → 교차교류로 명확화 */
+  {title:"책임 소재 논의 — 부하직원 & 상사",
+   sit:"부하직원: <strong>(차분하게 사실을 정리하며) '이 건은 ○○팀 소관이라 제 책임 범위와 다른 것 같습니다.'</strong><br>상사: '책임은 회피하면 안 됩니다.'",
+   state:"교차 교류 (부하직원 A → 상사 CP)",sc:"교차",
+   better:"어떤 부분이 본인의 책임 범위가 아니라고 생각하시나요? 구체적으로 이야기해봅시다. (A→A)",
+   exp:"<strong>[C-2 교정]</strong> 부하직원이 A 자아로 사실을 정리해 설명했으나, 상사가 CP 자아로 책임 회피를 비난하며 교차교류가 발생했습니다. 상사가 A 자아로 전환하여 책임 범위를 객관적으로 확인하는 방향으로 이끌어야 합니다."},
+
+  {title:"작업 미진행 상황 — 반복되는 CP→AC",
+   sit:"상사: '왜 아직 이 작업이 진행되지 않았죠?'<br>직원: '자료가 늦게 도착해서요.'<br>상사: <strong>'그럼 미리 보고라도 했어야죠.'</strong>",
+   state:"교차 교류 (CP→AC 반복 강화)",sc:"교차",
+   better:"자료 지연 상황을 미리 보고했어야 했습니다. 다음부터는 사전에 공유하겠습니다. 현재 상황에서 가장 빠른 처리 방법을 함께 찾아볼까요? (A→A)",
+   exp:"상사의 CP 반응이 반복되며 교차교류가 강화되고 있습니다. 직원이 먼저 A 자아로 전환하여 사실을 인정하고 해결책을 제안하면 대화의 방향을 바꿀 수 있습니다."},
+
+  {title:"제안에 대한 즉각적 비판",
+   sit:"동료: '이 제안은 어떠신가요?'<br>나: <strong>'그건 현실성이 부족한 것 같네요.'</strong>",
+   state:"교차 교류 (동료 A→A, 나 CP 반응)",sc:"교차",
+   better:"흥미로운 방향이네요. 현실적으로 구현하려면 어떤 점을 보완하면 좋을까요? (A→A)",
+   exp:"동료는 A 자아로 의견을 구했지만, CP 반응이 대화를 막았습니다. 제안의 가능성을 먼저 인정하고 건설적인 보완 방향을 함께 찾는 A→A 교류가 협력적 관계를 만듭니다."},
+
+  /* REVISED N-2: 동기 간 갈등 시나리오 추가 */
+  {title:"동기 간 업무 부담 — 같은 기수 신입사원",tag:"peer",
+   sit:"같은 기수 신입사원 A가 팀 과제에서 자기 분량을 하지 않아 나에게 부담이 오는 상황.<br>A: '나도 바빠서 어쩔 수 없었어.'<br>나: <strong>(속으로 불만이지만) '괜찮아, 내가 할게.'</strong>",
+   state:"이면 교류 (겉: NP 수용, 속: AC의 억눌린 불만)",sc:"이면",
+   better:"나도 지금 업무가 많아서 추가로 맡기 어려워. 이번 주까지 각자 분량을 마무리해줄 수 있어? 어렵다면 팀장님과 상의해보자. (A→A, 경계 설정)",
+   exp:"겉으로 수락했지만 속의 불만이 이면교류를 만들었습니다. 이 패턴이 반복되면 수동-공격적 행동(지연, 무성의)으로 이어집니다. A 자아로 솔직하게 경계를 설정하는 것이 동기 관계를 장기적으로 건강하게 유지합니다. 드라마 삼각형에서 '구원자(Rescuer)' 역할을 맡지 않도록 주의하세요."},
+
+  /* REVISED N-2: 타 부서 협업 거절 시나리오 추가 */
+  {title:"타 부서 자료 협조 요청 — 부서 간 협업",tag:"cross",
+   sit:"나: '이번 주까지 ○○ 자료가 필요합니다.'<br>타 부서 담당자: <strong>'우리도 바쁜데, 그건 직접 찾아보세요.'</strong>",
+   state:"교차 교류 (나 A → 타 부서 CP)",sc:"교차",
+   better:"이해합니다. 바쁜 시기에 번거롭게 해드려 죄송합니다. 정확히 어떤 부분이 필요한지 구체적으로 말씀드리면 도움이 될까요? 혹은 가장 빠른 시점이 언제인지 여쭤봐도 될까요? (A→A 재시도)",
+   exp:"나는 A 자아로 사실 기반 요청을 했지만, 상대가 CP로 반응하여 교차교류가 발생했습니다. 이 상황에서 상대의 CP를 자극하지 않으면서 A→A 교류로 전환을 유도하는 것이 핵심입니다. 상대의 바쁨을 인정하고(NP 가미) 구체적인 요청으로 재시도하면 협조를 끌어낼 가능성이 높아집니다."},
+
+  /* REVISED N-2: 고객 응대 시나리오 추가 */
+  {title:"감정적 고객 응대 — 신입사원의 외부 소통",tag:"cust",
+   sit:"고객: <strong>(화난 목소리로) '도대체 어떻게 일하는 거예요! 이게 뭡니까!'</strong><br>나: '불편을 드려 죄송합니다. 어떤 부분을 확인해드릴까요?'",
+   state:"상보→A↔A 전환 유도 (고객 CP → 나 NP+A 균형)",sc:"상보",
+   better:"불편을 드려 정말 죄송합니다. 정확히 어떤 부분에서 문제가 발생했는지 말씀해 주시면 바로 확인하고 해결해 드리겠습니다. (NP+A 균형으로 고객 A 유도)",
+   exp:"고객의 CP 발화에 NP+A로 균형 있게 응답한 좋은 예입니다. 먼저 감정(NP: 사과와 공감)을 받아주고, 이후 사실 파악(A: 문제 확인)으로 전환하는 것이 외부 응대의 핵심입니다. 고객의 CP를 AC로 받아 사과만 반복하면(상보교류 CP↔AC) 문제 해결이 지연됩니다. 고객을 A 자아로 전환시키는 것이 목표입니다."},
+
+  {title:"이상적인 A→A 교류 — 실수 원인 분석",
+   sit:"상사: '이번 실수는 왜 발생했죠?'<br>직원: <strong>'정확히 파악해보니 시스템 오류 때문이었습니다.'</strong>",
+   state:"상보 교류 (A→A)",sc:"상보",
+   better:"시스템 오류를 파악했고, 재발 방지 방안을 마련했습니다. 추가로 확인할 사항이 있으면 말씀해주세요. (A→A 지속)",
+   exp:"이상적인 A→A 상보교류입니다. 상사의 사실 기반 질문에 직원이 사실로 응답했습니다. 여기에 재발 방지 방안까지 제시하면 더욱 완성된 A→A 교류가 됩니다."}
+];
+
+const SC_COLOR={"교차":"#991b1b","이면":"#92400e","상보":"#065f46"};
+const SC_BG={"교차":"#fee2e2","이면":"#fffbeb","상보":"#e8f5e9"};
+const TAG_HTML={peer:'<span class="prac-type-tag tag-peer">동기 관계</span>',cross:'<span class="prac-type-tag tag-cross">부서 간</span>',cust:'<span class="prac-type-tag tag-cust">고객 응대</span>'};
+
+function buildPractice(){
+  const c=document.getElementById('practice-list');
+  c.innerHTML='';
+  PD.forEach((d,i)=>{
+    const card=document.createElement('div');
+    card.className='prac-card';
+    const tagHtml=d.tag?TAG_HTML[d.tag]:'';
+    card.innerHTML=`
+      <div class="prac-header"><span class="prac-num">상황 ${i+1}</span><span style="flex:1;">${d.title}</span>${tagHtml}</div>
+      <div class="prac-body">
+        <div class="prac-situation">${d.sit}</div>
+        <div class="prac-sec-label">① 교류 상태 선택</div>
+        <div class="choice-group" id="cg-${i}">
+          <button class="choice-btn" onclick="selChoice(this,${i})">상보 교류</button>
+          <button class="choice-btn" onclick="selChoice(this,${i})">교차 교류</button>
+          <button class="choice-btn" onclick="selChoice(this,${i})">이면 교류</button>
+        </div>
+        <div class="prac-sec-label">② 더 성숙한 응답 작성 (A 자아 기반)</div>
+        <textarea class="prac-textarea" placeholder="어떻게 응답하면 더 성숙한 소통이 될까요? 직접 작성해보세요..."></textarea>
+        <button class="reveal-btn" id="rbtn-${i}" onclick="revealAns(${i})">📋 답안 확인</button>
+        <div class="answer-panel" id="ap-${i}">
+          <div style="margin-bottom:10px;">
+            <div class="ans-mini-label" style="color:var(--txt-lt);">교류 상태</div>
+            <span class="ans-state-badge" style="background:${SC_BG[d.sc]};border:1.5px solid ${SC_COLOR[d.sc]}55;color:${SC_COLOR[d.sc]};">${d.state}</span>
+          </div>
+          <div class="ans-mini-label" style="color:#1b5e20;">개선된 응답 예시</div>
+          <div class="ans-better">${d.better}</div>
+          <div class="ans-mini-label" style="color:#6b21a8;">교류분석 해설</div>
+          <div class="ans-explanation">${d.exp}</div>
+        </div>
+      </div>`;
+    c.appendChild(card);
+  });
+}
+
+function selChoice(btn,i){
+  document.querySelectorAll(`#cg-${i} .choice-btn`).forEach(b=>b.classList.remove('sel'));
+  btn.classList.add('sel');
+}
+
+function revealAns(i){
+  const p=document.getElementById('ap-'+i);
+  const b=document.getElementById('rbtn-'+i);
+  const vis=p.classList.toggle('vis');
+  b.textContent=vis?'🔼 답안 닫기':'📋 답안 확인';
+  b.style.background=vis?'#374151':'#2a7f78';
+  if(vis){
+    if(navigator.vibrate) navigator.vibrate(6);
+    setTimeout(()=>p.scrollIntoView({behavior:'smooth',block:'nearest'}),200);
+  }
+}
+
+document.addEventListener('DOMContentLoaded',()=>{buildAssessForm();buildPractice();});
+</script>
+</body>
+</html>
