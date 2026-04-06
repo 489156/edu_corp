@@ -1,0 +1,937 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>교류분석(TA) 교육자용 매뉴얼 v2 — 이크레더블 2026 [INSTRUCTOR ONLY]</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+KR:wght@400;700&family=Noto+Sans+KR:wght@300;400;500;700&family=DM+Serif+Display&display=swap" rel="stylesheet">
+<style>
+/* ── TOKENS ── */
+:root{
+  --ink:#1e1b4b;--ink2:#312e81;--ink3:#4338ca;
+  --gold:#f59e0b;--gold2:#fbbf24;--gold3:#fde68a;
+  --teal:#0f766e;--teal2:#14b8a6;
+  --rose:#9f1239;--rose2:#e11d48;
+  --sage:#065f46;--sage2:#10b981;
+  --amber:#92400e;--amber2:#f59e0b;
+  --violet:#6b21a8;--violet2:#a855f7;
+  --slate:#1e293b;--slate2:#334155;--slate3:#64748b;
+  --bg:#0f172a;--surface:#1e293b;--surface2:#273549;
+  --bdr:rgba(255,255,255,.1);--bdr2:rgba(255,255,255,.06);
+  --txt:#e2e8f0;--txt2:#94a3b8;--txt3:#64748b;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{font-family:'Noto Sans KR',sans-serif;background:var(--bg);color:var(--txt);line-height:1.75;min-height:100vh}
+
+/* ── HEADER ── */
+.hdr{background:linear-gradient(135deg,#1e1b4b 0%,#312e81 60%,#1a2744 100%);
+  padding:32px 24px 28px;text-align:center;position:relative;overflow:hidden;
+  border-bottom:2px solid rgba(99,102,241,.4)}
+.hdr::before{content:'';position:absolute;top:-80px;right:-80px;width:360px;height:360px;
+  border-radius:50%;border:1px solid rgba(99,102,241,.15)}
+.hdr::after{content:'';position:absolute;bottom:-50px;left:-50px;width:220px;height:220px;
+  border-radius:50%;border:1px solid rgba(245,158,11,.12)}
+.hdr-lock{font-size:10px;letter-spacing:4px;color:#c4b5fd;text-transform:uppercase;
+  font-weight:700;margin-bottom:8px;position:relative;z-index:1}
+.hdr-title{font-family:'Noto Serif KR',serif;font-size:clamp(18px,3vw,28px);
+  font-weight:700;color:white;line-height:1.3;position:relative;z-index:1}
+.hdr-title em{color:var(--gold2);font-style:normal}
+.hdr-sub{font-size:12.5px;color:rgba(255,255,255,.55);margin-top:8px;position:relative;z-index:1}
+.hdr-chips{display:flex;gap:8px;justify-content:center;flex-wrap:wrap;
+  margin-top:14px;position:relative;z-index:1}
+.hchip{font-size:10.5px;padding:3px 11px;border-radius:20px}
+.hchip.purple{background:rgba(99,102,241,.3);border:1px solid rgba(99,102,241,.5);color:#c4b5fd}
+.hchip.gold{background:rgba(245,158,11,.2);border:1px solid rgba(245,158,11,.4);color:var(--gold3)}
+.hchip.green{background:rgba(16,185,129,.2);border:1px solid rgba(16,185,129,.4);color:#a7f3d0}
+
+/* ── TAB NAV ── */
+.tnav{position:sticky;top:0;z-index:100;background:#1e1b4b;
+  border-bottom:2px solid rgba(99,102,241,.35);box-shadow:0 4px 24px rgba(0,0,0,.5)}
+.tnav-in{max-width:1100px;margin:0 auto;display:flex;overflow-x:auto;scrollbar-width:none;
+  -webkit-overflow-scrolling:touch}
+.tnav-in::-webkit-scrollbar{display:none}
+.tbtn{flex-shrink:0;padding:0 20px;height:48px;min-height:48px;border:none;background:none;
+  cursor:pointer;font-family:'Noto Sans KR',sans-serif;font-size:12px;font-weight:500;
+  color:rgba(255,255,255,.45);border-bottom:3px solid transparent;
+  transition:all .2s;white-space:nowrap;display:flex;align-items:center;gap:6px;
+  touch-action:manipulation;-webkit-tap-highlight-color:transparent}
+.tbtn:hover{color:rgba(255,255,255,.8);background:rgba(255,255,255,.05)}
+.tbtn.on{color:var(--gold2);border-bottom-color:var(--gold2);font-weight:700}
+.tbadge{font-size:9px;background:rgba(245,158,11,.3);color:var(--gold2);
+  padding:1px 6px;border-radius:10px;font-weight:700}
+
+/* ── PANELS ── */
+.panel{display:none}.panel.on{display:block}
+.wrap{max-width:1100px;margin:0 auto;padding:44px 24px 80px}
+
+/* ── SECTION ── */
+.stag{font-size:10px;letter-spacing:4px;color:#a78bfa;text-transform:uppercase;
+  font-weight:700;margin-bottom:8px}
+.stitle{font-family:'Noto Serif KR',serif;font-size:clamp(18px,2.5vw,24px);
+  font-weight:700;color:white;margin-bottom:24px;line-height:1.4}
+.stitle::after{content:'';display:block;width:32px;height:3px;
+  background:linear-gradient(90deg,var(--gold2),#818cf8);margin-top:8px}
+.divider{border:none;border-top:1px solid var(--bdr2);margin:36px 0}
+
+/* ── OV CARDS ── */
+.ov-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(155px,1fr));gap:12px;margin-bottom:28px}
+.ov-card{background:var(--surface);border:1px solid var(--bdr2);border-top:3px solid #818cf8;
+  border-radius:8px;padding:16px}
+.ov-icon{font-size:20px;margin-bottom:6px}
+.ov-label{font-size:10px;letter-spacing:1.5px;color:var(--txt3);text-transform:uppercase;margin-bottom:3px}
+.ov-val{font-size:13px;font-weight:600;color:var(--txt)}
+
+/* ── DIFF TABLE ── */
+.diff-tbl{width:100%;border-collapse:collapse;font-size:12.5px;margin:16px 0}
+.diff-tbl thead tr{background:#312e81}
+.diff-tbl thead th{padding:10px 13px;font-size:11px;color:rgba(255,255,255,.8);
+  font-weight:600;text-align:left}
+.diff-tbl tbody tr{border-bottom:1px solid var(--bdr2)}
+.diff-tbl tbody tr:hover{background:var(--surface2)}
+.diff-tbl tbody td{padding:9px 13px;vertical-align:top;line-height:1.65;color:var(--txt2)}
+.diff-tbl td.cat{font-weight:700;font-size:11px;letter-spacing:1px;color:#a78bfa;text-transform:uppercase}
+.diff-old{color:#f87171;text-decoration:line-through;font-size:12px}
+.diff-new{color:#6ee7b7;font-size:12px;margin-top:3px;font-weight:500}
+
+/* ── TIMELINE ── */
+.tl-wrap{display:flex;flex-direction:column;margin:16px 0}
+.tl-row{display:grid;grid-template-columns:90px 18px 1fr;gap:0 14px;min-height:58px}
+.tl-time{font-size:11px;font-weight:700;color:#a78bfa;text-align:right;padding-top:10px;white-space:nowrap}
+.tl-line{display:flex;flex-direction:column;align-items:center}
+.tl-dot{width:13px;height:13px;border-radius:50%;flex-shrink:0;margin-top:9px;
+  border:2px solid #1e1b4b}
+.tl-dot.n{background:#818cf8;box-shadow:0 0 0 2px #818cf8}
+.tl-dot.star{background:var(--gold2);box-shadow:0 0 0 2px var(--gold2)}
+.tl-dot.g{background:#10b981;box-shadow:0 0 0 2px #10b981}
+.tl-vl{flex:1;width:2px;background:var(--bdr);margin:3px 0}
+.tl-box{background:var(--surface);border:1px solid var(--bdr2);border-radius:8px;
+  padding:11px 15px;margin-bottom:8px;font-size:13px;color:var(--txt2)}
+.tl-box strong{display:block;font-size:13px;font-weight:700;color:var(--txt);margin-bottom:2px}
+.mchip{display:inline-block;font-size:10px;font-weight:700;padding:1px 8px;border-radius:10px;margin-right:4px;vertical-align:middle}
+.mc0{background:#e0e7ff;color:#3730a3}.mc1{background:#dbeafe;color:#1e40af}
+.mc2{background:#f3e8ff;color:#6b21a8}.mc3{background:#dbeafe;color:#1e40af}
+.mc4{background:#fef3c7;color:#92400e;border:1px solid #fde68a}.mc5{background:#dcfce7;color:#166534}
+.mc6{background:#fce7f3;color:#9d174d}
+
+/* ── PREP LIST ── */
+.prep-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin:14px 0}
+.prep-item{background:var(--surface);border:1px solid var(--bdr2);border-radius:6px;
+  padding:10px 13px;font-size:12.5px;color:var(--txt2);display:flex;align-items:flex-start;gap:8px}
+.prep-item::before{content:'☐';color:#818cf8;font-size:14px;flex-shrink:0;margin-top:1px}
+
+/* ── WARN / TIP ── */
+.warn-box{background:rgba(239,68,68,.1);border:1px solid rgba(239,68,68,.3);border-left:4px solid #ef4444;
+  border-radius:4px;padding:12px 16px;font-size:12.5px;color:#fca5a5;line-height:1.75;margin:10px 0}
+.warn-box::before{content:'⚠️ '}
+.tip-box{background:rgba(245,158,11,.1);border:1px solid rgba(245,158,11,.25);border-left:4px solid var(--gold2);
+  border-radius:4px;padding:12px 16px;font-size:12.5px;color:var(--gold3);line-height:1.75;margin:10px 0}
+.tip-box::before{content:'💡 '}
+
+/* ── SCRIPT BLOCK ── */
+.sb{background:var(--surface);border-radius:10px;border-left:5px solid #818cf8;
+  padding:22px 26px;margin-bottom:20px}
+.sb-meta{display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin-bottom:12px}
+.sb-time{font-size:10.5px;font-weight:700;background:#312e81;color:#c4b5fd;
+  padding:3px 10px;border-radius:20px;letter-spacing:.5px}
+.sb-method{font-size:10.5px;font-weight:700;padding:3px 10px;border-radius:20px}
+.sm-lec{background:#1e3a5f;color:#93c5fd}.sm-prac{background:#3b1030;color:#f9a8d4}
+.sm-disc{background:#064e3b;color:#6ee7b7}.sm-chk{background:#3b2f00;color:#fde68a}
+.sb-title{font-family:'Noto Serif KR',serif;font-size:15px;font-weight:700;color:white}
+.sb-body{font-size:13px;color:var(--txt2);line-height:1.9}
+.sb-body p{margin-bottom:9px}
+.say{background:rgba(99,102,241,.12);border-radius:6px;padding:11px 15px;margin:9px 0;
+  font-size:13px;color:#c7d2fe;line-height:1.85;border-left:3px solid #818cf8;font-style:italic}
+.say::before{content:'💬 발화: ';font-weight:700;font-style:normal;color:#818cf8}
+.board{background:rgba(14,165,233,.12);border:1px solid rgba(14,165,233,.2);border-radius:6px;
+  padding:11px 15px;margin:9px 0;font-size:12.5px;color:#7dd3fc;line-height:1.75}
+.board::before{content:'📋 판서: ';font-weight:700;color:#38bdf8}
+
+/* ── ETYMOLOGY ── */
+.etym-card{background:var(--surface);border-radius:10px;overflow:hidden;margin-bottom:22px;
+  border:1px solid var(--bdr2)}
+.etym-hdr{background:linear-gradient(135deg,#1e1b4b 0%,#312e81 100%);
+  padding:16px 22px;display:grid;grid-template-columns:1fr auto;align-items:start;gap:12px}
+.etym-en{font-family:'DM Serif Display',serif;font-size:23px;color:var(--gold2);line-height:1;margin-bottom:3px}
+.etym-ko{font-size:13px;color:rgba(255,255,255,.75);font-weight:500}
+.etym-auth{font-size:11px;color:rgba(255,255,255,.4);margin-top:3px}
+.etym-body{padding:18px 22px}
+.erow{display:grid;grid-template-columns:90px 1fr;gap:12px;padding:9px 0;
+  border-bottom:1px solid var(--bdr2);font-size:12.5px}
+.erow:last-child{border-bottom:none}
+.elabel{font-size:10px;font-weight:700;letter-spacing:1.5px;color:var(--txt3);
+  text-transform:uppercase;padding-top:2px}
+.eval{color:var(--txt2);line-height:1.75}
+.eval strong{color:var(--txt)}
+.eval em{color:#a78bfa;font-style:normal}
+.eteach{background:rgba(99,102,241,.1);border-radius:8px;padding:13px 16px;
+  margin-top:10px;border:1px solid rgba(99,102,241,.2)}
+.eteach-lbl{font-size:10px;font-weight:700;letter-spacing:1.5px;color:#a78bfa;
+  text-transform:uppercase;margin-bottom:7px}
+.eteach p{font-size:12.5px;color:var(--txt2);line-height:1.8}
+
+/* ── DIAG TABLE ── */
+.dtbl{width:100%;border-collapse:collapse;font-size:12px;margin:14px 0;overflow-x:auto;display:block}
+.dtbl thead tr{background:#312e81}
+.dtbl thead th{padding:9px 12px;font-size:11px;color:rgba(255,255,255,.8);font-weight:600;text-align:left}
+.dtbl tbody tr{border-bottom:1px solid var(--bdr2)}
+.dtbl tbody tr:hover{background:var(--surface2)}
+.dtbl tbody td{padding:8px 12px;vertical-align:top;line-height:1.6;color:var(--txt2)}
+.dtbl td:first-child{color:var(--txt3);font-weight:600;font-size:11px;white-space:nowrap}
+.flag{display:inline-block;font-size:9px;font-weight:700;padding:1px 6px;border-radius:8px;margin-left:3px}
+.flag.rev{background:rgba(245,158,11,.2);color:var(--gold3);border:1px solid rgba(245,158,11,.3)}
+.flag.mod{background:rgba(59,130,246,.2);color:#93c5fd;border:1px solid rgba(59,130,246,.3)}
+.flag.new{background:rgba(16,185,129,.2);color:#6ee7b7;border:1px solid rgba(16,185,129,.3)}
+
+/* ── PATTERN TABLE ── */
+.pat-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:10px;margin:14px 0}
+.pat-card{background:var(--surface2);border-radius:8px;padding:14px;border:1px solid var(--bdr2)}
+.pat-sym{font-family:'DM Serif Display',serif;font-size:28px;color:var(--gold2);margin-bottom:4px}
+.pat-name{font-size:12.5px;font-weight:700;color:var(--txt);margin-bottom:4px}
+.pat-desc{font-size:11.5px;color:var(--txt2);line-height:1.65}
+.pat-dev{font-size:11px;color:var(--teal2);margin-top:4px}
+
+/* ── PRACTICE INSTRUCTOR CARD ── */
+.pic{background:var(--surface);border-radius:10px;border:1px solid var(--bdr2);
+  overflow:hidden;margin-bottom:22px}
+.pic-hdr{background:linear-gradient(135deg,var(--slate) 0%,var(--slate2) 100%);
+  padding:12px 18px;display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+.pic-num{background:var(--gold2);color:#1a1a2e;padding:2px 10px;
+  border-radius:20px;font-size:11px;font-weight:700}
+.pic-type{font-size:10px;padding:2px 8px;border-radius:10px;font-weight:700;margin-left:auto}
+.pt-comp{background:rgba(16,185,129,.3);color:#a7f3d0}
+.pt-cross{background:rgba(239,68,68,.25);color:#fca5a5}
+.pt-ulter{background:rgba(245,158,11,.25);color:var(--gold3)}
+.pt-peer{background:rgba(168,85,247,.3);color:#e9d5ff}
+.pt-dept{background:rgba(239,68,68,.2);color:#fca5a5}
+.pt-cust{background:rgba(16,185,129,.2);color:#a7f3d0}
+.pic-title{font-size:13px;font-weight:700;color:white}
+.pic-body{padding:16px 20px}
+.pic-sit{background:rgba(255,255,255,.04);border-left:3px solid var(--txt3);
+  padding:10px 14px;font-size:13px;color:var(--txt2);border-radius:0 6px 6px 0;
+  margin-bottom:14px;font-style:italic;line-height:1.7}
+.pic-2col{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:12px}
+.pic-cell{border-radius:8px;padding:13px 15px;font-size:12.5px;line-height:1.7}
+.pc-theory{background:rgba(59,130,246,.1);border:1px solid rgba(59,130,246,.2)}
+.pc-theory strong{display:block;font-size:10.5px;font-weight:700;color:#93c5fd;
+  letter-spacing:1px;text-transform:uppercase;margin-bottom:6px}
+.pc-faci{background:rgba(99,102,241,.1);border:1px solid rgba(99,102,241,.2)}
+.pc-faci strong{display:block;font-size:10.5px;font-weight:700;color:#a78bfa;
+  letter-spacing:1px;text-transform:uppercase;margin-bottom:6px}
+.pic-vec{background:rgba(14,165,233,.1);border:1px solid rgba(14,165,233,.2);
+  border-radius:6px;padding:10px 14px;margin-bottom:12px;font-size:12.5px;color:#7dd3fc}
+.pic-vec strong{display:block;font-size:10px;font-weight:700;color:#38bdf8;
+  letter-spacing:1px;text-transform:uppercase;margin-bottom:5px}
+.pic-qs{background:rgba(245,158,11,.08);border-radius:8px;padding:13px 15px}
+.pic-qs-lbl{font-size:10px;font-weight:700;letter-spacing:1.5px;color:var(--gold2);
+  text-transform:uppercase;margin-bottom:7px}
+.pic-qs ul{list-style:none}
+.pic-qs ul li{font-size:12.5px;color:var(--gold3);padding:3px 0 3px 16px;
+  position:relative;line-height:1.6}
+.pic-qs ul li::before{content:'Q.';position:absolute;left:0;font-weight:700;
+  font-size:10px;color:var(--gold2)}
+.corr-badge{background:rgba(239,68,68,.15);border:1px solid rgba(239,68,68,.3);
+  border-radius:6px;padding:8px 13px;font-size:12px;color:#fca5a5;margin-bottom:10px}
+.corr-badge::before{content:'🔴 교정 적용: ';font-weight:700}
+
+/* ── Q&A ── */
+.qa-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.qa-card{background:var(--surface);border-radius:8px;border:1px solid var(--bdr2);padding:16px 18px}
+.qa-lv{font-size:10px;font-weight:700;padding:2px 8px;border-radius:10px;
+  margin-bottom:8px;display:inline-block}
+.lv-easy{background:rgba(16,185,129,.2);color:#6ee7b7}
+.lv-mid{background:rgba(245,158,11,.2);color:var(--gold3)}
+.lv-hard{background:rgba(239,68,68,.2);color:#fca5a5}
+.qa-q{font-size:13px;font-weight:700;color:var(--txt);margin-bottom:8px;line-height:1.5}
+.qa-q::before{content:'Q. ';color:#a78bfa;font-weight:900}
+.qa-a{font-size:12.5px;color:var(--txt2);line-height:1.8}
+
+/* ── REF TABLE ── */
+.ref-tbl{width:100%;border-collapse:collapse;font-size:12px;display:block;overflow-x:auto}
+.ref-tbl thead tr{background:#312e81}
+.ref-tbl thead th{padding:9px 12px;font-size:11px;color:rgba(255,255,255,.8);font-weight:600;text-align:left}
+.ref-tbl tbody tr{border-bottom:1px solid var(--bdr2)}
+.ref-tbl tbody tr:nth-child(even){background:var(--surface2)}
+.ref-tbl tbody td{padding:8px 12px;vertical-align:top;line-height:1.65;color:var(--txt2)}
+
+/* ── RESPONSIVE ── */
+@media(max-width:768px){
+  .ov-grid{grid-template-columns:1fr 1fr}
+  .prep-grid{grid-template-columns:1fr}
+  .pic-2col{grid-template-columns:1fr}
+  .qa-grid{grid-template-columns:1fr}
+  .pat-grid{grid-template-columns:1fr 1fr}
+  .wrap{padding:28px 14px 60px}
+  .etym-hdr{grid-template-columns:1fr}
+  .erow{grid-template-columns:70px 1fr}
+  .tl-row{grid-template-columns:76px 16px 1fr}
+}
+@media(max-width:480px){
+  .tbtn{padding:0 12px;font-size:11px}
+  .pat-grid{grid-template-columns:1fr}
+  .ov-grid{grid-template-columns:1fr}
+}
+</style>
+</head>
+<body>
+
+<!-- ── HEADER ── -->
+<header class="hdr">
+  <p class="hdr-lock">🔒 교육자 전용 · INSTRUCTOR ONLY · 교육생 비공개</p>
+  <h1 class="hdr-title">교류분석(TA) 온보딩 교육<br><em>강의 운영 매뉴얼 v2</em></h1>
+  <p class="hdr-sub">이크레더블 2026-1기 신규입사자 입문교육 · 교육생용 v2 mobile 완전 호환</p>
+  <div class="hdr-chips">
+    <span class="hchip gold">⏱ 총 120분</span>
+    <span class="hchip purple">📚 6탭 구성</span>
+    <span class="hchip green">✅ v2 교정 반영 · 벡터 표기 · 모바일 최적화 대응</span>
+  </div>
+</header>
+
+<!-- ── TAB NAV ── -->
+<nav class="tnav">
+  <div class="tnav-in">
+    <button class="tbtn on" onclick="st('ops',this)">🗂 운영 가이드</button>
+    <button class="tbtn" onclick="st('script',this)">📝 강의 스크립트</button>
+    <button class="tbtn" onclick="st('etym',this)">📖 어원·유래 사전 <span class="tbadge">15</span></button>
+    <button class="tbtn" onclick="st('diag',this)">📊 자가진단 운영</button>
+    <button class="tbtn" onclick="st('prac',this)">✏️ 실습 퍼실리테이션 <span class="tbadge">12</span></button>
+    <button class="tbtn" onclick="st('qa',this)">❓ Q&A · 참고문헌</button>
+  </div>
+</nav>
+
+<!-- ══════════════════════════════════════════════════════
+     PANEL 1: 운영 가이드
+══════════════════════════════════════════════════════ -->
+<div class="panel on" id="panel-ops">
+<div class="wrap">
+
+<p class="stag">Operations Guide</p>
+<h2 class="stitle">교육 운영 가이드 — 사전 브리핑 & 타임라인</h2>
+
+<div class="ov-grid">
+  <div class="ov-card"><div class="ov-icon">🎯</div><div class="ov-label">교육 목적</div><div class="ov-val">자아상태 인식·교류 패턴 분석·어서티브 소통 실천</div></div>
+  <div class="ov-card"><div class="ov-icon">👥</div><div class="ov-label">교육 대상</div><div class="ov-val">신규 입사자 (4팀 × 5인)</div></div>
+  <div class="ov-card"><div class="ov-icon">⏱</div><div class="ov-label">총 시간</div><div class="ov-val">120분 · M0~M6</div></div>
+  <div class="ov-card"><div class="ov-icon">📐</div><div class="ov-label">강의:실습</div><div class="ov-val">35% 강의 / 65% 활동</div></div>
+  <div class="ov-card"><div class="ov-icon">📱</div><div class="ov-label">교육생 기기</div><div class="ov-val">모바일·PC 완전 호환 HTML</div></div>
+  <div class="ov-card"><div class="ov-icon">🔒</div><div class="ov-label">본 페이지</div><div class="ov-val">교육자 1인 전용</div></div>
+</div>
+
+<h3 style="font-family:'Noto Serif KR',serif;font-size:16px;color:white;margin:28px 0 14px;font-weight:700;">🔴 v2 교정 항목 — 교육 전 필독</h3>
+<div class="tip-box">이하 4가지 교정 사항은 이전 자료(v1)에서 수정된 내용입니다. 교육 시 반드시 v2 기준으로 진행하세요.</div>
+
+<div style="overflow-x:auto">
+<table class="diff-tbl">
+  <thead><tr><th>항목</th><th>v1 오류</th><th>v2 교정 내용</th><th>강의 적용 포인트</th></tr></thead>
+  <tbody>
+    <tr>
+      <td class="cat">C-1</td>
+      <td><div class="diff-old">실습 1번: "교차교류"</div></td>
+      <td><div class="diff-new">상보교류(CP↔AC, 비생산적) — Berne 정의상 벡터 평행 = 상보교류</div></td>
+      <td style="color:var(--txt2)">"상보교류도 비생산적일 수 있다"를 교류패턴 설명 시 반드시 강조</td>
+    </tr>
+    <tr>
+      <td class="cat">C-2</td>
+      <td><div class="diff-old">실습 6번: 부하직원 자아상태 불명확</div></td>
+      <td><div class="diff-new">"(차분하게 사실을 정리하며)" 톤 지시어 추가 → A자아 명확화 → 교차교류 확정</div></td>
+      <td style="color:var(--txt2)">시나리오 낭독 시 지시어 강조하여 읽을 것</td>
+    </tr>
+    <tr>
+      <td class="cat">C-3</td>
+      <td><div class="diff-old">에릭 번(Berne, 1964)</div></td>
+      <td><div class="diff-new">Transactional Analysis in Psychotherapy (1961) — TA 창시 원전. 1964년은 Games People Play</div></td>
+      <td style="color:var(--txt2)">TA 소개 시 1961년 먼저, 1964년은 게임분석 설명 때 사용</td>
+    </tr>
+    <tr>
+      <td class="cat">C-4</td>
+      <td><div class="diff-old">박재황·이명희(2018) — 논문명 미확인</div></td>
+      <td><div class="diff-new">우재현(2015). 상담학연구, 16(4) — 메타분석, 검증 가능</div></td>
+      <td style="color:var(--txt2)">AC 해석 시 우재현(2015) 인용. 이전 인용 사용 금지</td>
+    </tr>
+    <tr>
+      <td class="cat">NEW</td>
+      <td><div class="diff-old">교류 유형 설명 시 단방향 벡터만 제시</div></td>
+      <td><div class="diff-new">교차·이면교류 모두 화자 두 명의 양방향 벡터 명시 (교육생 페이지 반영)</div></td>
+      <td style="color:var(--txt2)">판서 시에도 반드시 두 개의 화살표로 표시할 것</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+
+<h3 style="font-family:'Noto Serif KR',serif;font-size:16px;color:white;margin:32px 0 14px;font-weight:700;">⏱ 120분 운영 타임라인</h3>
+<div class="tl-wrap">
+  <div class="tl-row">
+    <div class="tl-time">0:00–0:10</div>
+    <div class="tl-line"><div class="tl-dot g"></div><div class="tl-vl"></div></div>
+    <div class="tl-box"><span class="mchip mc0">M0</span><strong>워밍업 & 오리엔테이션</strong>감정 날씨 아이스브레이킹, 그라운드 룰 수립, 4팀 구성. 교육생 페이지 탭1(개념학습) 화면 안내.</div>
+  </div>
+  <div class="tl-row">
+    <div class="tl-time">0:10–0:30</div>
+    <div class="tl-line"><div class="tl-dot n"></div><div class="tl-vl"></div></div>
+    <div class="tl-box"><span class="mchip mc1">M1</span><strong>TA 이론 Ⅰ — PAC 자아상태 (20분)</strong>기능분석 선언 · 오염 개념 · 직장 사례 · 양방향 벡터 판서. 강의 14분 + Q&A 6분</div>
+  </div>
+  <div class="tl-row">
+    <div class="tl-time">0:30–0:50</div>
+    <div class="tl-line"><div class="tl-dot n"></div><div class="tl-vl"></div></div>
+    <div class="tl-box"><span class="mchip mc2">M2</span><strong>자가진단 (이고그램, 20분)</strong>교육생 탭2 전환, 50문항 개별 응답 (모바일: 자동스크롤 지원), 소그룹 공유. <strong>⚠️ 역문항 5개 사전 안내 필수</strong></div>
+  </div>
+  <div class="tl-row">
+    <div class="tl-time">0:50–1:10</div>
+    <div class="tl-line"><div class="tl-dot n"></div><div class="tl-vl"></div></div>
+    <div class="tl-box"><span class="mchip mc3">M3</span><strong>TA 이론 Ⅱ (20분)</strong>교류 패턴 3종 (벡터 다이어그램) · 게임분석 · 드라마 삼각형 · 스트로크 경제 · 인생태도. 강의 12분 + 짝 실습 8분</div>
+  </div>
+  <div class="tl-row">
+    <div class="tl-time">1:10–1:40</div>
+    <div class="tl-line"><div class="tl-dot star"></div><div class="tl-vl"></div></div>
+    <div class="tl-box"><span class="mchip mc4">M4 ★</span><strong>시나리오 역할극 (30분)</strong>교육생 탭3 전환, 12문항 중 팀별 배정, 역할극→재연→발표. 벡터 도식화. <strong>핵심 인사이트: "자아상태는 선택"</strong></div>
+  </div>
+  <div class="tl-row">
+    <div class="tl-time">1:40–1:55</div>
+    <div class="tl-line"><div class="tl-dot n"></div><div class="tl-vl"></div></div>
+    <div class="tl-box"><span class="mchip mc5">M5</span><strong>DESC & 소통 유형 (15분)</strong>4가지 소통 유형 비교 · 개인 DESC 워크시트. 강의 8분 + 실습 7분</div>
+  </div>
+  <div class="tl-row">
+    <div class="tl-time">1:55–2:00</div>
+    <div class="tl-line"><div class="tl-dot g"></div><div class="tl-vl"></div></div>
+    <div class="tl-box"><span class="mchip mc6">M6</span><strong>마무리</strong>액션플랜 카드 작성, 소감 한 마디, 클로징 멘트</div>
+  </div>
+</div>
+
+<h3 style="font-family:'Noto Serif KR',serif;font-size:16px;color:white;margin:32px 0 12px;font-weight:700;">📋 준비물 체크리스트</h3>
+<div class="prep-grid">
+  <div class="prep-item">교육생용 v2 mobile HTML — 교육생 각자의 모바일/PC 기기에서 접속</div>
+  <div class="prep-item">본 교육자용 HTML — 강사 기기에서 별도 실행</div>
+  <div class="prep-item">이고그램 진단지 인쇄본 × 25부 (역문항 ★ 표시)</div>
+  <div class="prep-item">역할극 시나리오 카드 12종 × 5세트</div>
+  <div class="prep-item">DESC 워크시트 × 25부</div>
+  <div class="prep-item">액션플랜 카드 + 봉투 × 25세트</div>
+  <div class="prep-item">전지 × 4장, 유성매직 (벡터 다이어그램 판서용)</div>
+  <div class="prep-item">화이트보드 또는 디지털 판서 도구</div>
+  <div class="prep-item">포스트잇, 팀 배치도 (부서 혼합 구성)</div>
+  <div class="prep-item">스톱워치 (모듈별 타임 관리)</div>
+</div>
+
+<div class="warn-box">진단 결과를 팀 전체가 공유하는 방식은 금지. 공개 여부는 전적으로 개인 자율. "이 진단에는 좋고 나쁜 결과가 없습니다"를 최소 2회 강조.</div>
+<div class="warn-box">역문항(🔄 표시 5개) 사전 안내 필수: "이 문항은 반대로 생각하며 응답하세요. 시스템이 자동으로 역채점합니다."</div>
+<div class="warn-box">역할극 시 특정인 실명 언급·직접 경험 폭로 발언이 나오면 즉시 개입. 사전에 "이 역할극의 캐릭터는 실제 특정인이 아닙니다" 강조.</div>
+<div class="tip-box">핵심 메시지를 3회 반복 전달: M0 복선 → M4 역할극 후 언어화 → M6 클로징 확인. "자아상태는 반응이 아니라 선택이다."</div>
+<div class="tip-box">모바일 환경(교육생 v2 mobile): 탭 전환·답안 확인 시 자동 스크롤, 햅틱 피드백 지원. 교육생들이 스마트폰으로 접속할 경우 네트워크 연결 사전 확인.</div>
+
+</div></div>
+
+<!-- ══════════════════════════════════════════════════════
+     PANEL 2: 강의 스크립트
+══════════════════════════════════════════════════════ -->
+<div class="panel" id="panel-script">
+<div class="wrap">
+<p class="stag">Lecture Script</p>
+<h2 class="stitle">챕터별 강의 스크립트 & 판서 가이드</h2>
+
+<div class="sb">
+  <div class="sb-meta"><span class="sb-time">M0 · 0:00–0:10</span><span class="sb-method sm-prac">활동</span><div class="sb-title">워밍업 & 오리엔테이션 — 심리적 안전 공간 만들기</div></div>
+  <div class="sb-body">
+    <div class="say">안녕하세요, 이크레더블 입사를 진심으로 환영합니다. 오늘 2시간 동안 함께할 주제는 '교류분석'입니다. 어렵게 들리시죠? 사실 아주 간단합니다 — 여러분이 매일 직장에서 경험하는 대화 속에 숨어있는 패턴을 보는 눈을 기르는 것입니다.</div>
+    <p>아이스브레이킹: "지금 이 순간 여러분의 감정을 <strong>날씨</strong>로 표현하면 어떤가요?" 화이트보드에 실시간 기록. → 이후 자아상태 개념과 자연스럽게 연결.</p>
+    <div class="board">감정 날씨 목록 → "이런 다양한 감정들이 어디서 오는지, 오늘 교류분석을 통해 이해하게 됩니다"로 전환</div>
+    <p>그라운드 룰(참가자와 함께 설정): ① 판단 없는 경청 ② 자발적 참여 ③ 비밀 보장 ④ 실수 환영</p>
+    <div class="say">오늘 교육에서 한 가지만 가져가신다면, 내일 아침 첫 번째 대화에서 스스로에게 이 질문을 할 수 있는 것입니다. "나는 지금 어떤 자아상태에서 말하고 있는가? 그리고 그것은 내가 선택한 것인가?"</div>
+    <div class="tip-box">팀 구성: 번호 추첨으로 기존 아는 사람끼리 몰리지 않도록. 부서 혼합 사전 준비.</div>
+  </div>
+</div>
+
+<div class="sb">
+  <div class="sb-meta"><span class="sb-time">M1 · 0:10–0:30</span><span class="sb-method sm-lec">강의</span><span class="sb-method sm-disc">Q&A</span><div class="sb-title">TA 이론 Ⅰ — PAC 자아상태 (20분)</div></div>
+  <div class="sb-body">
+    <div class="say">교류분석은 에릭 번(Eric Berne)이라는 정신과 의사가 1961년에 제안한 심리학 이론입니다. 그는 환자들의 대화를 관찰하다가 흥미로운 패턴을 발견했습니다. 같은 사람이 어떤 때는 권위적인 부모처럼, 어떤 때는 합리적인 어른처럼, 어떤 때는 아이처럼 반응한다는 것이었죠. 그래서 그는 이 세 가지를 Parent·Adult·Child, PAC로 명명했습니다.</div>
+    <div class="board">P(부모) — A(성인) — C(아이) 세 개의 원을 수직으로 그린 후 각각 설명. CP·NP / A / FC·AC 세분화.</div>
+    <div class="say">오늘 우리가 사용하는 것은 '기능분석(Functional Analysis)' 모델입니다. 자아상태가 외부에서 어떻게 관찰되는가 — 행동·말투·태도에 초점을 맞춥니다. 내일 아침부터 바로 쓸 수 있는 실용적 도구입니다.</div>
+    <p><strong>자아상태 오염 설명:</strong></p>
+    <div class="say">A 자아가 항상 순수하게 작동하면 좋겠지만, 실제로는 P나 C가 침범해 오는 경우가 있습니다. "내 경험상 이게 맞아" — 이것은 P에 오염된 A입니다. "느낌이 이러니까 사실일 거야" — C에 오염된 A입니다. A를 강화한다는 것은 이 오염을 걷어내는 과정입니다.</div>
+    <p><strong>벡터 판서 (핵심 시각화):</strong></p>
+    <div class="board">상보교류: 평행한 두 화살표 (→, →). 교차교류: X자 두 화살표. 이면교류: 실선(겉) + 점선(속) 두 겹. 반드시 두 화자 모두의 벡터를 표시.</div>
+    <div class="tip-box">CP·NP·A·FC·AC 각각에 "이게 과하면 어떻게 되는가"를 함께 언급하면 이해가 빠릅니다. 자원자를 구해 직장 상황 예시를 이야기하게 하면 몰입도 상승.</div>
+  </div>
+</div>
+
+<div class="sb">
+  <div class="sb-meta"><span class="sb-time">M3 · 0:50–1:10</span><span class="sb-method sm-lec">강의</span><span class="sb-method sm-prac">짝 실습</span><div class="sb-title">TA 이론 Ⅱ — 교류패턴·게임·드라마삼각형·스트로크 (20분)</div></div>
+  <div class="sb-body">
+    <div class="say">두 사람이 주고받는 모든 대화는 세 가지 패턴 중 하나입니다. 상보교류, 교차교류, 이면교류. 갈등의 대부분은 교차교류에서 시작됩니다. 그런데 중요한 포인트가 있습니다 — 상보교류라고 무조건 좋은 게 아닙니다. CP↔AC도 상보교류이지만 비생산적입니다. 대화가 끊기지 않는다고 좋은 교류가 아닙니다.</div>
+    <div class="board">교차교류 판서: 동료 A→나 A 기대(위 화살표) / 나 CP→동료 AC 자극(아래 화살표). 두 벡터가 X자로 교차하는 것을 반드시 시각화.</div>
+    <div class="say">번은 1964년 "Games People Play"에서 흥미로운 관찰을 했습니다. 사람들이 반복적으로 같은 불행한 패턴을 만든다는 것입니다. 게임에는 규칙이 있고 결말이 있지만, 참가자들이 자신이 게임을 하고 있다는 걸 모릅니다. 인식하는 순간 게임은 끝납니다.</div>
+    <div class="say">카프만(Karpman, 1968)은 게임이 세 가지 역할 — 박해자·희생자·구원자 사이를 오간다는 것을 발견했습니다. 신입사원에게 중요한 것은 '희생자' 위치에 고착되지 않는 것입니다. A 자아로 "내가 할 수 있는 것은 무엇인가"를 묻는 것이 탈출구입니다.</div>
+    <div class="say">Steiner(1971)가 정리한 스트로크 경제 5법칙 — 우리는 무의식적으로 서로에게 인정을 주지 않는 규칙을 따르고 있습니다. 이것을 의식적으로 깨는 것이 성숙한 소통의 시작입니다.</div>
+    <div class="tip-box">짝 실습 8분: 업무 상황 카드를 뽑아 상보→교차 순서로 대화 시도. "지금 어떤 자아상태를 쓴 것 같아요? 벡터는 어떻게 됐나요?"라고 서로 피드백.</div>
+  </div>
+</div>
+
+<div class="sb">
+  <div class="sb-meta"><span class="sb-time">M4 ★ · 1:10–1:40</span><span class="sb-method sm-prac">역할극</span><span class="sb-method sm-disc">발표</span><div class="sb-title">핵심 모듈 — 시나리오 역할극 & 핵심 인사이트 도출 (30분)</div></div>
+  <div class="sb-body">
+    <div class="say">지금까지 이론을 배웠습니다. 이제 몸으로 경험해봅시다. 팀별로 시나리오 카드를 받으시면, 먼저 현재 방식으로 — 교차교류나 이면교류로 — 한 번 해보시고, 그다음 성숙한 방식으로 다시 해보시기 바랍니다. 두 번 재연하신 후, 어떤 벡터가 그려졌는지 팀별로 그림으로 표현해보세요.</div>
+    <div class="board">전지에 교류 다이어그램 그리기: 두 화자의 자아상태 원과 벡터 화살표. 교차교류는 X자, 이면교류는 실선+점선으로 명시.</div>
+    <div class="say">각 팀에서 2분씩 발표해주세요. "어느 순간 자아상태를 전환했나요? 그 전환을 가능하게 한 것은 무엇이었나요? 벡터가 어떻게 바뀌었나요?"</div>
+    <div class="say">역할극에서 A 자아로 전환하려면 무엇이 필요했나요? 의지? 기술? 아니면 '선택할 수 있다'는 인식?</div>
+    <div class="say">오늘 실습에서 경험한 것처럼, 자아상태는 반응이 아닙니다. 선택입니다. CP나 AC가 자동으로 올라오는 순간에도 — 딱 0.5초만 멈추면 — A 자아로 전환할 수 있습니다. 그 0.5초의 선택이 대화의 방향을 바꾸고, 관계의 결을 바꾸고, 결국 여러분의 조직 생활 전체를 바꿉니다.</div>
+    <div class="board">칠판에 크게 판서: "자아상태는 반응이 아니라 선택이다" — 교육 종료까지 지우지 않을 것</div>
+  </div>
+</div>
+
+<div class="sb">
+  <div class="sb-meta"><span class="sb-time">M5 · 1:40–1:55</span><span class="sb-method sm-lec">강의</span><span class="sb-method sm-chk">워크시트</span><div class="sb-title">DESC & 소통 유형 (15분)</div></div>
+  <div class="sb-body">
+    <div class="say">역할극에서 경험한 것처럼, 공격형·수동형·수동-공격형은 모두 자동 반응에서 나옵니다. 어서티브 소통만이 A 자아의 의식적 선택으로 이루어집니다. DESC는 Bower 부부(1976)가 개발한 어서티브 대화의 4단계입니다.</div>
+    <p>개인 워크시트 7분: 자신의 실제 소통 상황 1개를 DESC로 재작성. 짝과 30초씩 소리 내어 읽어보기.</p>
+    <div class="tip-box">어색한 느낌이 드는 것이 당연합니다. "그 어색함이 A 자아가 성장하는 신호입니다"라고 선제적으로 정상화.</div>
+  </div>
+</div>
+
+<div class="sb">
+  <div class="sb-meta"><span class="sb-time">M6 · 1:55–2:00</span><span class="sb-method sm-chk">성찰</span><div class="sb-title">마무리 — 액션플랜 카드 & 클로징</div></div>
+  <div class="sb-body">
+    <p>액션플랜 카드 작성 3분. 참가자 전원 한 마디씩: "오늘 가져가는 한 단어는?"</p>
+    <div class="say">소통은 스킬이 아니라 태도입니다. 그리고 태도는 자아상태의 선택에서 시작됩니다. I'm OK, You're OK. 이 마음을 내일 첫 번째 대화에서 실천해보세요. 수고하셨습니다.</div>
+    <div class="tip-box">액션플랜 카드는 봉투에 밀봉하여 "30일 후 자신에게 보내는 편지"로 보관. HR에서 1개월 후 배포 권장.</div>
+  </div>
+</div>
+
+</div></div>
+
+<!-- ══════════════════════════════════════════════════════
+     PANEL 3: 어원·유래 사전 (15개)
+══════════════════════════════════════════════════════ -->
+<div class="panel" id="panel-etym">
+<div class="wrap">
+<p class="stag">Etymology & Origins</p>
+<h2 class="stitle">핵심 용어 어원·유래·채택 배경 사전 — 15개 항목</h2>
+<div class="tip-box">용어의 어원·유래·채택 배경 설명은 교육생이 개념을 낯선 이론이 아닌 살아있는 언어로 받아들이게 하는 핵심 장치입니다. 각 항목의 "강의 활용 팁"을 적절한 시점에 삽입하세요.</div>
+
+<!-- 1 -->
+<div class="etym-card">
+  <div class="etym-hdr">
+    <div><div class="etym-en">Transactional Analysis</div><div class="etym-ko">교류분석 (TA)</div><div class="etym-auth">Eric Berne, 1958년 첫 논문 / 1961년 저서 완성</div></div>
+  </div>
+  <div class="etym-body">
+    <div class="erow"><div class="elabel">어원</div><div class="eval"><em>Transaction</em> — 라틴어 <strong>transigere</strong> (trans=건너서 + agere=행동하다). 원래 "협상을 완결하다"는 법적·상업적 용어.</div></div>
+    <div class="erow"><div class="elabel">채택 이유</div><div class="eval">번은 기존 정신분석의 난해한 용어에서 벗어나, 두 사람 사이에 일어나는 <strong>관찰 가능한 교환 단위</strong>로 인간 소통을 분석하고자 했습니다. "두 사람 사이의 거래(transaction)를 분석(analysis)한다"는 명확한 의미입니다.</div></div>
+    <div class="erow"><div class="elabel">역사적 맥락</div><div class="eval">1958년 <em>Transactional Analysis: A New and Effective Method of Group Therapy</em> (American Journal of Psychotherapy) 첫 논문 발표. 집단 치료 효율화를 위해 개발 후 조직·교육·상담 전반으로 확산.</div></div>
+    <div class="eteach"><div class="eteach-lbl">강의 활용 팁 (M1 도입부)</div><p>"Transaction이라는 단어 어디서 많이 들어보셨죠? 은행 거래 명세서에 'Transaction History'라고 나오잖아요. 번은 일부러 이 단어를 골랐습니다. 두 사람이 말을 주고받는 것도 하나의 거래이며, 우리는 그 거래에서 무언가를 주고 받는다는 뜻입니다."</p></div>
+  </div>
+</div>
+
+<!-- 2 -->
+<div class="etym-card">
+  <div class="etym-hdr">
+    <div><div class="etym-en">Ego State / PAC</div><div class="etym-ko">자아상태 / 부모·성인·아이</div><div class="etym-auth">Eric Berne, 1961 — 의도적 일상어 선택</div></div>
+  </div>
+  <div class="etym-body">
+    <div class="erow"><div class="elabel">어원</div><div class="eval"><em>Ego</em> — 라틴어로 단순히 "나(I)". 프로이트가 심리학 용어로 사용한 후 정착. 번은 프로이트의 Id·Ego·Superego를 계승하면서도 <strong>행동 관찰 가능한 방식</strong>으로 재구성.</div></div>
+    <div class="erow"><div class="elabel">채택 이유</div><div class="eval">번은 의도적으로 <strong>일상적인 단어(Parent, Adult, Child)</strong>를 선택. 당시 정신분석은 Superego, Cathexis, Transference 같은 전문 용어로 가득했고, 번은 환자와 일반인도 이해할 수 있는 언어를 원했습니다. "새로운 전문 용어보다 모두가 아는 단어가 더 강력하다"는 신념.</div></div>
+    <div class="erow"><div class="elabel">프로이트와 차이</div><div class="eval">프로이트 Superego≈CP, Ego≈A, Id≈FC와 유사하나, 번은 과거 실제 경험에서 형성된 "실제 자아상태"로 재개념화. C는 "어린 시절의 실제 자신"이지 본능적 욕동이 아님.</div></div>
+    <div class="eteach"><div class="eteach-lbl">강의 활용 팁 (M1)</div><p>"번은 왜 Parent, Adult, Child라는 단어를 썼을까요? 당시 정신분석 용어들이 너무 어려워서 환자들이 치료에 참여하지 못했기 때문입니다. '지금 당신은 부모처럼 행동하고 있어요' — 이 말은 누구나 즉시 이해할 수 있습니다. 이것이 TA가 전 세계로 퍼진 이유입니다."</p></div>
+  </div>
+</div>
+
+<!-- 3 -->
+<div class="etym-card">
+  <div class="etym-hdr">
+    <div><div class="etym-en">Functional vs Structural Analysis</div><div class="etym-ko">기능분석 vs 구조분석</div><div class="etym-auth">Berne (1961) 구조분석 / 이후 기능분석 정교화</div></div>
+  </div>
+  <div class="etym-body">
+    <div class="erow"><div class="elabel">구조분석</div><div class="eval">자아상태 내부 구조(무엇으로 구성되었는가)를 다룸. P1·P2 같은 2차 구조까지 포함. 심층 심리 치료에 적합.</div></div>
+    <div class="erow"><div class="elabel">기능분석</div><div class="eval">자아상태가 <strong>외부에서 어떻게 기능하는가</strong>(행동·말투·몸짓)에 초점. CP·NP·A·FC·AC 5분류. 조직·코칭·교육 현장에 적합.</div></div>
+    <div class="erow"><div class="elabel">채택 배경</div><div class="eval">기업 교육에서는 "왜 형성됐는가(구조)"보다 "지금 어떻게 행동하는가(기능)"가 더 실용적. 본 교육에서 기능분석 채택 이유.</div></div>
+    <div class="eteach"><div class="eteach-lbl">강의 활용 팁 (M1 기능분석 선언 시)</div><p>"TA에는 더 깊은 구조분석도 있지만 오늘은 기능분석을 씁니다. 구조분석이 'MRI 결과'라면, 기능분석은 '걷는 방식을 보는 것'입니다. 내일부터 바로 쓸 수 있는 도구가 목적이기 때문입니다."</p></div>
+  </div>
+</div>
+
+<!-- 4 -->
+<div class="etym-card">
+  <div class="etym-hdr">
+    <div><div class="etym-en">Stroke</div><div class="etym-ko">스트로크 / 인정 자극</div><div class="etym-auth">Berne (1961) — René Spitz 영아 연구에서 차용</div></div>
+  </div>
+  <div class="etym-body">
+    <div class="erow"><div class="elabel">어원·유래</div><div class="eval">영어 stroke의 원래 뜻은 "쓰다듬다". René Spitz(1940s)의 고아원 연구: 신체 접촉(스트로킹)을 받지 못한 영아들이 신체적·심리적으로 쇠약해짐을 발견. 번이 이를 <strong>심리적 인정</strong>으로 확장.</div></div>
+    <div class="erow"><div class="elabel">채택 이유</div><div class="eval">물리적 스트로킹(접촉)과 심리적 스트로킹(인정)이 같은 생물학적 욕구를 충족시킨다고 주장. 성인도 영아처럼 "존재 인정"이 필요하다는 개념을 일상어로 표현.</div></div>
+    <div class="erow"><div class="elabel">스트로크 경제</div><div class="eval">Claude Steiner(1971)가 경제학 용어(economy, 그리스어 oikonomia=집안 살림)를 차용. 스트로크가 희소 자원처럼 관리·통제된다는 은유. <em>Transactional Analysis Journal</em>, 1(3).</div></div>
+    <div class="eteach"><div class="eteach-lbl">강의 활용 팁 (M3 스트로크 설명 시)</div><p>"Stroke — 원래는 쓰다듬는 것입니다. 갓 태어난 아기를 쓰다듬어주지 않으면 아기가 병들어 간다는 연구가 있었습니다. 어른도 마찬가지입니다. 쓰다듬는 대신 '고마워요', '잘했어요' — 이것이 성인의 스트로크입니다."</p></div>
+  </div>
+</div>
+
+<!-- 5 -->
+<div class="etym-card">
+  <div class="etym-hdr">
+    <div><div class="etym-en">Egogram</div><div class="etym-ko">이고그램</div><div class="etym-auth">John Dusay, 1972 — Egograms (Harper & Row, 1977)</div></div>
+  </div>
+  <div class="etym-body">
+    <div class="erow"><div class="elabel">어원</div><div class="eval"><em>Ego</em>(라틴어) + <em>-gram</em>(그리스어 gramma=기록된 것). "자아상태를 기록·시각화한 것". 심전도(electrocardiogram), 뇌파(electroencephalogram)와 동일한 조어 방식.</div></div>
+    <div class="erow"><div class="elabel">개발 배경</div><div class="eval">Dusay는 번의 제자로, 번이 제시한 다섯 자아상태를 막대그래프로 시각화. <strong>항상성 원리(Constancy Hypothesis)</strong> 함께 제안: 5개 자아상태의 총 에너지는 일정하므로, 하나가 올라가면 다른 하나가 내려간다.</div></div>
+    <div class="erow"><div class="elabel">v2 진단 개선</div><div class="eval">역문항 5개 추가(묵종 편향 방지), CP 3문항 교체(동질성 해소), 변별력 의심 6문항 수정. 7가지 패턴 분류 알고리즘(V형·역V형·N형·역N형·M형·W형·평탄형) 탑재.</div></div>
+    <div class="eteach"><div class="eteach-lbl">강의 활용 팁 (M2 자가진단 전)</div><p>"이고그램은 일종의 '자아 심전도'입니다. Dusay가 발견한 항상성의 원리 — 5개 에너지의 총합은 일정합니다. A를 높이고 싶다면, 어떤 자아상태를 줄여야 할지 생각해보세요."</p></div>
+  </div>
+</div>
+
+<!-- 6 -->
+<div class="etym-card">
+  <div class="etym-hdr">
+    <div><div class="etym-en">Life Position / OK Corral</div><div class="etym-ko">인생태도 / OK 사각형</div><div class="etym-auth">Berne (1962) → Harris (1967) → Ernst (1971)</div></div>
+  </div>
+  <div class="etym-body">
+    <div class="erow"><div class="elabel">OK 어원</div><div class="eval">OK의 가장 유력한 어원: 1839년 보스턴에서 "All Correct"를 유머러스하게 "Oll Korrect → OK"로 줄인 미국 속어. Harris는 이 일상적 표현으로 심리학 개념을 대중화.</div></div>
+    <div class="erow"><div class="elabel">Harris의 기여</div><div class="eval">Thomas Harris의 <em>I'm OK – You're OK</em>(1967)는 전 세계 1,500만 부 이상 판매. TA를 일반 대중에게 처음으로 접근 가능하게 만든 책.</div></div>
+    <div class="erow"><div class="elabel">OK Corral</div><div class="eval">Franklin Ernst(1971)가 4사분면을 "OK Corral"로 명명. 미국 서부 역사의 OK Corral 총격전(1881)에서 차용한 은유. 인생태도를 "심리적 전쟁터"로 시각화. <em>Transactional Analysis Journal</em>, 1(4).</div></div>
+    <div class="eteach"><div class="eteach-lbl">강의 활용 팁 (M3 인생태도 설명 시)</div><p>"'OK'라는 단어, 어디서 왔을까요? 1839년 미국에서 'All Correct'를 웃기게 줄인 말이 기원입니다. Harris는 이 일상적인 단어로 심리학의 복잡한 개념을 단 두 문장으로 표현했습니다. 그 책은 전 세계에서 1,500만 부 이상 팔렸습니다."</p></div>
+  </div>
+</div>
+
+<!-- 7 -->
+<div class="etym-card">
+  <div class="etym-hdr">
+    <div><div class="etym-en">Game (심리 게임)</div><div class="etym-ko">게임 / 심리적 게임</div><div class="etym-auth">Eric Berne, Games People Play (1964)</div></div>
+  </div>
+  <div class="etym-body">
+    <div class="erow"><div class="elabel">채택 이유</div><div class="eval">게임의 특성: ① 규칙이 있다 ② 진행 과정이 있다 ③ 결말(payoff)이 있다 ④ 참가자들이 자신이 게임하고 있다는 것을 인식하지 못한다. 번이 의도적으로 이 은유를 선택.</div></div>
+    <div class="erow"><div class="elabel">대표 게임</div><div class="eval">"Yes, But…" — 조언을 구하는 척 모든 제안을 거부. "NIGYSOB" — 상대 실수를 기다렸다가 공격. "Kick Me" — 반복적으로 비난받을 행동을 하여 부정 스트로크 유도.</div></div>
+    <div class="erow"><div class="elabel">v2 반영</div><div class="eval">개념 학습 챕터 02에 게임분석 섹션 추가. 직장 내 3가지 게임 사례 포함.</div></div>
+    <div class="eteach"><div class="eteach-lbl">강의 활용 팁 (M3)</div><p>"번이 왜 '게임'이라는 단어를 썼을까요? 게임에는 규칙이 있고 결말이 있죠. 그런데 참가자들이 자기가 게임을 하고 있다는 걸 모릅니다. 인식하는 순간 게임은 끝납니다."</p></div>
+  </div>
+</div>
+
+<!-- 8 -->
+<div class="etym-card">
+  <div class="etym-hdr">
+    <div><div class="etym-en">Karpman Drama Triangle</div><div class="etym-ko">카프만 드라마 삼각형</div><div class="etym-auth">Stephen Karpman, 1968, Transactional Analysis Bulletin</div></div>
+  </div>
+  <div class="etym-body">
+    <div class="erow"><div class="elabel">어원·유래</div><div class="eval"><em>Drama</em> — 그리스어 drama(행동, 연극). 연극 비평 이론(Propp의 민담 형태론 등)에서 역할 분류를 차용. Karpman은 모든 동화·드라마·인간 갈등이 이 세 역할의 순환으로 설명된다고 주장.</div></div>
+    <div class="erow"><div class="elabel">승자 삼각형</div><div class="eval">Acey Choy(1990)가 치유적 대안으로 제안. Persecutor→Assertive / Victim→Vulnerable but empowered / Rescuer→Caring. <em>Transactional Analysis Journal</em>, 20(1).</div></div>
+    <div class="erow"><div class="elabel">v2 반영</div><div class="eval">개념학습에 드라마 삼각형 SVG 다이어그램 + 승자 삼각형 함께 수록.</div></div>
+    <div class="eteach"><div class="eteach-lbl">강의 활용 팁 (M3)</div><p>"카프만은 연극(drama)에서 아이디어를 얻었습니다. 직장에서도 이 세 역할이 반복됩니다. 신입사원이 가장 쉽게 빠지는 역할은 희생자입니다. '어쩔 수 없어, 나는 신입인데' — 이 말이 나온다면 지금 드라마 삼각형 안에 있는 겁니다."</p></div>
+  </div>
+</div>
+
+<!-- 9 -->
+<div class="etym-card">
+  <div class="etym-hdr">
+    <div><div class="etym-en">Contamination (오염)</div><div class="etym-ko">자아상태 오염</div><div class="etym-auth">Eric Berne, 1961 — 의학·화학 용어 차용</div></div>
+  </div>
+  <div class="etym-body">
+    <div class="erow"><div class="elabel">어원</div><div class="eval"><em>Contamination</em> — 라틴어 contaminare(접촉을 통해 더럽히다). 의학에서 병원체 오염, 화학에서 불순물 혼입을 뜻하는 용어를 차용.</div></div>
+    <div class="erow"><div class="elabel">임상적 의의</div><div class="eval">P에 의한 오염=편견(prejudice), C에 의한 오염=망상(delusion). <strong>오염된 A는 스스로 합리적이라고 확신</strong>하기 때문에 가장 다루기 어렵다.</div></div>
+    <div class="erow"><div class="elabel">v2 반영</div><div class="eval">개념학습 Ch.01에 "자아상태 오염" 박스 섹션 추가.</div></div>
+    <div class="eteach"><div class="eteach-lbl">강의 활용 팁 (M1)</div><p>"오염이 무서운 이유는 오염된 사람이 자신이 오염된 것을 모른다는 것입니다. '나는 논리적으로 판단하고 있어' — 그런데 사실은 어릴 때 부모에게 들은 편견으로 판단하고 있을 수 있습니다."</p></div>
+  </div>
+</div>
+
+<!-- 10 -->
+<div class="etym-card">
+  <div class="etym-hdr">
+    <div><div class="etym-en">Assertive / DESC</div><div class="etym-ko">자기주장 / 어서티브</div><div class="etym-auth">Bower & Bower, Asserting Yourself (1976)</div></div>
+  </div>
+  <div class="etym-body">
+    <div class="erow"><div class="elabel">어원</div><div class="eval">라틴어 <strong>asserere</strong> (ad=향해서 + serere=주장하다). "자신의 권리를 선언·주장하다". 행동치료사 Joseph Wolpe(1958)가 심리학 용어로 정립: "assertiveness training".</div></div>
+    <div class="erow"><div class="elabel">DESC 개발</div><div class="eval">Sharon & Gordon Bower(1976)가 4단계 개발. 각 단계가 A 자아의 다른 기능을 담당: D(사실)·E(감정 1인칭)·S(요청)·C(결과).</div></div>
+    <div class="erow"><div class="elabel">TA와 연결</div><div class="eval">DESC는 독립적으로 개발됐으나 TA의 A 자아 소통 방식과 완벽히 일치. 어서티브 소통 = I'm OK, You're OK 태도의 언어적 구현.</div></div>
+    <div class="eteach"><div class="eteach-lbl">강의 활용 팁 (M5)</div><p>"Assertive — 라틴어로 '내 권리를 선언한다'는 뜻입니다. 공격적이라는 게 아닙니다. 처음엔 어색합니다. 그런데 그 어색함이 A 자아가 성장하는 신호입니다."</p></div>
+  </div>
+</div>
+
+<!-- 11 -->
+<div class="etym-card">
+  <div class="etym-hdr">
+    <div><div class="etym-en">Stroke Economy</div><div class="etym-ko">스트로크 경제</div><div class="etym-auth">Claude Steiner, TAJ 1(3), 1971</div></div>
+  </div>
+  <div class="etym-body">
+    <div class="erow"><div class="elabel">어원·은유</div><div class="eval"><em>Economy</em> — 그리스어 oikonomia(집안 살림). 경제학 용어를 차용하여 스트로크를 희소 자원처럼 관리·통제하는 사회적 시스템 비판.</div></div>
+    <div class="erow"><div class="elabel">5법칙</div><div class="eval">① 주어야 할 긍정 스트로크를 주지 마라 ② 받고 싶은 스트로크를 요청하지 마라 ③ 원하는 스트로크가 와도 받아들이지 마라 ④ 원하지 않는 스트로크를 거부하지 마라 ⑤ 자기 자신에게 스트로크를 주지 마라</div></div>
+    <div class="eteach"><div class="eteach-lbl">강의 활용 팁 (M3)</div><p>"Steiner는 경제학자처럼 생각했습니다. 왜 사람들은 서로에게 충분히 칭찬하지 않을까? 이 규칙을 의식적으로 깨는 사람이 팀을 바꿉니다."</p></div>
+  </div>
+</div>
+
+<!-- 12 -->
+<div class="etym-card">
+  <div class="etym-hdr">
+    <div><div class="etym-en">Complementary · Crossed · Ulterior</div><div class="etym-ko">상보·교차·이면 교류</div><div class="etym-auth">Eric Berne, 1961 — 기하학적 은유</div></div>
+  </div>
+  <div class="etym-body">
+    <div class="erow"><div class="elabel">Complementary</div><div class="eval">라틴어 complementum(완성하는 것). 수학의 보각(서로 더하면 직각). 두 벡터가 평행하게 맞물리는 기하학적 보완 관계.</div></div>
+    <div class="erow"><div class="elabel">Crossed</div><div class="eval">영어 cross(교차). 두 벡터가 X자로 교차하여 대화가 단절되는 모습을 기하학적으로 시각화.</div></div>
+    <div class="erow"><div class="elabel">Ulterior</div><div class="eval">라틴어 ulterior(더 먼 곳에 있는, 숨겨진). "ulterior motive(숨겨진 의도)"로 흔히 사용. 표면 메시지 뒤에 숨겨진 다른 의도를 가진 교류.</div></div>
+    <div class="erow"><div class="elabel">v2 반영</div><div class="eval">교류실습 12문항 모두 양방향 벡터(두 화자 모두의 화살표) 명시. 교차·이면교류는 벡터 박스에 두 개의 화살표로 표시.</div></div>
+    <div class="eteach"><div class="eteach-lbl">강의 활용 팁 (M3)</div><p>"번은 수학자의 눈으로 대화를 봤습니다. 두 사람이 주고받는 말을 화살표로 그렸을 때 — 평행하면 상보, X자면 교차, 두 겹이면 이면. 판서 시 반드시 두 화자의 벡터를 모두 그려주세요."</p></div>
+  </div>
+</div>
+
+<!-- 13 -->
+<div class="etym-card">
+  <div class="etym-hdr">
+    <div><div class="etym-en">Acquiescence Bias & Reverse Item</div><div class="etym-ko">묵종 편향 & 역문항</div><div class="etym-auth">심리측정학(Psychometrics) 표준 기법</div></div>
+  </div>
+  <div class="etym-body">
+    <div class="erow"><div class="elabel">묵종 편향</div><div class="eval">Acquiescence Bias: 응답자가 내용과 무관하게 "그렇다"라고 답하는 경향. 50문항이면 후반부에서 심화됨.</div></div>
+    <div class="erow"><div class="elabel">역문항 설계</div><div class="eval">v2: CP·NP·A·FC·AC 각 1개씩 총 5개 역문항. 역채점 공식: <strong>실제 점수 = 6 - 응답값</strong>. 교육생 페이지에서 자동 역채점 구현.</div></div>
+    <div class="erow"><div class="elabel">역문항 5개</div><div class="eval">id:7 [CP] 규칙을 어긴 사람의 사정도 충분히 이해하려 한다 / id:20 [NP] 다른 사람의 감정까지 일일이 신경 쓸 필요는 없다 / id:29 [A] 분석하기보다는 직감을 따른다 / id:33 [FC] 새로운 시도보다는 검증된 방법이 더 편하다 / id:50 [AC] 다른 사람의 의견에 동의하지 않을 때 분명히 말한다</div></div>
+    <div class="eteach"><div class="eteach-lbl">강의 활용 팁 (M2 자가진단 전)</div><p>"진단지 중에 🔄 표시가 된 역방향 문항이 5개 있습니다. 이 문항들은 반대로 생각하며 응답하세요. 예를 들어 '규칙을 어긴 사람의 사정도 충분히 이해하려 한다'에 '매우 그렇다'고 하면 CP 점수가 낮게 반영됩니다."</p></div>
+  </div>
+</div>
+
+<!-- 14 -->
+<div class="etym-card">
+  <div class="etym-hdr">
+    <div><div class="etym-en">Life Script (생애각본)</div><div class="etym-ko">생애각본</div><div class="etym-auth">Eric Berne, What Do You Say After You Say Hello? (1972)</div></div>
+  </div>
+  <div class="etym-body">
+    <div class="erow"><div class="elabel">어원</div><div class="eval"><em>Script</em> — 라틴어 scriptum(기록된 것). 연극·영화의 대본(script)에서 차용. 인간이 어린 시절 무의식적으로 쓴 "인생 대본"에 따라 살아간다는 은유.</div></div>
+    <div class="erow"><div class="elabel">이론 요지</div><div class="eval">어린 시절 부모의 메시지·경험을 통해 형성된 무의식적 인생 계획. 게임·인생태도와 연결됨. 본 교육에서는 생략하되 심화 질문 대비.</div></div>
+    <div class="eteach"><div class="eteach-lbl">강의 활용 팁 (심화 질문 대비)</div><p>"TA를 더 공부하시면 '생애각본'이라는 개념도 나옵니다. 연극 대본처럼 어린 시절에 써진 인생 계획이 무의식 중에 반복된다는 이론입니다. 관심 있으신 분들께는 Berne의 What Do You Say After You Say Hello?(1972)를 권해드립니다."</p></div>
+  </div>
+</div>
+
+<!-- 15 -->
+<div class="etym-card">
+  <div class="etym-hdr">
+    <div><div class="etym-en">Racket Feeling</div><div class="etym-ko">라켓 감정</div><div class="etym-auth">Berne, English (1971) — 미국 범죄 속어 차용</div></div>
+  </div>
+  <div class="etym-body">
+    <div class="erow"><div class="elabel">어원</div><div class="eval">미국 범죄 속어 <em>racket</em> — 조직적 사기·갈취 행위. 금지된 진짜 감정 대신 허용된 감정을 통해 스트로크를 얻는 조작적 패턴 비유.</div></div>
+    <div class="erow"><div class="elabel">개념</div><div class="eval">어린 시절 진짜 감정(분노, 두려움 등)이 가정에서 금지됐을 때 허용된 대체 감정을 학습. 예: 분노가 금지된 가정 → 슬픔으로 대체 → 성인이 되어도 화날 때 슬픔을 느낌.</div></div>
+    <div class="eteach"><div class="eteach-lbl">강의 활용 팁 (심화 질문 대비)</div><p>"라켓(Racket)은 마피아 영화에서 나오는 단어입니다. TA에서는 진짜 감정 대신 조직적으로 얻어내는 대체 감정을 의미합니다. 오늘 본 교육에서는 다루지 않지만 심화 과정에서 연결될 수 있습니다."</p></div>
+  </div>
+</div>
+
+</div></div>
+
+<!-- ══════════════════════════════════════════════════════
+     PANEL 4: 자가진단 운영
+══════════════════════════════════════════════════════ -->
+<div class="panel" id="panel-diag">
+<div class="wrap">
+<p class="stag">Assessment Operations</p>
+<h2 class="stitle">자가진단 운영 가이드 — 문항 설계 근거 & 패턴 해석</h2>
+
+<div class="warn-box">진단 전 반드시 안내: "이 결과는 좋고 나쁜 것이 없습니다. 공개 여부는 개인 자율입니다." 최소 2회 강조.</div>
+<div class="warn-box">역문항(🔄 표시 5개) 사전 안내 필수: "역방향 문항은 반대로 생각하며 응답하세요."</div>
+
+<h3 style="font-family:'Noto Serif KR',serif;font-size:15px;color:white;margin:20px 0 12px;font-weight:700;">v2 수정·교체 문항 설계 근거</h3>
+<div style="overflow-x:auto">
+<table class="dtbl">
+  <thead><tr><th>ID</th><th>문항 내용</th><th>유형</th><th>설계 근거 및 교정 내용</th></tr></thead>
+  <tbody>
+    <tr><td>1</td><td>시간 약속을 지키지 않는 사람을 보면 화가 난다</td><td>CP <span class="flag new">D-1교체</span></td><td style="color:var(--txt2)">CP의 '시간 통제' 차원 추가. 원문항(규칙 위반)에서 교체하여 CP 문항 동질성 해소.</td></tr>
+    <tr><td>4</td><td>중요한 일은 다른 사람에게 맡기기 어렵다</td><td>CP <span class="flag new">D-1교체</span></td><td style="color:var(--txt2)">'완벽주의적 통제(위임 어려움)' 차원 추가.</td></tr>
+    <tr><td>5</td><td>실수가 있으면 그냥 넘어가기 어렵고, 반드시 바로잡아야 한다고 생각한다</td><td>CP <span class="flag mod">D-2수정</span></td><td style="color:var(--txt2)">구: "일을 완벽하게 해야 한다" → A(체계적 업무관)와 혼동. 신: 바로잡아야 한다는 강박으로 CP 명확화.</td></tr>
+    <tr><td>6</td><td>내가 결정한 일에 대해 다른 의견이 나오면 불쾌하다</td><td>CP <span class="flag new">D-1교체</span></td><td style="color:var(--txt2)">'권위 행사' 차원 추가. CP의 지배·통제 욕구를 의사결정 상황에서 측정.</td></tr>
+    <tr><td>7</td><td>규칙을 어긴 사람의 사정도 충분히 이해하려고 노력한다</td><td>CP <span class="flag rev">🔄역문항</span></td><td style="color:var(--txt2)">묵종 편향 방지. 역채점(6-val). '그렇다' 응답 → CP 점수 하락.</td></tr>
+    <tr><td>14</td><td>슬퍼하는 사람을 보면 위로하고 싶어서 먼저 다가간다</td><td>NP <span class="flag mod">D-2수정</span></td><td style="color:var(--txt2)">구: "감정에 크게 감화되어 슬퍼진다" → 정서적 전염(FC 측면). 신: NP의 능동적 돌봄 행동으로 수정.</td></tr>
+    <tr><td>15</td><td>다른 사람이 어려워하면 내가 나서서 도와주는 것이 자연스럽다</td><td>NP <span class="flag mod">D-2수정</span></td><td style="color:var(--txt2)">구: "나보다 다른 사람의 필요를 먼저" → AC(의무적 자기희생)와 변별 어려움. 신: '자연스럽다'로 자발성 강조.</td></tr>
+    <tr><td>20</td><td>다른 사람의 감정까지 일일이 신경 쓸 필요는 없다고 생각한다</td><td>NP <span class="flag rev">🔄역문항</span></td><td style="color:var(--txt2)">묵종 편향 방지. 역채점(6-val).</td></tr>
+    <tr><td>25</td><td>감정적인 상황에서도 한 발 떨어져 상황을 객관적으로 보려 한다</td><td>A <span class="flag mod">D-2수정</span></td><td style="color:var(--txt2)">구: "냉정하다는 얘기를 듣는다" → 타인 평가 기반, 자기보고 불일치. 신: 1인칭 자기보고로 타당도 향상.</td></tr>
+    <tr><td>28</td><td>업무 논의에서는 감정보다 사실과 데이터를 중심으로 대화한다</td><td>A <span class="flag mod">D-2수정</span></td><td style="color:var(--txt2)">구: "감정적 언급 최소화" → 감정 억제(AC)와 혼동. 신: 데이터 중심 강조하여 A와 AC 변별.</td></tr>
+    <tr><td>29</td><td>분석하기보다는 직감을 따르는 편이다</td><td>A <span class="flag rev">🔄역문항</span></td><td style="color:var(--txt2)">묵종 편향 방지. 역채점(6-val). 직감(FC/AC) vs 분석(A)의 역방향 지표.</td></tr>
+    <tr><td>32</td><td>기분이 좋으면 주변 사람들에게 거리낌 없이 표현하는 편이다</td><td>FC <span class="flag mod">D-2수정</span></td><td style="color:var(--txt2)">구: "화나는 일에 감정을 솔직하게 표현" → 분노 표출은 CP/RC 영역. 신: 긍정 감정의 자발적 표현(FC 핵심).</td></tr>
+    <tr><td>33</td><td>새로운 시도보다는 검증된 방법이 더 편하다</td><td>FC <span class="flag rev">🔄역문항</span></td><td style="color:var(--txt2)">묵종 편향 방지. 역채점(6-val). 보수성이 FC의 역방향 지표.</td></tr>
+    <tr><td>50</td><td>다른 사람의 의견에 동의하지 않을 때 분명히 말한다</td><td>AC <span class="flag rev">🔄역문항</span></td><td style="color:var(--txt2)">묵종 편향 방지. 역채점(6-val). 자기주장(A/FC)이 AC의 역방향 지표.</td></tr>
+  </tbody>
+</table>
+</div>
+
+<h3 style="font-family:'Noto Serif KR',serif;font-size:15px;color:white;margin:28px 0 12px;font-weight:700;">이고그램 7가지 패턴 유형 — 해석 가이드</h3>
+<div class="pat-grid">
+  <div class="pat-card"><div class="pat-sym">V</div><div class="pat-name">V형 — A 최저</div><div class="pat-desc">감정·충동 기반 반응 우세. A 강화가 가장 시급.</div><div class="pat-dev">→ DESC, 사실 기반 소통 훈련 우선</div></div>
+  <div class="pat-card"><div class="pat-sym">∧</div><div class="pat-name">역V형(산형) — A 최고</div><div class="pat-desc">논리적이나 감성적 교류 부족 가능.</div><div class="pat-dev">→ NP·FC 의식적 활성화, 감정 표현 연습</div></div>
+  <div class="pat-card"><div class="pat-sym">N</div><div class="pat-name">N형 — CP·AC 높음</div><div class="pat-desc">규율·순응 우세. 유연성·따뜻함 보완 필요.</div><div class="pat-dev">→ NP 공감 훈련, FC 창의 표현 연습</div></div>
+  <div class="pat-card"><div class="pat-sym">∩</div><div class="pat-name">역N형 — NP·FC 높음</div><div class="pat-desc">수용적·창의적이나 체계성 보완 필요.</div><div class="pat-dev">→ A 데이터 기반 판단 연습</div></div>
+  <div class="pat-card"><div class="pat-sym">M</div><div class="pat-name">M형 — CP·A·AC 높음</div><div class="pat-desc">규범·논리·순응 우세. 자발성·따뜻함 보완.</div><div class="pat-dev">→ FC 자발적 표현, NP 공감 훈련</div></div>
+  <div class="pat-card"><div class="pat-sym">W</div><div class="pat-name">W형 — NP·FC 높음, A 낮음</div><div class="pat-desc">따뜻하고 자유롭지만 체계성 부족 가능.</div><div class="pat-dev">→ A 사실 기반 소통, DESC 우선</div></div>
+  <div class="pat-card"><div class="pat-sym">▬</div><div class="pat-name">평탄형 — 균등 분포</div><div class="pat-desc">상황별 유연한 전환 가능. 현 상태 유지.</div><div class="pat-dev">→ 특정 강점 집중 발전 권장</div></div>
+</div>
+
+<div class="tip-box">모바일 환경에서 자가진단: 5점 척도 클릭 후 다음 문항 자동 스크롤(모바일 768px 이하), 햅틱 피드백, 결과 자동 스크롤. 교육생이 스마트폰 사용 시 이 기능을 사전 안내하면 몰입도 상승.</div>
+
+</div></div>
+
+<!-- ══════════════════════════════════════════════════════
+     PANEL 5: 실습 퍼실리테이션 (12문항)
+══════════════════════════════════════════════════════ -->
+<div class="panel" id="panel-prac">
+<div class="wrap">
+<p class="stag">Facilitation Guide</p>
+<h2 class="stitle">교류 실습 퍼실리테이션 가이드 — 12문항 심화 해설</h2>
+<div class="tip-box">교육생 페이지(v2 mobile)의 각 시나리오에는 양방향 벡터 표시가 포함됩니다. M4 역할극 시 팀별로 배정하거나 전체 토의 시 활용하세요.</div>
+
+<!-- 상황 1 -->
+<div class="pic">
+  <div class="pic-hdr"><span class="pic-num">상황 1</span><span class="pic-title">상사의 보고서 질책</span><span class="pic-type pt-comp">상보(비생산적)</span></div>
+  <div class="pic-body">
+    <div class="corr-badge">C-1 교정 — v1의 "교차교류" 오분류를 수정한 항목</div>
+    <div class="pic-sit">상사 (CP): "이 보고서는 왜 이렇게 늦게 나왔죠?" / 신입사원 (AC): "죄송합니다… 다시는 이런 일이 없게 하겠습니다."</div>
+    <div class="pic-vec"><strong>양방향 벡터</strong>상사 CP → 신입 AC (발신) | 신입 AC → 상사 CP (응답) → 평행 벡터 = 상보교류. 단, 사실 소통 없음 → 비생산적.</div>
+    <div class="pic-2col">
+      <div class="pic-cell pc-theory"><strong>TA 이론 근거</strong>상사의 CP 발신에 신입이 AC로 응답 → 벡터 평행 → Berne 정의상 상보교류. 그러나 원인·해결책 소통이 없는 비생산적 상보교류(Unproductive Complementary Transaction).</div>
+      <div class="pic-cell pc-faci"><strong>퍼실리테이션 핵심</strong>"상보교류라고 무조건 좋은 게 아니다"를 이 사례로 명확히 전달. 신입이 A로 전환하면 상사 자아상태도 A로 유도 가능하다는 점 강조.</div>
+    </div>
+    <div class="pic-qs"><div class="pic-qs-lbl">토론 촉진 질문</div><ul><li>이 대화가 상보교류인데도 왜 비효과적인가요?</li><li>신입이 A 자아로 전환하려면 어떤 내면의 결정이 필요할까요?</li><li>상사의 CP를 A로 유도하는 가장 효과적인 방법은 무엇일까요?</li></ul></div>
+  </div>
+</div>
+
+<!-- 상황 2 -->
+<div class="pic">
+  <div class="pic-hdr"><span class="pic-num">상황 2</span><span class="pic-title">동료의 일정 조정 요청</span><span class="pic-type pt-cross">교차교류</span></div>
+  <div class="pic-body">
+    <div class="pic-sit">동료: "이번 일정은 이런 사유로 미뤄야 할 것 같아요." / 나: "아, 왜 또 그래요? 지난번에도 그랬잖아요."</div>
+    <div class="pic-vec"><strong>양방향 벡터</strong>동료 A → 나 A 기대 (발신) | 나 CP → 동료 AC 자극 (실제 응답) → 벡터 교차 = 교차교류</div>
+    <div class="pic-2col">
+      <div class="pic-cell pc-theory"><strong>TA 이론 근거</strong>동료는 A→A로 합리적 논의를 기대했으나, 나의 CP 반응이 교차교류를 만들었습니다. 동료가 기대한 A 자아로 응답하면 상보교류로 전환됩니다.</div>
+      <div class="pic-cell pc-faci"><strong>퍼실리테이션 핵심</strong>사실과 감정을 분리하는 것이 핵심. "지난번에도"라는 과거 언급은 감정적 반응(CP). A 자아로 현재 사실에 집중하면 교차를 해소할 수 있음.</div>
+    </div>
+    <div class="pic-qs"><div class="pic-qs-lbl">토론 촉진 질문</div><ul><li>동료의 발신 벡터와 나의 응답 벡터가 어떻게 교차됐나요?</li><li>같은 상황에서 A→A로 응답하면 벡터가 어떻게 달라지나요?</li></ul></div>
+  </div>
+</div>
+
+<!-- 상황 3 -->
+<div class="pic">
+  <div class="pic-hdr"><span class="pic-num">상황 3</span><span class="pic-title">부하직원의 업무 신청 — 이면교류</span><span class="pic-type pt-ulter">이면교류</span></div>
+  <div class="pic-body">
+    <div class="pic-sit">부하직원: "이 일은 제가 꼭 맡고 싶습니다!" / 상사: "그래요? 그럼 이번에는 잘하세요." (속: '또 실패할 텐데…')</div>
+    <div class="pic-vec"><strong>양방향 벡터 (사회적·심리적 2수준)</strong>겉: 부하 FC → 상사 NP (수락) | 속: 부하 AC ← 상사 CP (숨겨진 비판) → 이면교류</div>
+    <div class="pic-2col">
+      <div class="pic-cell pc-theory"><strong>TA 이론 근거</strong>표면(사회적 수준): NP→FC. 심리적 수준: CP→AC. 부하직원은 이 이중 메시지를 무의식적으로 감지하여 불신이 쌓임.</div>
+      <div class="pic-cell pc-faci"><strong>퍼실리테이션 핵심</strong>이면교류는 항상 심리적 수준에서 결말이 결정됩니다. 구체적 계획을 묻고 지원 의사를 밝히는 NP→A 교류로 전환하면 신뢰를 쌓을 수 있습니다.</div>
+    </div>
+    <div class="pic-qs"><div class="pic-qs-lbl">토론 촉진 질문</div><ul><li>이면교류에서 사회적 수준과 심리적 수준의 벡터가 어떻게 다른가요?</li><li>부하직원은 왜 이 대화에서 불편함을 느끼게 될까요?</li><li>이면교류를 직접 교류(A→A)로 전환하려면 어떻게 해야 할까요?</li></ul></div>
+  </div>
+</div>
+
+<!-- 상황 6 -->
+<div class="pic">
+  <div class="pic-hdr"><span class="pic-num">상황 6</span><span class="pic-title">책임 소재 논의</span><span class="pic-type pt-cross">교차교류</span></div>
+  <div class="pic-body">
+    <div class="corr-badge">C-2 교정 — 부하직원 발화에 "(차분하게 사실을 정리하며)" 지시어 추가</div>
+    <div class="pic-sit">부하직원 (차분하게, A): "이 건은 ○○팀 소관이라 제 책임 범위와 다릅니다." / 상사 (CP): "책임은 회피하면 안 됩니다."</div>
+    <div class="pic-vec"><strong>양방향 벡터</strong>부하직원 A → 상사 A 기대 (발신) | 상사 CP → 부하직원 AC 자극 (실제 응답) → 벡터 교차</div>
+    <div class="pic-2col">
+      <div class="pic-cell pc-theory"><strong>TA 이론 근거</strong>부하직원이 A 자아로 사실을 설명했으나 상사의 CP 반응이 교차교류를 만들었습니다. 지시어 없이는 부하직원의 자아상태가 불명확하여 교류 분류 자체가 어렵습니다.</div>
+      <div class="pic-cell pc-faci"><strong>퍼실리테이션 핵심</strong>상사가 A 자아로 전환하여 책임 범위를 함께 확인하는 것이 핵심. "어떤 부분이 범위 밖인지 구체적으로 이야기해봅시다"가 A→A 전환의 예시.</div>
+    </div>
+    <div class="pic-qs"><div class="pic-qs-lbl">토론 촉진 질문</div><ul><li>지시어 "(차분하게 사실을 정리하며)"가 교류 분류에 왜 중요한가요?</li><li>부하직원이 먼저 A로 전환했는데도 교차교류가 발생한 이유는?</li></ul></div>
+  </div>
+</div>
+
+<!-- 상황 9 -->
+<div class="pic">
+  <div class="pic-hdr"><span class="pic-num">상황 9</span><span class="pic-title">동기 간 업무 부담</span><span class="pic-type pt-peer">동기 관계·이면</span></div>
+  <div class="pic-body">
+    <div class="pic-sit">동기 A: "나도 바빠서 내 분량을 못 했어." / 나 (속으로 불만이지만): "괜찮아, 내가 할게."</div>
+    <div class="pic-vec"><strong>양방향 벡터 (이면교류)</strong>겉: 나 NP → 동기 FC (수락) | 속: 나 AC → 동기 CP (억눌린 분노) → 이면교류</div>
+    <div class="pic-2col">
+      <div class="pic-cell pc-theory"><strong>TA 이론 근거</strong>겉으론 수락(NP)했지만 속에 억눌린 불만(AC)이 있는 이면교류. 이 패턴이 반복되면 수동-공격적 행동(무성의, 지연, 냉소)으로 이어짐. 드라마 삼각형의 '구원자' 역할 고착 위험.</div>
+      <div class="pic-cell pc-faci"><strong>퍼실리테이션 핵심</strong>동기 관계에서의 경계 설정 중요성 강조. A 자아로 직접 표현하는 것이 장기적으로 건강한 관계를 만듦. 신입사원이 가장 쉽게 빠지는 이면교류 패턴 중 하나.</div>
+    </div>
+    <div class="pic-qs"><div class="pic-qs-lbl">토론 촉진 질문</div><ul><li>동기에게 거절하기 어려운 이유는 무엇인가요? 어떤 자아상태가 작동하나요?</li><li>드라마 삼각형에서 이 상황은 어떤 역할 배치인가요?</li><li>A 자아로 경계를 설정하는 것이 관계를 해친다고 느끼는 이유는?</li></ul></div>
+  </div>
+</div>
+
+<!-- 상황 10 -->
+<div class="pic">
+  <div class="pic-hdr"><span class="pic-num">상황 10</span><span class="pic-title">타 부서 자료 협조 요청</span><span class="pic-type pt-dept">부서 간·교차</span></div>
+  <div class="pic-body">
+    <div class="pic-sit">나: "이번 주까지 ○○ 자료가 필요합니다." / 타 부서: "우리도 바쁜데, 그건 직접 찾아보세요."</div>
+    <div class="pic-vec"><strong>양방향 벡터</strong>나 A → 타 부서 A 기대 (발신) | 타 부서 CP → 나 AC 자극 (실제 응답) → 벡터 교차</div>
+    <div class="pic-2col">
+      <div class="pic-cell pc-theory"><strong>TA 이론 근거</strong>나의 A→A 요청에 타 부서 CP가 응답하여 교차교류 발생. 부서 간 관계는 수평적이라 CP 반응이 더 다루기 어려움. NP 가미(공감 먼저) + A 재시도 순서가 효과적.</div>
+      <div class="pic-cell pc-faci"><strong>퍼실리테이션 핵심</strong>상대의 CP를 자극하지 않는 것이 핵심. 상대의 바쁨을 인정하는 NP(공감) → A 재시도 전략. 신입사원이 AC로 물러서거나 FC로 반발하는 것 모두 비효과적임을 연결.</div>
+    </div>
+    <div class="pic-qs"><div class="pic-qs-lbl">토론 촉진 질문</div><ul><li>타 부서 담당자의 CP 반응이 나왔을 때 가장 피해야 할 응답은?</li><li>NP를 먼저 사용하는 것이 왜 상대의 자아상태를 바꿀 수 있나요?</li><li>이 상황에서 DESC를 적용한다면 어떻게 말할 수 있을까요?</li></ul></div>
+  </div>
+</div>
+
+<!-- 상황 11 -->
+<div class="pic">
+  <div class="pic-hdr"><span class="pic-num">상황 11</span><span class="pic-title">감정적 고객 응대</span><span class="pic-type pt-cust">고객 응대</span></div>
+  <div class="pic-body">
+    <div class="pic-sit">고객 (CP): "도대체 어떻게 일하는 거예요!" / 나: "불편을 드려 죄송합니다. 어떤 부분을 확인해드릴까요?"</div>
+    <div class="pic-vec"><strong>양방향 벡터 (전환 목표)</strong>위험: 고객 CP → 나 AC (사과만 반복) → 비생산적 상보교류 | 권장: 나 NP+A → 고객 A 유도 → 생산적 전환</div>
+    <div class="pic-2col">
+      <div class="pic-cell pc-theory"><strong>TA 이론 근거</strong>고객의 CP 발화에 NP(사과·공감)를 먼저 표현하고 A(사실 확인)로 전환. AC로만 사과를 반복하면 고객 CP가 강화되고 문제 해결이 지연됨. 최종 목표: 고객을 A로 전환.</div>
+      <div class="pic-cell pc-faci"><strong>퍼실리테이션 핵심</strong>외부 응대의 황금 순서: NP(감정 수용) → A(사실 전환). 이 순서가 뒤바뀌면 고객이 "뭔가 숨기는 것 같다"는 느낌을 받을 수 있음.</div>
+    </div>
+    <div class="pic-qs"><div class="pic-qs-lbl">토론 촉진 질문</div><ul><li>고객이 화를 낼 때 AC로 반응하면 어떤 벡터 패턴이 만들어지나요?</li><li>왜 NP(사과)가 먼저, A(확인)가 나중인가요?</li><li>고객을 A 자아로 전환시키는 것이 왜 최종 목표인가요?</li></ul></div>
+  </div>
+</div>
+
+</div></div>
+
+<!-- ══════════════════════════════════════════════════════
+     PANEL 6: Q&A · 참고문헌
+══════════════════════════════════════════════════════ -->
+<div class="panel" id="panel-qa">
+<div class="wrap">
+<p class="stag">Q&A · References</p>
+<h2 class="stitle">예상 Q&A & 완전 참고문헌</h2>
+
+<h3 style="font-family:'Noto Serif KR',serif;font-size:15px;color:white;margin-bottom:14px;font-weight:700;">🟢 기초 질문</h3>
+<div class="qa-grid">
+  <div class="qa-card"><span class="qa-lv lv-easy">기초</span><p class="qa-q">교류분석은 누가 언제 만들었나요?</p><p class="qa-a">에릭 번(Eric Berne)이 1961년 <em>Transactional Analysis in Psychotherapy</em>로 체계화. 1964년 <em>Games People Play</em>는 게임분석을 다룬 후속 저서입니다. 한국에는 1990년대 이후 본격 도입됐습니다.</p></div>
+  <div class="qa-card"><span class="qa-lv lv-easy">기초</span><p class="qa-q">CP가 높으면 나쁜 건가요?</p><p class="qa-a">아닙니다. CP는 질서·책임·기준을 유지하는 긍정적 기능이 있습니다. 다만 과잉될 때 타인을 통제하고 비판하는 방향으로 흐를 수 있습니다. 어떤 자아상태도 과잉이 문제이며, 상황에 맞게 쓰는 유연성이 핵심입니다.</p></div>
+  <div class="qa-card"><span class="qa-lv lv-easy">기초</span><p class="qa-q">AC가 높다는 게 나쁜 건가요?</p><p class="qa-a">아닙니다. 신입사원 초기에 AC가 높은 것은 매우 자연스러운 현상입니다(우재현, 2015). AC는 조화·협력 기능도 있습니다. 다만 과잉 시 번아웃 위험이 있습니다. 이것이 A 자아를 키워나가는 출발점입니다.</p></div>
+  <div class="qa-card"><span class="qa-lv lv-easy">기초</span><p class="qa-q">자아상태는 타고나는 건가요?</p><p class="qa-a">P 자아는 어린 시절 부모·환경에서 학습, C 자아는 실제 경험한 감정과 반응, A 자아는 현재 상황을 다루는 능력으로 발달 가능합니다. 타고나는 부분도 있고 형성되는 부분도 있으며, 훈련을 통해 변화할 수 있습니다.</p></div>
+</div>
+
+<h3 style="font-family:'Noto Serif KR',serif;font-size:15px;color:white;margin:24px 0 14px;font-weight:700;">🟡 중급 질문</h3>
+<div class="qa-grid">
+  <div class="qa-card"><span class="qa-lv lv-mid">중급</span><p class="qa-q">상보교류가 항상 좋은 건 아닌가요?</p><p class="qa-a">정확합니다. Berne(1961)의 정의상 벡터가 평행하면 상보교류이지만, CP↔AC는 대화가 이어지면서도 사실 기반 소통이 없는 비생산적 상보교류입니다. 이것이 v2 교정(C-1)의 핵심 내용입니다.</p></div>
+  <div class="qa-card"><span class="qa-lv lv-mid">중급</span><p class="qa-q">교차교류가 항상 나쁜 건가요?</p><p class="qa-a">반드시 그렇지는 않습니다. 비생산적 상보교류(CP↔AC)를 깨는 데 의도적 교차교류가 필요할 수 있습니다. 중요한 것은 교류의 생산성이지 유형이 아닙니다.</p></div>
+  <div class="qa-card"><span class="qa-lv lv-mid">중급</span><p class="qa-q">이고그램 패턴은 변할 수 있나요?</p><p class="qa-a">예. Dusay의 항상성 원리에 따르면 의식적 훈련으로 에너지 분포가 변합니다. 심리상담 연구에서 TA 집단 프로그램이 자아상태 분포를 유의미하게 변화시킨다는 결과가 있습니다(우재현, 2015, 상담학연구 16(4)).</p></div>
+  <div class="qa-card"><span class="qa-lv lv-mid">중급</span><p class="qa-q">역문항이 있다는 게 진단을 더 신뢰할 수 있다는 건가요?</p><p class="qa-a">역문항(역채점)은 심리측정학 표준 기법으로 묵종 편향을 통제합니다. 역문항이 있는 진단이 일반적으로 더 신뢰도가 높습니다. 다만 본 진단은 표준화 임상 도구가 아닌 교육용 자기이해 도구이므로 결과를 경향성 참고 수준으로 이해하는 것이 적절합니다.</p></div>
+  <div class="qa-card"><span class="qa-lv lv-mid">중급</span><p class="qa-q">드라마 삼각형에서 구원자가 왜 나쁜가요?</p><p class="qa-a">NP의 진정한 돌봄과 구원자 역할의 차이는 상대의 자율성을 존중하는가에 있습니다. 구원자는 상대가 스스로 할 수 있음을 믿지 않고 개입하여 의존성을 만들고 자신은 과부하 상태가 됩니다. 승자 삼각형의 '배려적(Caring)' 역할은 자율성을 존중하며 지지합니다.</p></div>
+  <div class="qa-card"><span class="qa-lv lv-mid">중급</span><p class="qa-q">양방향 벡터를 꼭 그려야 하나요?</p><p class="qa-a">교차교류와 이면교류에서 단방향 벡터만 그리면 어느 자아상태가 자극되는지 불명확합니다. 두 화자 모두의 벡터를 그려야 "왜 갈등이 생기는가"가 시각적으로 명확해집니다. 이것이 v2의 핵심 개선 사항입니다.</p></div>
+</div>
+
+<h3 style="font-family:'Noto Serif KR',serif;font-size:15px;color:white;margin:24px 0 14px;font-weight:700;">🔴 심화 질문</h3>
+<div class="qa-grid">
+  <div class="qa-card"><span class="qa-lv lv-hard">심화</span><p class="qa-q">TA와 CBT(인지행동치료)의 차이는 무엇인가요?</p><p class="qa-a">CBT는 인지(생각)→감정→행동의 연쇄를 다루며 비합리적 신념을 수정합니다. TA는 자아상태·교류 패턴·인생각본이라는 독자적 프레임으로 대인관계 역동을 다룹니다. 실제 임상에서는 통합적으로 사용됩니다.</p></div>
+  <div class="qa-card"><span class="qa-lv lv-hard">심화</span><p class="qa-q">TA의 과학적 근거는 얼마나 강한가요?</p><p class="qa-a">TA 이론은 임상 관찰에서 개발되었으며 RCT 기반이 CBT에 비해 상대적으로 적습니다. 그러나 메타분석(우재현, 2015)에서 TA 집단상담의 효과가 유의미하게 확인됩니다. TA의 핵심 개념은 애착 이론, 사회인지 이론과 연결되어 간접 지지를 받습니다.</p></div>
+  <div class="qa-card"><span class="qa-lv lv-hard">심화</span><p class="qa-q">자아상태 오염이 심하면 어떻게 해야 하나요?</p><p class="qa-a">심각한 오염은 심리상담·TA 치료의 영역입니다. 교육 맥락에서는 인식 수준의 변화를 목표로 합니다. "지금 내 판단이 사실에 근거한 것인가, 아니면 오래된 신념이나 감정에서 나온 것인가?"라는 질문을 습관화하는 것이 실용적 접근입니다.</p></div>
+  <div class="qa-card"><span class="qa-lv lv-hard">심화</span><p class="qa-q">기능분석과 구조분석을 동시에 쓸 수 없나요?</p><p class="qa-a">가능합니다. 구조분석은 P1·A1·C1 등 2차 구조까지 분석하여 심층 이해를 제공합니다. 본 교육은 현장 적용성을 위해 기능분석만 다루지만, 심화 TA 교육에서 결합하면 더 정밀한 자기이해가 가능합니다.</p></div>
+</div>
+
+<div class="divider"></div>
+
+<h3 style="font-family:'Noto Serif KR',serif;font-size:15px;color:white;margin-bottom:14px;font-weight:700;">📚 완전 참고문헌 (교육자 보유 권장)</h3>
+<div style="overflow-x:auto">
+<table class="ref-tbl">
+  <thead><tr><th>분류</th><th>서지 정보</th><th>교육 활용 포인트</th></tr></thead>
+  <tbody>
+    <tr><td style="color:#a78bfa">TA 원전</td><td style="color:var(--txt2)">Berne, E. (1961). <em>Transactional Analysis in Psychotherapy</em>. Grove Press.</td><td style="color:var(--txt2)">TA 창시 원전. PAC 모델·자아상태 이론. [C-3 교정 근거]</td></tr>
+    <tr><td style="color:#a78bfa">TA 원전</td><td style="color:var(--txt2)">Berne, E. (1964). <em>Games People Play</em>. Grove Press.</td><td style="color:var(--txt2)">게임 분석 원전. Yes,But·NIGYSOB 등 수록.</td></tr>
+    <tr><td style="color:#a78bfa">이고그램</td><td style="color:var(--txt2)">Dusay, J. (1977). <em>Egograms: How I See You and You See Me</em>. Harper & Row.</td><td style="color:var(--txt2)">이고그램·항상성 원리 원전.</td></tr>
+    <tr><td style="color:#a78bfa">인생태도</td><td style="color:var(--txt2)">Harris, T. (1967). <em>I'm OK – You're OK</em>. Harper & Row.</td><td style="color:var(--txt2)">OK 사분면 대중화. 전 세계 1,500만 부 판매.</td></tr>
+    <tr><td style="color:#a78bfa">OK Corral</td><td style="color:var(--txt2)">Ernst, F. (1971). The OK Corral. <em>Transactional Analysis Journal</em>, 1(4).</td><td style="color:var(--txt2)">4사분면 OK Corral 원전.</td></tr>
+    <tr><td style="color:#a78bfa">스트로크 경제</td><td style="color:var(--txt2)">Steiner, C. (1971). The stroke economy. <em>Transactional Analysis Journal</em>, 1(3).</td><td style="color:var(--txt2)">스트로크 경제 5법칙 원전.</td></tr>
+    <tr><td style="color:#a78bfa">드라마삼각형</td><td style="color:var(--txt2)">Karpman, S. (1968). Fairy tales and script drama analysis. <em>Transactional Analysis Bulletin</em>, 7(26), 39–43.</td><td style="color:var(--txt2)">드라마 삼각형 원전.</td></tr>
+    <tr><td style="color:#a78bfa">승자삼각형</td><td style="color:var(--txt2)">Choy, A. (1990). The winner's triangle. <em>Transactional Analysis Journal</em>, 20(1).</td><td style="color:var(--txt2)">드라마→승자 삼각형 전환 원전.</td></tr>
+    <tr><td style="color:#a78bfa">DESC</td><td style="color:var(--txt2)">Bower, S. & Bower, G. (1976). <em>Asserting Yourself</em>. Addison-Wesley.</td><td style="color:var(--txt2)">DESC 기법 원전.</td></tr>
+    <tr><td style="color:#a78bfa">TA 표준교재</td><td style="color:var(--txt2)">Stewart, I., & Joines, V. (1987). <em>TA Today: A New Introduction to Transactional Analysis</em>. Lifespace Publishing.</td><td style="color:var(--txt2)">현대 TA 표준 교재. 기능분석·구조분석 구분 설명.</td></tr>
+    <tr><td style="color:#a78bfa">국내 연구</td><td style="color:var(--txt2)">우재현 (2015). 교류분석(TA) 프로그램이 대인관계에 미치는 효과: 메타분석. <em>상담학연구</em>, 16(4).</td><td style="color:var(--txt2)">국내 TA 효과 메타분석. [C-4 교체 인용]</td></tr>
+    <tr><td style="color:#a78bfa">국내 교재</td><td style="color:var(--txt2)">김규수·류태보 (2001). <em>교류분석치료</em>. 형설출판사.</td><td style="color:var(--txt2)">국내 TA 표준 교재. 한국 사례 풍부.</td></tr>
+    <tr><td style="color:#a78bfa">어서티브니스</td><td style="color:var(--txt2)">Wolpe, J. (1958). <em>Psychotherapy by Reciprocal Inhibition</em>. Stanford University Press.</td><td style="color:var(--txt2)">어서티브니스 훈련 원전.</td></tr>
+    <tr><td style="color:#a78bfa">측정학</td><td style="color:var(--txt2)">Cronbach, L. J. (1950). Further evidence on response sets and test design. <em>Educational and Psychological Measurement</em>, 10(1).</td><td style="color:var(--txt2)">묵종 편향·역문항 설계 이론적 근거.</td></tr>
+  </tbody>
+</table>
+</div>
+
+</div></div>
+
+<script>
+function st(id,btn){
+  document.querySelectorAll('.panel').forEach(p=>p.classList.remove('on'));
+  document.querySelectorAll('.tbtn').forEach(b=>b.classList.remove('on'));
+  document.getElementById('panel-'+id).classList.add('on');
+  btn.classList.add('on');
+  btn.scrollIntoView({behavior:'smooth',block:'nearest',inline:'center'});
+  window.scrollTo({top:0,behavior:'smooth'});
+  if(navigator.vibrate)navigator.vibrate(8);
+}
+</script>
+</body>
+</html>
